@@ -7,6 +7,7 @@
     "routeNote": "Circuito geográfico de protótipo por proximidade entre lojas (Haversine). Não representa KM viário nem KM realizado."
   },
   "kpis": {
+    "gts": 5,
     "gfs": 4,
     "gns": 27,
     "stores": 180,
@@ -147,6 +148,7 @@
       "cities": 5,
       "gns": 2,
       "gfs": 2,
+      "gts": 3,
       "dddList": [
         15,
         19
@@ -158,6 +160,11 @@
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ",
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Michele Spina",
+        "Rafael Lopes",
+        "Silvio Borges"
       ],
       "cityList": [
         "BOITUVA",
@@ -288,6 +295,7 @@
       "cities": 3,
       "gns": 1,
       "gfs": 1,
+      "gts": 2,
       "dddList": [
         19
       ],
@@ -296,6 +304,10 @@
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Michele Spina",
+        "Silvio Borges"
       ],
       "cityList": [
         "DESCALVADO",
@@ -422,6 +434,7 @@
       "cities": 46,
       "gns": 13,
       "gfs": 4,
+      "gts": 5,
       "dddList": [
         12,
         15,
@@ -449,6 +462,13 @@
         "HELBER EMILIANO ZAROS",
         "RAFAEL SILVEIRA DE CARVALHO ",
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Camila Stefanelli",
+        "Ivone Anjos",
+        "Michele Spina",
+        "Rafael Lopes",
+        "Silvio Borges"
       ],
       "cityList": [
         "AMERICANA",
@@ -673,6 +693,7 @@
       "cities": 4,
       "gns": 1,
       "gfs": 1,
+      "gts": 2,
       "dddList": [
         14
       ],
@@ -681,6 +702,10 @@
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos",
+        "Rafael Lopes"
       ],
       "cityList": [
         "GARCA",
@@ -809,6 +834,7 @@
       "cities": 5,
       "gns": 1,
       "gfs": 1,
+      "gts": 2,
       "dddList": [
         13
       ],
@@ -817,6 +843,10 @@
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli",
+        "Michele Spina"
       ],
       "cityList": [
         "ITANHAEM",
@@ -947,6 +977,7 @@
       "cities": 4,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "dddList": [
         19
       ],
@@ -955,6 +986,9 @@
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "cityList": [
         "AMERICANA",
@@ -1084,6 +1118,7 @@
       "cities": 4,
       "gns": 1,
       "gfs": 1,
+      "gts": 3,
       "dddList": [
         14
       ],
@@ -1092,6 +1127,11 @@
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos",
+        "Michele Spina",
+        "Rafael Lopes"
       ],
       "cityList": [
         "AVARE",
@@ -1221,6 +1261,7 @@
       "cities": 18,
       "gns": 5,
       "gfs": 2,
+      "gts": 3,
       "dddList": [
         13,
         19
@@ -1235,6 +1276,11 @@
       "gfNames": [
         "HELBER EMILIANO ZAROS",
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli",
+        "Michele Spina",
+        "Silvio Borges"
       ],
       "cityList": [
         "AGUAI",
@@ -1400,6 +1446,7 @@
       "cities": 34,
       "gns": 13,
       "gfs": 4,
+      "gts": 5,
       "dddList": [
         12,
         14,
@@ -1429,6 +1476,13 @@
         "HELBER EMILIANO ZAROS",
         "RAFAEL SILVEIRA DE CARVALHO ",
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Camila Stefanelli",
+        "Ivone Anjos",
+        "Michele Spina",
+        "Rafael Lopes",
+        "Silvio Borges"
       ],
       "cityList": [
         "ARACATUBA",
@@ -1636,6 +1690,7 @@
       "cities": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "dddList": [
         12
       ],
@@ -1644,6 +1699,9 @@
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "cityList": [
         "GUARATINGUETA",
@@ -1769,6 +1827,7 @@
       "cities": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "dddList": [
         17
       ],
@@ -1777,6 +1836,9 @@
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "cityList": [
         "GUAIRA"
@@ -1899,6 +1961,7 @@
       "cities": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "dddList": [
         17
       ],
@@ -1907,6 +1970,9 @@
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "cityList": [
         "AURIFLAMA"
@@ -2029,6 +2095,7 @@
       "cities": 5,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "dddList": [
         18
       ],
@@ -2037,6 +2104,9 @@
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "cityList": [
         "ANDRADINA",
@@ -2167,6 +2237,7 @@
       "cities": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "dddList": [
         16
       ],
@@ -2175,6 +2246,9 @@
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "cityList": [
         "IBITINGA"
@@ -2297,6 +2371,7 @@
       "cities": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "dddList": [
         14
       ],
@@ -2305,6 +2380,9 @@
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "cityList": [
         "BARIRI"
@@ -2427,6 +2505,7 @@
       "cities": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "dddList": [
         17
       ],
@@ -2435,6 +2514,9 @@
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "cityList": [
         "VIRADOURO"
@@ -2557,6 +2639,7 @@
       "cities": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "dddList": [
         19
       ],
@@ -2565,6 +2648,9 @@
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "cityList": [
         "CAMPINAS",
@@ -2691,6 +2777,7 @@
       "cities": 14,
       "gns": 3,
       "gfs": 1,
+      "gts": 2,
       "cityList": [
         "CACAPAVA",
         "CAMPOS DO JORDAO",
@@ -2714,6 +2801,10 @@
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli",
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -2751,6 +2842,7 @@
       "cities": 9,
       "gns": 2,
       "gfs": 1,
+      "gts": 2,
       "cityList": [
         "CUBATAO",
         "GUARUJA",
@@ -2768,6 +2860,10 @@
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli",
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -2805,6 +2901,7 @@
       "cities": 14,
       "gns": 2,
       "gfs": 1,
+      "gts": 3,
       "cityList": [
         "AVARE",
         "BARIRI",
@@ -2827,6 +2924,11 @@
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos",
+        "Michele Spina",
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -2864,6 +2966,7 @@
       "cities": 9,
       "gns": 2,
       "gfs": 1,
+      "gts": 2,
       "cityList": [
         "BOITUVA",
         "CERQUILHO",
@@ -2881,6 +2984,10 @@
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Michele Spina",
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -2918,6 +3025,7 @@
       "cities": 22,
       "gns": 6,
       "gfs": 1,
+      "gts": 2,
       "cityList": [
         "ARARAQUARA",
         "BATATAIS",
@@ -2952,6 +3060,10 @@
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Ivone Anjos",
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -2989,6 +3101,7 @@
       "cities": 12,
       "gns": 3,
       "gfs": 1,
+      "gts": 2,
       "cityList": [
         "AURIFLAMA",
         "BARRETOS",
@@ -3010,6 +3123,10 @@
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos",
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -3047,6 +3164,7 @@
       "cities": 9,
       "gns": 2,
       "gfs": 1,
+      "gts": 1,
       "cityList": [
         "ANDRADINA",
         "ARACATUBA",
@@ -3064,6 +3182,9 @@
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -3101,6 +3222,7 @@
       "cities": 33,
       "gns": 7,
       "gfs": 1,
+      "gts": 2,
       "cityList": [
         "AGUAI",
         "AMERICANA",
@@ -3148,6 +3270,10 @@
       "gfNames": [
         "HELBER EMILIANO ZAROS"
       ],
+      "gtNames": [
+        "Michele Spina",
+        "Silvio Borges"
+      ],
       "performance": {
         "bl": {
           "label": "Banda Larga",
@@ -3189,12 +3315,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "FREDERICO CARNEIRO SANTIAGO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -3235,6 +3365,7 @@
       "stores": 4,
       "gns": 3,
       "gfs": 1,
+      "gts": 1,
       "groups": 3,
       "gnNames": [
         "DAVID GOMES NEGRAO",
@@ -3243,6 +3374,9 @@
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -3283,12 +3417,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RAFAEL MICHELINI MENONCELLO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -3329,12 +3467,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VANIA DIAS MALAMAN"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -3375,12 +3517,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "NILTON JUNIOR FRANCISCO"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -3421,12 +3567,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "MARISTELA CAPARROZ DE LIRA SILVA"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -3467,12 +3617,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "FREDERICO CARNEIRO SANTIAGO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -3513,12 +3667,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RAFAEL MICHELINI MENONCELLO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -3559,12 +3717,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RENATO PIQUERA AZEVEDO"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -3605,12 +3767,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "JOAO PAULO VENDRAMINI"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -3651,12 +3817,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VAGO (João)"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -3697,12 +3867,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VITOR FERNANDO FARIA SARAVALLI"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -3743,12 +3917,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "MARIA ROSÂNGELA DE JESUS"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -3789,6 +3967,7 @@
       "stores": 4,
       "gns": 2,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "JOAO PAULO VENDRAMINI",
@@ -3796,6 +3975,9 @@
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -3836,12 +4018,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VITOR FERNANDO FARIA SARAVALLI"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -3882,12 +4068,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VANIA DIAS MALAMAN"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -3928,12 +4118,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "GLAUCIA CAVALCANTE MARTINS"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -3974,12 +4168,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "JOAO PAULO VENDRAMINI"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -4020,12 +4218,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VAGO_DDD 16 (Rodrigo)"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -4066,12 +4268,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "THIAGO BERNARDES VIEIRA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -4112,6 +4318,7 @@
       "stores": 6,
       "gns": 2,
       "gfs": 1,
+      "gts": 1,
       "groups": 3,
       "gnNames": [
         "LEILA CRISTINA NABUCO",
@@ -4119,6 +4326,9 @@
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -4159,12 +4369,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "NATAN DOS SANTOS MOREIRA LIMA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -4205,12 +4419,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "WILLIAM DE OLIVEIRA BONFIM"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -4251,12 +4469,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "NATAN DOS SANTOS MOREIRA LIMA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -4297,12 +4519,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RODRIGO DE SOUZA ALBANO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -4343,12 +4569,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RENATO PIQUERA AZEVEDO"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -4389,12 +4619,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "GLAUCIA CAVALCANTE MARTINS"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -4435,12 +4669,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RAFAEL MICHELINI MENONCELLO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -4481,12 +4719,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VAGO_DDD 16 (Maristela)"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -4527,12 +4769,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "NATAN DOS SANTOS MOREIRA LIMA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -4573,12 +4819,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "PAULA AZEVEDO TIBURCIO"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -4619,12 +4869,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "DAVID GOMES NEGRAO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -4665,12 +4919,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VANIA DIAS MALAMAN"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -4711,12 +4969,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RODRIGO DE SOUZA ALBANO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -4757,12 +5019,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "ANA CLINIO DA SILVA"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -4803,12 +5069,16 @@
       "stores": 4,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 2,
       "gnNames": [
         "MARIA ROSÂNGELA DE JESUS"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -4849,12 +5119,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VAGO (João)"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -4895,12 +5169,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VITOR FERNANDO FARIA SARAVALLI"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -4941,12 +5219,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "NILTON JUNIOR FRANCISCO"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -4987,12 +5269,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "THIAGO BERNARDES VIEIRA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -5033,12 +5319,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "PAULA AZEVEDO TIBURCIO"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -5079,6 +5369,7 @@
       "stores": 2,
       "gns": 2,
       "gfs": 1,
+      "gts": 1,
       "groups": 2,
       "gnNames": [
         "DAVID GOMES NEGRAO",
@@ -5086,6 +5377,9 @@
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -5126,12 +5420,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "MARISTELA CAPARROZ DE LIRA SILVA"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -5172,12 +5470,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VAGO_DDD 16 (Maristela)"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -5218,12 +5520,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "NATAN DOS SANTOS MOREIRA LIMA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -5264,6 +5570,7 @@
       "stores": 3,
       "gns": 2,
       "gfs": 1,
+      "gts": 1,
       "groups": 2,
       "gnNames": [
         "LEILA CRISTINA NABUCO",
@@ -5271,6 +5578,9 @@
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -5311,12 +5621,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "NELISA APARECIDA BARREIROS FERREIRA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -5357,12 +5671,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VALERIA DE SOUZA ZAMBUZI"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -5403,12 +5721,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RAFAEL MICHELINI MENONCELLO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -5449,12 +5771,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RODRIGO PROSPERO FERREIRA DA SILVA"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -5495,12 +5821,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "MARISTELA CAPARROZ DE LIRA SILVA"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -5541,12 +5871,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "THIAGO BERNARDES VIEIRA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -5587,12 +5921,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RAFAEL MICHELINI MENONCELLO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -5633,12 +5971,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VAGO_DDD 16 (Maristela)"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -5679,12 +6021,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VAGO (João)"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -5725,12 +6071,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RENATO PIQUERA AZEVEDO"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -5771,12 +6121,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RODRIGO DE SOUZA ALBANO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -5817,12 +6171,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "JOAO PAULO VENDRAMINI"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -5863,6 +6221,7 @@
       "stores": 3,
       "gns": 2,
       "gfs": 1,
+      "gts": 1,
       "groups": 2,
       "gnNames": [
         "FREDERICO CARNEIRO SANTIAGO",
@@ -5870,6 +6229,9 @@
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -5910,12 +6272,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VAGO (João)"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -5956,12 +6322,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "THIAGO BERNARDES VIEIRA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -6002,12 +6372,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "JOAO PAULO VENDRAMINI"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -6048,12 +6422,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "MARISTELA CAPARROZ DE LIRA SILVA"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -6094,12 +6472,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "NILTON JUNIOR FRANCISCO"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -6140,12 +6522,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RENATO PIQUERA AZEVEDO"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -6186,12 +6572,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RODRIGO DE SOUZA ALBANO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -6232,12 +6622,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RAFAEL MICHELINI MENONCELLO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -6278,12 +6672,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "NELISA APARECIDA BARREIROS FERREIRA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -6324,12 +6722,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "MARISTELA CAPARROZ DE LIRA SILVA"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -6370,12 +6772,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "WILLIAM DE OLIVEIRA BONFIM"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -6416,12 +6822,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VAGO_DDD 16 (Maristela)"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -6462,12 +6872,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "DAVID GOMES NEGRAO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -6508,12 +6922,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VITOR FERNANDO FARIA SARAVALLI"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -6554,12 +6972,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RODRIGO PROSPERO FERREIRA DA SILVA"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -6600,12 +7022,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "JOAO PAULO VENDRAMINI"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -6646,12 +7072,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "LEILA CRISTINA NABUCO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -6692,12 +7122,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VANIA DIAS MALAMAN"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -6738,12 +7172,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "NELISA APARECIDA BARREIROS FERREIRA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -6784,12 +7222,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VALERIA DE SOUZA ZAMBUZI"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -6830,12 +7272,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "THIAGO BERNARDES VIEIRA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -6876,6 +7322,7 @@
       "stores": 3,
       "gns": 2,
       "gfs": 1,
+      "gts": 1,
       "groups": 2,
       "gnNames": [
         "VIVIAN GABRIELA SOARES MARTINS TOSTES",
@@ -6883,6 +7330,9 @@
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -6923,12 +7373,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RODRIGO DE SOUZA ALBANO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -6969,12 +7423,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VAGO_DDD 16 (Rodrigo)"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -7015,12 +7473,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RODRIGO PROSPERO FERREIRA DA SILVA"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -7061,12 +7523,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VALERIA DE SOUZA ZAMBUZI"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -7107,12 +7573,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "DAVID GOMES NEGRAO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -7153,6 +7623,7 @@
       "stores": 2,
       "gns": 2,
       "gfs": 1,
+      "gts": 1,
       "groups": 2,
       "gnNames": [
         "NELISA APARECIDA BARREIROS FERREIRA",
@@ -7160,6 +7631,9 @@
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -7200,12 +7674,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "NILTON JUNIOR FRANCISCO"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -7246,12 +7724,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VAGO (João)"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -7292,12 +7774,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "NELISA APARECIDA BARREIROS FERREIRA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -7338,6 +7824,7 @@
       "stores": 6,
       "gns": 3,
       "gfs": 1,
+      "gts": 1,
       "groups": 2,
       "gnNames": [
         "MARIA ROSÂNGELA DE JESUS",
@@ -7346,6 +7833,9 @@
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -7386,6 +7876,7 @@
       "stores": 2,
       "gns": 2,
       "gfs": 1,
+      "gts": 1,
       "groups": 2,
       "gnNames": [
         "FREDERICO CARNEIRO SANTIAGO",
@@ -7393,6 +7884,9 @@
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -7433,6 +7927,7 @@
       "stores": 2,
       "gns": 2,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "FREDERICO CARNEIRO SANTIAGO",
@@ -7440,6 +7935,9 @@
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -7480,12 +7978,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VAGO (João)"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -7526,12 +8028,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "DAVID GOMES NEGRAO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -7572,12 +8078,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VAGO_DDD16 (Rosangela)"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -7618,12 +8128,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "PAULA AZEVEDO TIBURCIO"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -7664,12 +8178,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "MARISTELA CAPARROZ DE LIRA SILVA"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -7710,6 +8228,7 @@
       "stores": 2,
       "gns": 2,
       "gfs": 1,
+      "gts": 1,
       "groups": 2,
       "gnNames": [
         "FREDERICO CARNEIRO SANTIAGO",
@@ -7717,6 +8236,9 @@
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -7757,12 +8279,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RODRIGO PROSPERO FERREIRA DA SILVA"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -7803,12 +8329,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RODRIGO DE SOUZA ALBANO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -7849,12 +8379,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "ANA CLINIO DA SILVA"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -7895,6 +8429,7 @@
       "stores": 5,
       "gns": 2,
       "gfs": 1,
+      "gts": 1,
       "groups": 2,
       "gnNames": [
         "CAMILA DEOLINDA SALGADO",
@@ -7902,6 +8437,9 @@
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -7942,12 +8480,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "JOAO PAULO VENDRAMINI"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -7988,12 +8530,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "NATAN DOS SANTOS MOREIRA LIMA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -8034,12 +8580,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "PAULA AZEVEDO TIBURCIO"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -8080,12 +8630,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VAGO_DDD16 (Rosangela)"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -8126,12 +8680,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "RODRIGO PROSPERO FERREIRA DA SILVA"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -8172,6 +8730,7 @@
       "stores": 5,
       "gns": 2,
       "gfs": 1,
+      "gts": 1,
       "groups": 2,
       "gnNames": [
         "GLAUCIA CAVALCANTE MARTINS",
@@ -8179,6 +8738,9 @@
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -8219,12 +8781,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "DAVID GOMES NEGRAO"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -8265,12 +8831,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VALERIA DE SOUZA ZAMBUZI"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -8311,12 +8881,16 @@
       "stores": 3,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "CAMILA DEOLINDA SALGADO"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -8357,12 +8931,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "GLAUCIA CAVALCANTE MARTINS"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -8403,12 +8981,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "NATAN DOS SANTOS MOREIRA LIMA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Michele Spina"
       ],
       "performance": {
         "bl": {
@@ -8449,12 +9031,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VAGO (João)"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -8495,12 +9081,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "NATAN DOS SANTOS MOREIRA LIMA"
       ],
       "gfNames": [
         "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gtNames": [
+        "Camila Stefanelli"
       ],
       "performance": {
         "bl": {
@@ -8541,12 +9131,16 @@
       "stores": 2,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "WILLIAM DE OLIVEIRA BONFIM"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -8587,12 +9181,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VANIA DIAS MALAMAN"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -8633,12 +9231,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "WILLIAM DE OLIVEIRA BONFIM"
       ],
       "gfNames": [
         "HELBER EMILIANO ZAROS"
+      ],
+      "gtNames": [
+        "Silvio Borges"
       ],
       "performance": {
         "bl": {
@@ -8679,12 +9281,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "VITOR FERNANDO FARIA SARAVALLI"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -8725,12 +9331,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "GLAUCIA CAVALCANTE MARTINS"
       ],
       "gfNames": [
         "EDUARDO ALVES DE QUEIROZ"
+      ],
+      "gtNames": [
+        "Rafael Lopes"
       ],
       "performance": {
         "bl": {
@@ -8771,12 +9381,16 @@
       "stores": 1,
       "gns": 1,
       "gfs": 1,
+      "gts": 1,
       "groups": 1,
       "gnNames": [
         "ANA CLINIO DA SILVA"
       ],
       "gfNames": [
         "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gtNames": [
+        "Ivone Anjos"
       ],
       "performance": {
         "bl": {
@@ -8809,11 +9423,824 @@
       "performanceClass": "Boa"
     }
   ],
+  "gts": [
+    {
+      "name": "Camila Stefanelli",
+      "initials": "CS",
+      "gfs": 1,
+      "gns": 5,
+      "stores": 25,
+      "cities": 16,
+      "ddds": 2,
+      "groups": 4,
+      "gfNames": [
+        "RAFAEL SILVEIRA DE CARVALHO "
+      ],
+      "gnNames": [
+        "CAMILA DEOLINDA SALGADO",
+        "NATAN DOS SANTOS MOREIRA LIMA",
+        "NELISA APARECIDA BARREIROS FERREIRA",
+        "PAULA AZEVEDO TIBURCIO",
+        "THIAGO BERNARDES VIEIRA"
+      ],
+      "cityList": [
+        "CACAPAVA",
+        "CARAGUATATUBA",
+        "CUBATAO",
+        "GUARUJA",
+        "ILHABELA",
+        "ITANHAEM",
+        "JACAREI",
+        "MONGAGUA",
+        "PERUIBE",
+        "PRAIA GRANDE",
+        "SANTOS",
+        "SAO JOSE DOS CAMPOS",
+        "SAO SEBASTIAO",
+        "SAO VICENTE",
+        "TAUBATE",
+        "UBATUBA"
+      ],
+      "dddList": [
+        12,
+        13
+      ],
+      "performance": {
+        "bl": {
+          "label": "Banda Larga",
+          "productivePct": 100.0,
+          "avgAttainmentPct": 310.6
+        },
+        "tv": {
+          "label": "TV",
+          "productivePct": 60.0,
+          "avgAttainmentPct": 118.0
+        },
+        "pos": {
+          "label": "Pós Total",
+          "productivePct": 100.0,
+          "avgAttainmentPct": 315.0
+        },
+        "conta": {
+          "label": "Conta",
+          "productivePct": 96.0,
+          "avgAttainmentPct": 384.6
+        },
+        "controle": {
+          "label": "Controle",
+          "productivePct": 96.0,
+          "avgAttainmentPct": 272.8
+        }
+      },
+      "productStats": {
+        "bl": {
+          "label": "Banda Larga",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 0,
+            "Baixa Performance": 0,
+            "Oportunidade": 0,
+            "Produtivo": 24,
+            "Alta Performance": 21,
+            "Baixa + Crítico": 0,
+            "Com dado": 24
+          },
+          "productivePct": 100.0,
+          "avgAttainmentPct": 310.6
+        },
+        "tv": {
+          "label": "TV",
+          "counts": {
+            "Zerado": 1,
+            "Crítico": 3,
+            "Baixa Performance": 3,
+            "Oportunidade": 3,
+            "Produtivo": 15,
+            "Alta Performance": 10,
+            "Baixa + Crítico": 6,
+            "Com dado": 25
+          },
+          "productivePct": 60.0,
+          "avgAttainmentPct": 118.0
+        },
+        "pos": {
+          "label": "Pós Total",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 0,
+            "Baixa Performance": 0,
+            "Oportunidade": 0,
+            "Produtivo": 25,
+            "Alta Performance": 25,
+            "Baixa + Crítico": 0,
+            "Com dado": 25
+          },
+          "productivePct": 100.0,
+          "avgAttainmentPct": 315.0
+        },
+        "conta": {
+          "label": "Conta",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 1,
+            "Baixa Performance": 0,
+            "Oportunidade": 0,
+            "Produtivo": 24,
+            "Alta Performance": 23,
+            "Baixa + Crítico": 1,
+            "Com dado": 25
+          },
+          "productivePct": 96.0,
+          "avgAttainmentPct": 384.6
+        },
+        "controle": {
+          "label": "Controle",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 0,
+            "Baixa Performance": 0,
+            "Oportunidade": 1,
+            "Produtivo": 24,
+            "Alta Performance": 24,
+            "Baixa + Crítico": 0,
+            "Com dado": 25
+          },
+          "productivePct": 96.0,
+          "avgAttainmentPct": 272.8
+        }
+      }
+    },
+    {
+      "name": "Ivone Anjos",
+      "initials": "IA",
+      "gfs": 2,
+      "gns": 12,
+      "stores": 39,
+      "cities": 35,
+      "ddds": 4,
+      "groups": 6,
+      "gfNames": [
+        "EDUARDO ALVES DE QUEIROZ",
+        "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gnNames": [
+        "ANA CLINIO DA SILVA",
+        "JOAO PAULO VENDRAMINI",
+        "MARIA ROSÂNGELA DE JESUS",
+        "MARISTELA CAPARROZ DE LIRA SILVA",
+        "NILTON JUNIOR FRANCISCO",
+        "RENATO PIQUERA AZEVEDO",
+        "RODRIGO PROSPERO FERREIRA DA SILVA",
+        "VAGO (João)",
+        "VAGO_DDD 16 (Maristela)",
+        "VAGO_DDD16 (Rosangela)",
+        "VANIA DIAS MALAMAN",
+        "VITOR FERNANDO FARIA SARAVALLI"
+      ],
+      "cityList": [
+        "ANDRADINA",
+        "ARACATUBA",
+        "BARRETOS",
+        "BATATAIS",
+        "BEBEDOURO",
+        "BIRIGUI",
+        "CATANDUVA",
+        "CRAVINHOS",
+        "DRACENA",
+        "FERNANDOPOLIS",
+        "GARCA",
+        "GUAIRA",
+        "GUARARAPES",
+        "ITUVERAVA",
+        "JABOTICABAL",
+        "JARDINOPOLIS",
+        "JOSE BONIFACIO",
+        "LINS",
+        "MARILIA",
+        "MATAO",
+        "MIRANDOPOLIS",
+        "MONTE ALTO",
+        "OLIMPIA",
+        "ORLANDIA",
+        "OURINHOS",
+        "PENAPOLIS",
+        "PONTAL",
+        "PRESIDENTE PRUDENTE",
+        "PROMISSAO",
+        "SANTA CRUZ DO RIO PARDO",
+        "SANTA ROSA DE VITERBO",
+        "SAO JOAQUIM DA BARRA",
+        "SERRANA",
+        "VALPARAISO",
+        "VOTUPORANGA"
+      ],
+      "dddList": [
+        14,
+        16,
+        17,
+        18
+      ],
+      "performance": {
+        "bl": {
+          "label": "Banda Larga",
+          "productivePct": 89.7,
+          "avgAttainmentPct": 215.3
+        },
+        "tv": {
+          "label": "TV",
+          "productivePct": 17.9,
+          "avgAttainmentPct": 75.4
+        },
+        "pos": {
+          "label": "Pós Total",
+          "productivePct": 94.9,
+          "avgAttainmentPct": 262.6
+        },
+        "conta": {
+          "label": "Conta",
+          "productivePct": 82.1,
+          "avgAttainmentPct": 250.2
+        },
+        "controle": {
+          "label": "Controle",
+          "productivePct": 94.9,
+          "avgAttainmentPct": 270.2
+        }
+      },
+      "productStats": {
+        "bl": {
+          "label": "Banda Larga",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 1,
+            "Baixa Performance": 3,
+            "Oportunidade": 0,
+            "Produtivo": 35,
+            "Alta Performance": 31,
+            "Baixa + Crítico": 4,
+            "Com dado": 39
+          },
+          "productivePct": 89.7,
+          "avgAttainmentPct": 215.3
+        },
+        "tv": {
+          "label": "TV",
+          "counts": {
+            "Zerado": 2,
+            "Crítico": 13,
+            "Baixa Performance": 8,
+            "Oportunidade": 9,
+            "Produtivo": 7,
+            "Alta Performance": 7,
+            "Baixa + Crítico": 21,
+            "Com dado": 39
+          },
+          "productivePct": 17.9,
+          "avgAttainmentPct": 75.4
+        },
+        "pos": {
+          "label": "Pós Total",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 2,
+            "Baixa Performance": 0,
+            "Oportunidade": 0,
+            "Produtivo": 37,
+            "Alta Performance": 36,
+            "Baixa + Crítico": 2,
+            "Com dado": 39
+          },
+          "productivePct": 94.9,
+          "avgAttainmentPct": 262.6
+        },
+        "conta": {
+          "label": "Conta",
+          "counts": {
+            "Zerado": 1,
+            "Crítico": 1,
+            "Baixa Performance": 3,
+            "Oportunidade": 2,
+            "Produtivo": 32,
+            "Alta Performance": 29,
+            "Baixa + Crítico": 4,
+            "Com dado": 39
+          },
+          "productivePct": 82.1,
+          "avgAttainmentPct": 250.2
+        },
+        "controle": {
+          "label": "Controle",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 1,
+            "Baixa Performance": 1,
+            "Oportunidade": 0,
+            "Produtivo": 37,
+            "Alta Performance": 35,
+            "Baixa + Crítico": 2,
+            "Com dado": 39
+          },
+          "productivePct": 94.9,
+          "avgAttainmentPct": 270.2
+        }
+      }
+    },
+    {
+      "name": "Michele Spina",
+      "initials": "MS",
+      "gfs": 4,
+      "gns": 10,
+      "stores": 31,
+      "cities": 26,
+      "ddds": 5,
+      "groups": 8,
+      "gfNames": [
+        "EDUARDO ALVES DE QUEIROZ",
+        "HELBER EMILIANO ZAROS",
+        "RAFAEL SILVEIRA DE CARVALHO ",
+        "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gnNames": [
+        "DAVID GOMES NEGRAO",
+        "FREDERICO CARNEIRO SANTIAGO",
+        "GLAUCIA CAVALCANTE MARTINS",
+        "JOAO PAULO VENDRAMINI",
+        "NATAN DOS SANTOS MOREIRA LIMA",
+        "NELISA APARECIDA BARREIROS FERREIRA",
+        "RAFAEL MICHELINI MENONCELLO",
+        "RODRIGO DE SOUZA ALBANO",
+        "THIAGO BERNARDES VIEIRA",
+        "VALERIA DE SOUZA ZAMBUZI"
+      ],
+      "cityList": [
+        "AMPARO",
+        "AVARE",
+        "BOITUVA",
+        "BOTUCATU",
+        "CAMPOS DO JORDAO",
+        "CASA BRANCA",
+        "CERQUILHO",
+        "CRUZEIRO",
+        "DESCALVADO",
+        "ESPIRITO SANTO DO PINHAL",
+        "GUARATINGUETA",
+        "ITAPETININGA",
+        "ITAPIRA",
+        "LEME",
+        "LENCOIS PAULISTA",
+        "LORENA",
+        "MOCOCA",
+        "PIEDADE",
+        "PINDAMONHANGABA",
+        "PIRASSUNUNGA",
+        "PORTO FERREIRA",
+        "REGISTRO",
+        "SAO JOAO DA BOA VISTA",
+        "SAO JOSE DO RIO PARDO",
+        "TATUI",
+        "TREMEMBE"
+      ],
+      "dddList": [
+        12,
+        13,
+        14,
+        15,
+        19
+      ],
+      "performance": {
+        "bl": {
+          "label": "Banda Larga",
+          "productivePct": 90.3,
+          "avgAttainmentPct": 239.6
+        },
+        "tv": {
+          "label": "TV",
+          "productivePct": 25.8,
+          "avgAttainmentPct": 82.4
+        },
+        "pos": {
+          "label": "Pós Total",
+          "productivePct": 87.1,
+          "avgAttainmentPct": 228.9
+        },
+        "conta": {
+          "label": "Conta",
+          "productivePct": 77.4,
+          "avgAttainmentPct": 215.4
+        },
+        "controle": {
+          "label": "Controle",
+          "productivePct": 80.6,
+          "avgAttainmentPct": 237.1
+        }
+      },
+      "productStats": {
+        "bl": {
+          "label": "Banda Larga",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 0,
+            "Baixa Performance": 2,
+            "Oportunidade": 1,
+            "Produtivo": 28,
+            "Alta Performance": 26,
+            "Baixa + Crítico": 2,
+            "Com dado": 31
+          },
+          "productivePct": 90.3,
+          "avgAttainmentPct": 239.6
+        },
+        "tv": {
+          "label": "TV",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 11,
+            "Baixa Performance": 5,
+            "Oportunidade": 7,
+            "Produtivo": 8,
+            "Alta Performance": 6,
+            "Baixa + Crítico": 16,
+            "Com dado": 31
+          },
+          "productivePct": 25.8,
+          "avgAttainmentPct": 82.4
+        },
+        "pos": {
+          "label": "Pós Total",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 0,
+            "Baixa Performance": 2,
+            "Oportunidade": 2,
+            "Produtivo": 27,
+            "Alta Performance": 25,
+            "Baixa + Crítico": 2,
+            "Com dado": 31
+          },
+          "productivePct": 87.1,
+          "avgAttainmentPct": 228.9
+        },
+        "conta": {
+          "label": "Conta",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 2,
+            "Baixa Performance": 2,
+            "Oportunidade": 3,
+            "Produtivo": 24,
+            "Alta Performance": 22,
+            "Baixa + Crítico": 4,
+            "Com dado": 31
+          },
+          "productivePct": 77.4,
+          "avgAttainmentPct": 215.4
+        },
+        "controle": {
+          "label": "Controle",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 0,
+            "Baixa Performance": 3,
+            "Oportunidade": 3,
+            "Produtivo": 25,
+            "Alta Performance": 24,
+            "Baixa + Crítico": 3,
+            "Com dado": 31
+          },
+          "productivePct": 80.6,
+          "avgAttainmentPct": 237.1
+        }
+      }
+    },
+    {
+      "name": "Rafael Lopes",
+      "initials": "RL",
+      "gfs": 2,
+      "gns": 13,
+      "stores": 43,
+      "cities": 23,
+      "ddds": 4,
+      "groups": 9,
+      "gfNames": [
+        "EDUARDO ALVES DE QUEIROZ",
+        "VIVIANE TANGARI LEMOS PONTES"
+      ],
+      "gnNames": [
+        "ANA CLINIO DA SILVA",
+        "GLAUCIA CAVALCANTE MARTINS",
+        "JOAO PAULO VENDRAMINI",
+        "MARIA ROSÂNGELA DE JESUS",
+        "MARISTELA CAPARROZ DE LIRA SILVA",
+        "RENATO PIQUERA AZEVEDO",
+        "RODRIGO PROSPERO FERREIRA DA SILVA",
+        "VAGO (João)",
+        "VAGO_DDD 16 (Maristela)",
+        "VAGO_DDD 16 (Rodrigo)",
+        "VAGO_DDD16 (Rosangela)",
+        "VALERIA DE SOUZA ZAMBUZI",
+        "VITOR FERNANDO FARIA SARAVALLI"
+      ],
+      "cityList": [
+        "ARARAQUARA",
+        "AURIFLAMA",
+        "BARIRI",
+        "BAURU",
+        "BRODOWSKI",
+        "FRANCA",
+        "IBITINGA",
+        "IGARAPAVA",
+        "JAU",
+        "MIRASSOL",
+        "MORRO AGUDO",
+        "PITANGUEIRAS",
+        "PORTO FELIZ",
+        "RIBEIRAO PRETO",
+        "SAO CARLOS",
+        "SAO JOSE DO RIO PRETO",
+        "SAO MANUEL",
+        "SERTAOZINHO",
+        "SOROCABA",
+        "TIETE",
+        "TUPA",
+        "VIRADOURO",
+        "VOTORANTIM"
+      ],
+      "dddList": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "performance": {
+        "bl": {
+          "label": "Banda Larga",
+          "productivePct": 81.8,
+          "avgAttainmentPct": 274.9
+        },
+        "tv": {
+          "label": "TV",
+          "productivePct": 32.6,
+          "avgAttainmentPct": 95.1
+        },
+        "pos": {
+          "label": "Pós Total",
+          "productivePct": 86.0,
+          "avgAttainmentPct": 283.6
+        },
+        "conta": {
+          "label": "Conta",
+          "productivePct": 69.8,
+          "avgAttainmentPct": 311.2
+        },
+        "controle": {
+          "label": "Controle",
+          "productivePct": 81.4,
+          "avgAttainmentPct": 266.9
+        }
+      },
+      "productStats": {
+        "bl": {
+          "label": "Banda Larga",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 0,
+            "Baixa Performance": 5,
+            "Oportunidade": 1,
+            "Produtivo": 27,
+            "Alta Performance": 24,
+            "Baixa + Crítico": 5,
+            "Com dado": 33
+          },
+          "productivePct": 81.8,
+          "avgAttainmentPct": 274.9
+        },
+        "tv": {
+          "label": "TV",
+          "counts": {
+            "Zerado": 2,
+            "Crítico": 15,
+            "Baixa Performance": 6,
+            "Oportunidade": 6,
+            "Produtivo": 14,
+            "Alta Performance": 12,
+            "Baixa + Crítico": 21,
+            "Com dado": 43
+          },
+          "productivePct": 32.6,
+          "avgAttainmentPct": 95.1
+        },
+        "pos": {
+          "label": "Pós Total",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 1,
+            "Baixa Performance": 3,
+            "Oportunidade": 2,
+            "Produtivo": 37,
+            "Alta Performance": 36,
+            "Baixa + Crítico": 4,
+            "Com dado": 43
+          },
+          "productivePct": 86.0,
+          "avgAttainmentPct": 283.6
+        },
+        "conta": {
+          "label": "Conta",
+          "counts": {
+            "Zerado": 2,
+            "Crítico": 5,
+            "Baixa Performance": 3,
+            "Oportunidade": 3,
+            "Produtivo": 30,
+            "Alta Performance": 28,
+            "Baixa + Crítico": 8,
+            "Com dado": 43
+          },
+          "productivePct": 69.8,
+          "avgAttainmentPct": 311.2
+        },
+        "controle": {
+          "label": "Controle",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 4,
+            "Baixa Performance": 1,
+            "Oportunidade": 3,
+            "Produtivo": 35,
+            "Alta Performance": 35,
+            "Baixa + Crítico": 5,
+            "Com dado": 43
+          },
+          "productivePct": 81.4,
+          "avgAttainmentPct": 266.9
+        }
+      }
+    },
+    {
+      "name": "Silvio Borges",
+      "initials": "SB",
+      "gfs": 1,
+      "gns": 7,
+      "stores": 42,
+      "cities": 22,
+      "ddds": 1,
+      "groups": 7,
+      "gfNames": [
+        "HELBER EMILIANO ZAROS"
+      ],
+      "gnNames": [
+        "DAVID GOMES NEGRAO",
+        "FREDERICO CARNEIRO SANTIAGO",
+        "LEILA CRISTINA NABUCO",
+        "RAFAEL MICHELINI MENONCELLO",
+        "RODRIGO DE SOUZA ALBANO",
+        "VIVIAN GABRIELA SOARES MARTINS TOSTES",
+        "WILLIAM DE OLIVEIRA BONFIM"
+      ],
+      "cityList": [
+        "AGUAI",
+        "AMERICANA",
+        "ARARAS",
+        "ARTUR NOGUEIRA",
+        "CAMPINAS",
+        "CAPIVARI",
+        "COSMOPOLIS",
+        "HORTOLANDIA",
+        "INDAIATUBA",
+        "JAGUARIUNA",
+        "LIMEIRA",
+        "MOGI GUACU",
+        "MONTE MOR",
+        "NOVA ODESSA",
+        "PAULINIA",
+        "PIRACICABA",
+        "RIO CLARO",
+        "SANTA BARBARA D'OESTE",
+        "SANTA RITA DO PASSA QUATRO",
+        "SUMARE",
+        "VALINHOS",
+        "VINHEDO"
+      ],
+      "dddList": [
+        19
+      ],
+      "performance": {
+        "bl": {
+          "label": "Banda Larga",
+          "productivePct": 85.0,
+          "avgAttainmentPct": 199.1
+        },
+        "tv": {
+          "label": "TV",
+          "productivePct": 21.4,
+          "avgAttainmentPct": 79.9
+        },
+        "pos": {
+          "label": "Pós Total",
+          "productivePct": 95.2,
+          "avgAttainmentPct": 220.3
+        },
+        "conta": {
+          "label": "Conta",
+          "productivePct": 83.3,
+          "avgAttainmentPct": 229.2
+        },
+        "controle": {
+          "label": "Controle",
+          "productivePct": 88.1,
+          "avgAttainmentPct": 215.0
+        }
+      },
+      "productStats": {
+        "bl": {
+          "label": "Banda Larga",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 2,
+            "Baixa Performance": 2,
+            "Oportunidade": 2,
+            "Produtivo": 34,
+            "Alta Performance": 31,
+            "Baixa + Crítico": 4,
+            "Com dado": 40
+          },
+          "productivePct": 85.0,
+          "avgAttainmentPct": 199.1
+        },
+        "tv": {
+          "label": "TV",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 13,
+            "Baixa Performance": 9,
+            "Oportunidade": 11,
+            "Produtivo": 9,
+            "Alta Performance": 6,
+            "Baixa + Crítico": 22,
+            "Com dado": 42
+          },
+          "productivePct": 21.4,
+          "avgAttainmentPct": 79.9
+        },
+        "pos": {
+          "label": "Pós Total",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 0,
+            "Baixa Performance": 0,
+            "Oportunidade": 2,
+            "Produtivo": 40,
+            "Alta Performance": 36,
+            "Baixa + Crítico": 0,
+            "Com dado": 42
+          },
+          "productivePct": 95.2,
+          "avgAttainmentPct": 220.3
+        },
+        "conta": {
+          "label": "Conta",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 3,
+            "Baixa Performance": 3,
+            "Oportunidade": 1,
+            "Produtivo": 35,
+            "Alta Performance": 33,
+            "Baixa + Crítico": 6,
+            "Com dado": 42
+          },
+          "productivePct": 83.3,
+          "avgAttainmentPct": 229.2
+        },
+        "controle": {
+          "label": "Controle",
+          "counts": {
+            "Zerado": 0,
+            "Crítico": 1,
+            "Baixa Performance": 1,
+            "Oportunidade": 3,
+            "Produtivo": 37,
+            "Alta Performance": 36,
+            "Baixa + Crítico": 2,
+            "Com dado": 42
+          },
+          "productivePct": 88.1,
+          "avgAttainmentPct": 215.0
+        }
+      }
+    }
+  ],
   "gfs": [
     {
       "name": "EDUARDO ALVES DE QUEIROZ",
       "initials": "EQ",
       "photoFile": "fotos/eduardo_alves_de_queiroz.png",
+      "gt": "Múltiplos",
+      "gtNames": [
+        "Ivone Anjos",
+        "Michele Spina",
+        "Rafael Lopes"
+      ],
       "gns": 8,
       "stores": 47,
       "cities": 31,
@@ -8975,6 +10402,11 @@
       "name": "HELBER EMILIANO ZAROS",
       "initials": "HZ",
       "photoFile": "fotos/helber_emiliano_zaros.png",
+      "gt": "Múltiplos",
+      "gtNames": [
+        "Michele Spina",
+        "Silvio Borges"
+      ],
       "gns": 7,
       "stores": 54,
       "cities": 33,
@@ -9136,6 +10568,11 @@
       "name": "RAFAEL SILVEIRA DE CARVALHO ",
       "initials": "RC",
       "photoFile": "fotos/rafael_silveira_de_carvalho.png",
+      "gt": "Múltiplos",
+      "gtNames": [
+        "Camila Stefanelli",
+        "Michele Spina"
+      ],
       "gns": 5,
       "stores": 34,
       "cities": 23,
@@ -9286,6 +10723,12 @@
       "name": "VIVIANE TANGARI LEMOS PONTES",
       "initials": "VP",
       "photoFile": "fotos/viviane_tangari_lemos_pontes.png",
+      "gt": "Múltiplos",
+      "gtNames": [
+        "Ivone Anjos",
+        "Michele Spina",
+        "Rafael Lopes"
+      ],
       "gns": 7,
       "stores": 45,
       "cities": 35,
@@ -9454,6 +10897,7 @@
       "initials": "AS",
       "photoFile": null,
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "cargo": "Cargo III",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO III",
       "stores": 4,
@@ -9612,6 +11056,7 @@
       "initials": "CS",
       "photoFile": null,
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "cargo": "Cargo I",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO I",
       "stores": 6,
@@ -9783,6 +11228,7 @@
       "initials": "DN",
       "photoFile": null,
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "cargo": "Cargo III",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO III",
       "stores": 8,
@@ -9973,6 +11419,7 @@
       "initials": "FS",
       "photoFile": null,
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "cargo": "Cargo II",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO II",
       "stores": 7,
@@ -10155,6 +11602,7 @@
       "initials": "GM",
       "photoFile": null,
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "cargo": "Cargo III",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO III",
       "stores": 7,
@@ -10336,6 +11784,7 @@
       "initials": "JV",
       "photoFile": null,
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Michele Spina",
       "cargo": "Cargo III",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO III",
       "stores": 10,
@@ -10540,6 +11989,7 @@
       "initials": "LN",
       "photoFile": null,
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "cargo": "Cargo II",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO II",
       "stores": 7,
@@ -10719,6 +12169,7 @@
       "initials": "MJ",
       "photoFile": null,
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "cargo": "Cargo II",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO II",
       "stores": 7,
@@ -10898,6 +12349,7 @@
       "initials": "MS",
       "photoFile": null,
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "cargo": "Cargo III",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO III",
       "stores": 8,
@@ -11087,6 +12539,7 @@
       "initials": "NL",
       "photoFile": null,
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "cargo": "Cargo II",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO II",
       "stores": 7,
@@ -11270,6 +12723,7 @@
       "initials": "NF",
       "photoFile": null,
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "cargo": "Cargo II",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO II",
       "stores": 5,
@@ -11437,6 +12891,7 @@
       "initials": "NF",
       "photoFile": null,
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "cargo": "Cargo II",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO II",
       "stores": 5,
@@ -11603,6 +13058,7 @@
       "initials": "PT",
       "photoFile": null,
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "cargo": "Cargo III",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO III",
       "stores": 7,
@@ -11784,6 +13240,7 @@
       "initials": "RM",
       "photoFile": null,
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "cargo": "Cargo II",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO II",
       "stores": 7,
@@ -11966,6 +13423,7 @@
       "initials": "RA",
       "photoFile": null,
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "cargo": "Cargo II",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO II",
       "stores": 5,
@@ -12132,6 +13590,7 @@
       "initials": "RA",
       "photoFile": null,
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Michele Spina",
       "cargo": "Cargo III",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO III",
       "stores": 9,
@@ -12331,6 +13790,7 @@
       "initials": "RS",
       "photoFile": null,
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Ivone Anjos",
       "cargo": "Cargo III",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO III",
       "stores": 8,
@@ -12520,6 +13980,7 @@
       "initials": "TV",
       "photoFile": null,
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Michele Spina",
       "cargo": "Cargo III",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO III",
       "stores": 9,
@@ -12716,6 +14177,7 @@
       "initials": "VJ",
       "photoFile": null,
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Rafael Lopes",
       "cargo": "Não informado",
       "cargoRaw": "0",
       "stores": 10,
@@ -12921,6 +14383,7 @@
       "initials": "VM",
       "photoFile": null,
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "cargo": "Vago",
       "cargoRaw": "VAGO",
       "stores": 4,
@@ -13080,6 +14543,7 @@
       "initials": "VR",
       "photoFile": null,
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "cargo": "Vago",
       "cargoRaw": "VAGO",
       "stores": 2,
@@ -13223,6 +14687,7 @@
       "initials": "VR",
       "photoFile": null,
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "cargo": "Vago",
       "cargoRaw": "VAGO",
       "stores": 4,
@@ -13381,6 +14846,7 @@
       "initials": "VZ",
       "photoFile": null,
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Michele Spina",
       "cargo": "Cargo II",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO II",
       "stores": 7,
@@ -13562,6 +15028,7 @@
       "initials": "VM",
       "photoFile": null,
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "cargo": "Cargo II",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO II",
       "stores": 5,
@@ -13729,6 +15196,7 @@
       "initials": "VS",
       "photoFile": null,
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "cargo": "Cargo III",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO III",
       "stores": 6,
@@ -13903,6 +15371,7 @@
       "initials": "VT",
       "photoFile": null,
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "cargo": "Cargo III",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO III",
       "stores": 7,
@@ -14084,6 +15553,7 @@
       "initials": "WB",
       "photoFile": null,
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "cargo": "Cargo II",
       "cargoRaw": "GER NEGOCIOS AGENTE AUTORIZADO II",
       "stores": 9,
@@ -14286,6 +15756,7 @@
       "ddd": 19,
       "gn": "WILLIAM DE OLIVEIRA BONFIM",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua SALOMAO HADDAD BARUQUE,CENTRO,MONTE MOR,13190-000,SP",
       "lat": -22.94874930748824,
       "lon": -47.3125845343554,
@@ -14331,6 +15802,7 @@
       "ddd": 13,
       "gn": "NELISA APARECIDA BARREIROS FERREIRA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Avenida PADRE ANCHIETA,CENTRO,PERUIBE,11750-000,SP",
       "lat": -24.318927211225272,
       "lon": -46.99477797664319,
@@ -14376,6 +15848,7 @@
       "ddd": 19,
       "gn": "RODRIGO DE SOUZA ALBANO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Michele Spina",
       "address": "Rua DUQUE DE CAXIAS,CENTRO,PIRASSUNUNGA,13630-095,SP",
       "lat": -21.99930552227239,
       "lon": -47.42752517671335,
@@ -14421,6 +15894,7 @@
       "ddd": 16,
       "gn": "VAGO_DDD 16 (Rodrigo)",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Rua SAO PAULO,CENTRO,PITANGUEIRAS,14750-000,SP",
       "lat": -21.01031797685102,
       "lon": -48.22044731907138,
@@ -14466,6 +15940,7 @@
       "ddd": 19,
       "gn": "RODRIGO DE SOUZA ALBANO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Michele Spina",
       "address": "Rua MARQUES DO HERVAL,CENTRO,ESPIRITO SANTO DO PINHAL,13990-000,SP",
       "lat": -22.19393260104175,
       "lon": -46.7454510343778,
@@ -14511,6 +15986,7 @@
       "ddd": 19,
       "gn": "RAFAEL MICHELINI MENONCELLO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Avenida DOUTOR FERNANDO ARENS JUNIOR,CENTRO,ARTUR NOGUEIRA,13160-154,SP",
       "lat": -22.57393482905486,
       "lon": -47.17138210368567,
@@ -14556,6 +16032,7 @@
       "ddd": 19,
       "gn": "DAVID GOMES NEGRAO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Avenida SEVERINO MEIRELLES,CENTRO,SANTA RITA DO PASSA QUATRO,13670-000,SP",
       "lat": -21.70875485793867,
       "lon": -47.47867160371109,
@@ -14601,6 +16078,7 @@
       "ddd": 15,
       "gn": "VALERIA DE SOUZA ZAMBUZI",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Michele Spina",
       "address": "Rua Doutor VIRGILIO DE REZENDE,CENTRO,ITAPETININGA,18200-180,SP",
       "lat": -23.587658089664316,
       "lon": -48.04564257481993,
@@ -14646,6 +16124,7 @@
       "ddd": 14,
       "gn": "JOAO PAULO VENDRAMINI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Michele Spina",
       "address": "Rua SAO PAULO,CENTRO,AVARE,18700-070,SP",
       "lat": -23.09948738078159,
       "lon": -48.92407288832945,
@@ -14691,6 +16170,7 @@
       "ddd": 13,
       "gn": "NELISA APARECIDA BARREIROS FERREIRA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Avenida PRESIDENTE KENNEDY,OCIAN,PRAIA GRANDE,11704-100,SP",
       "lat": -24.02566579910812,
       "lon": -46.47925027665218,
@@ -14736,6 +16216,7 @@
       "ddd": 12,
       "gn": "NATAN DOS SANTOS MOREIRA LIMA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Avenida GUARDA-MOR LOBO VIANA,CENTRO,SAO SEBASTIAO,11608-530,SP",
       "lat": -23.800439466804708,
       "lon": -45.40276037665915,
@@ -14781,6 +16262,7 @@
       "ddd": 19,
       "gn": "RAFAEL MICHELINI MENONCELLO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Michele Spina",
       "address": "Rua Comendador GUIMARAES,CENTRO,AMPARO,13900-470,SP",
       "lat": -22.701432028769748,
       "lon": -46.76798950368196,
@@ -14826,6 +16308,7 @@
       "ddd": 15,
       "gn": "VALERIA DE SOUZA ZAMBUZI",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Rua ANDRE ROCHA,CENTRO,PORTO FELIZ,18540-057,SP",
       "lat": -23.211259281334957,
       "lon": -47.52510475439944,
@@ -14871,6 +16354,7 @@
       "ddd": 19,
       "gn": "LEILA CRISTINA NABUCO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua PADRE BENTO PACHECO,CENTRO,INDAIATUBA,13330-020,SP",
       "lat": -23.08652746442163,
       "lon": -47.21583404852179,
@@ -14916,6 +16400,7 @@
       "ddd": 19,
       "gn": "VIVIAN GABRIELA SOARES MARTINS TOSTES",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Avenida CARLOS KUNTZ BUSCH,PARQUE EGISTO RAGAZZO,LIMEIRA,13485-346,SP",
       "lat": -22.532893034906625,
       "lon": -47.3860656883465,
@@ -14961,6 +16446,7 @@
       "ddd": 16,
       "gn": "MARISTELA CAPARROZ DE LIRA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Avenida SAO CARLOS,CENTRO,SAO CARLOS,13560-010,SP",
       "lat": -22.019680678098275,
       "lon": -47.890845996031885,
@@ -15006,6 +16492,7 @@
       "ddd": 13,
       "gn": "NELISA APARECIDA BARREIROS FERREIRA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Avenida CONDESSA DE VIMIEIROS,CENTRO,ITANHAEM,11740-000,SP",
       "lat": -24.18372259770361,
       "lon": -46.78774004781226,
@@ -15051,6 +16538,7 @@
       "ddd": 12,
       "gn": "CAMILA DEOLINDA SALGADO",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Avenida CHARLES SCHNNEIDER,PARQUE SENHOR DO BONFIM,TAUBATE,12040-900,SP",
       "lat": -23.02251814292517,
       "lon": -45.581946657363964,
@@ -15096,6 +16584,7 @@
       "ddd": 19,
       "gn": "LEILA CRISTINA NABUCO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Avenida JOHN BOYD DUNLOP,JARDIM AURELIA,CAMPINAS,13033-000,SP",
       "lat": -22.908729183347056,
       "lon": -47.0947389008448,
@@ -15141,6 +16630,7 @@
       "ddd": 19,
       "gn": "DAVID GOMES NEGRAO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Avenida CARLOS BOTELHO,CENTRO,NOVA ODESSA,13380-001,SP",
       "lat": -22.77792819237904,
       "lon": -47.291994417174266,
@@ -15186,6 +16676,7 @@
       "ddd": 17,
       "gn": "ANA CLINIO DA SILVA",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua SAO PAULO,CENTRO,FERNANDOPOLIS,15600-058,SP",
       "lat": -20.282115482147752,
       "lon": -50.24747629025622,
@@ -15231,6 +16722,7 @@
       "ddd": 12,
       "gn": "THIAGO BERNARDES VIEIRA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Michele Spina",
       "address": "Rua Doutor RODRIGUES DE AZEVEDO,CENTRO,LORENA,12600-005,SP",
       "lat": -22.731884174991876,
       "lon": -45.12254210368075,
@@ -15276,6 +16768,7 @@
       "ddd": 19,
       "gn": "RODRIGO DE SOUZA ALBANO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Michele Spina",
       "address": "Rua BARAO DE MONTE SANTO,CENTRO,MOCOCA,13730-230,SP",
       "lat": -21.46663518820613,
       "lon": -47.00040053255304,
@@ -15321,6 +16814,7 @@
       "ddd": 19,
       "gn": "FREDERICO CARNEIRO SANTIAGO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua MAJOR BRAGA,CENTRO,AGUAI,13860-000,SP",
       "lat": -22.05670434594817,
       "lon": -46.97827573069031,
@@ -15366,6 +16860,7 @@
       "ddd": 19,
       "gn": "VIVIAN GABRIELA SOARES MARTINS TOSTES",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Avenida SELMA PARADA,JARDIM MADALENA,CAMPINAS,13091-605,SP",
       "lat": -22.863345918814524,
       "lon": -47.02313687484177,
@@ -15411,6 +16906,7 @@
       "ddd": 12,
       "gn": "THIAGO BERNARDES VIEIRA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Rua PRUDENTE DE MORAES,CENTRO,CACAPAVA,12281-640,SP",
       "lat": -23.10110970861034,
       "lon": -45.70586921716467,
@@ -15456,6 +16952,7 @@
       "ddd": 19,
       "gn": "WILLIAM DE OLIVEIRA BONFIM",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua NOVE DE JULHO,CENTRO,VINHEDO,13280-083,SP",
       "lat": -23.030362183732564,
       "lon": -46.97329371901248,
@@ -15501,6 +16998,7 @@
       "ddd": 19,
       "gn": "WILLIAM DE OLIVEIRA BONFIM",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua ANTONIO CARLOS,CENTRO,VALINHOS,13270-005,SP",
       "lat": -22.970222595000187,
       "lon": -46.99480186134412,
@@ -15546,6 +17044,7 @@
       "ddd": 12,
       "gn": "NATAN DOS SANTOS MOREIRA LIMA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Michele Spina",
       "address": "Rua BOM JESUS,CENTRO,TREMEMBE,12120-000,SP",
       "lat": -22.96194658351711,
       "lon": -45.54956605949852,
@@ -15591,6 +17090,7 @@
       "ddd": 14,
       "gn": "VAGO (João)",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Rafael Lopes",
       "address": "Avenida GETULIO VARGAS,VILA GUEDES DE AZEVEDO,BAURU,17017-000,SP",
       "lat": -22.34120857464392,
       "lon": -49.06147451391245,
@@ -15636,6 +17136,7 @@
       "ddd": 12,
       "gn": "CAMILA DEOLINDA SALGADO",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Rua Doutor SILVA BARROS,CENTRO,TAUBATE,12080-300,SP",
       "lat": -23.026089220663483,
       "lon": -45.55365829017745,
@@ -15681,6 +17182,7 @@
       "ddd": 16,
       "gn": "MARISTELA CAPARROZ DE LIRA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Ivone Anjos",
       "address": "Rua RUI BARBOSA,CENTRO,JABOTICABAL,14870-300,SP",
       "lat": -21.255322450770016,
       "lon": -48.31993996745602,
@@ -15726,6 +17228,7 @@
       "ddd": 18,
       "gn": "VANIA DIAS MALAMAN",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua Doutor MARIO SABINO,CENTRO,PENAPOLIS,16300-041,SP",
       "lat": -21.420084873987797,
       "lon": -50.07679710371936,
@@ -15771,6 +17274,7 @@
       "ddd": 19,
       "gn": "LEILA CRISTINA NABUCO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Avenida GUILHERME CAMPOS,JARDIM SANTA GENEBRA,CAMPINAS,13087-901,SP",
       "lat": -22.849089972862085,
       "lon": -47.062496069591816,
@@ -15816,6 +17320,7 @@
       "ddd": 13,
       "gn": "PAULA AZEVEDO TIBURCIO",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Praça INDEPENDENCIA,GONZAGA,SANTOS,11060-100,SP",
       "lat": -23.966873902653617,
       "lon": -46.33317393063268,
@@ -15861,6 +17366,7 @@
       "ddd": 19,
       "gn": "FREDERICO CARNEIRO SANTIAGO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua SENADOR VERGUEIRO,CENTRO,LIMEIRA,13480-005,SP",
       "lat": -22.562013679475196,
       "lon": -47.40049839019132,
@@ -15906,6 +17412,7 @@
       "ddd": 15,
       "gn": "GLAUCIA CAVALCANTE MARTINS",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Avenida ITAVUVU,JARDIM MARIA EUGENIA,SOROCABA,18074-385,SP",
       "lat": -23.456956108500503,
       "lon": -47.4837453478347,
@@ -15951,6 +17458,7 @@
       "ddd": 19,
       "gn": "VIVIAN GABRIELA SOARES MARTINS TOSTES",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua DO OSMIO,JARDIM MOLLON,SANTA BARBARA D'OESTE,13456-625,SP",
       "lat": -22.74812782262366,
       "lon": -47.36949361902115,
@@ -15996,6 +17504,7 @@
       "ddd": 19,
       "gn": "FREDERICO CARNEIRO SANTIAGO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Praça BARAO DE ARARAS,CENTRO,ARARAS,13600-040,SP",
       "lat": -22.35755757702752,
       "lon": -47.385199590197466,
@@ -16041,6 +17550,7 @@
       "ddd": 16,
       "gn": "RODRIGO PROSPERO FERREIRA DA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Ivone Anjos",
       "address": "Avenida DR. JOSE ANIBAL SOARES DE OLIVEIRA,CENTRO,ITUVERAVA,14500-000,SP",
       "lat": -20.33457000666353,
       "lon": -47.79097211207636,
@@ -16086,6 +17596,7 @@
       "ddd": 14,
       "gn": "JOAO PAULO VENDRAMINI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Michele Spina",
       "address": "Rua AMANDO DE BARROS,CENTRO,BOTUCATU,18600-050,SP",
       "lat": -22.88561403063636,
       "lon": -48.440695917171055,
@@ -16131,6 +17642,7 @@
       "ddd": 18,
       "gn": "NILTON JUNIOR FRANCISCO",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua Marechal FLORIANO,CENTRO,GUARARAPES,16700-000,SP",
       "lat": -21.25280779298936,
       "lon": -50.64467683255911,
@@ -16176,6 +17688,7 @@
       "ddd": 16,
       "gn": "MARISTELA CAPARROZ DE LIRA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Ivone Anjos",
       "address": "Rua NONHO LIVRAMENTO,CENTRO,MONTE ALTO,15910-000,SP",
       "lat": -21.26264470149093,
       "lon": -48.4979547190642,
@@ -16221,6 +17734,7 @@
       "ddd": 19,
       "gn": "RAFAEL MICHELINI MENONCELLO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua PRINCESA ISABEL,VILA RICCI,MOGI GUACU,13844-060,SP",
       "lat": -22.37621841443049,
       "lon": -46.94444121718636,
@@ -16266,6 +17780,7 @@
       "ddd": 19,
       "gn": "RODRIGO DE SOUZA ALBANO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Michele Spina",
       "address": "Avenida JOAO OSORIO,CENTRO,SAO JOAO DA BOA VISTA,13870-251,SP",
       "lat": -21.97807070073137,
       "lon": -46.79817571719782,
@@ -16311,6 +17826,7 @@
       "ddd": 12,
       "gn": "THIAGO BERNARDES VIEIRA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Michele Spina",
       "address": "Rua ALCIDES RAMOS NOGUEIRA,NOSSA SENHORA DO PERPETUO SOCORRO,PINDAMONHANGABA,12421-681,SP",
       "lat": -22.947879252698424,
       "lon": -45.47970336682198,
@@ -16356,6 +17872,7 @@
       "ddd": 18,
       "gn": "VANIA DIAS MALAMAN",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua BRASIL,CENTRO,DRACENA,17900-000,SP",
       "lat": -21.488534134087637,
       "lon": -51.53240855954176,
@@ -16401,6 +17918,7 @@
       "ddd": 16,
       "gn": "VAGO_DDD16 (Rosangela)",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Avenida DOM PEDRO I,IPIRANGA,RIBEIRAO PRETO,14055-630,SP",
       "lat": -21.15536224226569,
       "lon": -47.8197417325619,
@@ -16446,6 +17964,7 @@
       "ddd": 19,
       "gn": "FREDERICO CARNEIRO SANTIAGO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua CARLOS GOMES,CENTRO,LIMEIRA,13480-013,SP",
       "lat": -22.570797759381875,
       "lon": -47.40837615951013,
@@ -16491,6 +18010,7 @@
       "ddd": 14,
       "gn": "JOAO PAULO VENDRAMINI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Rafael Lopes",
       "address": "Rua GOMES DE FARIA,CENTRO,SAO MANUEL,18650-007,SP",
       "lat": -22.72923987534568,
       "lon": -48.569427690186245,
@@ -16536,6 +18056,7 @@
       "ddd": 13,
       "gn": "PAULA AZEVEDO TIBURCIO",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Avenida AYRTON SENNA DA SILVA,SITIO DO CAMPO,PRAIA GRANDE,11726-000,SP",
       "lat": -23.99667780977599,
       "lon": -46.40901751598927,
@@ -16581,6 +18102,7 @@
       "ddd": 16,
       "gn": "RODRIGO PROSPERO FERREIRA DA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Ivone Anjos",
       "address": "Rua N 01,CENTRO,ORLANDIA,14620-000,SP",
       "lat": -20.721525284977787,
       "lon": -47.88425546325495,
@@ -16626,6 +18148,7 @@
       "ddd": 12,
       "gn": "CAMILA DEOLINDA SALGADO",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Avenida SÃO JOÃO ,JARDIM DAS COLINAS,SAO JOSE DOS CAMPOS,12242-000,SP",
       "lat": -23.204193321257613,
       "lon": -45.90851757483168,
@@ -16671,6 +18194,7 @@
       "ddd": 12,
       "gn": "CAMILA DEOLINDA SALGADO",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Rua CARNEIRO DE SOUZA,CENTRO,TAUBATE,12010-070,SP",
       "lat": -23.02578577602563,
       "lon": -45.55609088833152,
@@ -16716,6 +18240,7 @@
       "ddd": 16,
       "gn": "VAGO_DDD16 (Rosangela)",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Avenida DA SAUDADE,CAMPOS ELISEOS,RIBEIRAO PRETO,14085-000,SP",
       "lat": -21.16475682680693,
       "lon": -47.80360763071575,
@@ -16761,6 +18286,7 @@
       "ddd": 14,
       "gn": "JOAO PAULO VENDRAMINI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Rafael Lopes",
       "address": "Rua BATISTA DE CARVALHO,CENTRO,BAURU,17010-000,SP",
       "lat": -22.322197907732694,
       "lon": -49.0713057208796,
@@ -16806,6 +18332,7 @@
       "ddd": 19,
       "gn": "DAVID GOMES NEGRAO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua LUIS CAMILO DE CAMARGO,REMANSO CAMPINEIRO,HORTOLANDIA,13184-420,SP",
       "lat": -22.86403747626206,
       "lon": -47.21537351901754,
@@ -16851,6 +18378,7 @@
       "ddd": 19,
       "gn": "RODRIGO DE SOUZA ALBANO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Michele Spina",
       "address": "Rua Coronel MARCAL,CENTRO,SAO JOSE DO RIO PARDO,13720-000,SP",
       "lat": -21.597516317366537,
       "lon": -46.89000369021948,
@@ -16896,6 +18424,7 @@
       "ddd": 16,
       "gn": "MARIA ROSÂNGELA DE JESUS",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Avenida BRASIL,VILA APARECIDA,FRANCA,14401-234,SP",
       "lat": -20.52633505661775,
       "lon": -47.382332132579336,
@@ -16941,6 +18470,7 @@
       "ddd": 13,
       "gn": "PAULA AZEVEDO TIBURCIO",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Praça BARAO DO RIO BRANCO,CENTRO,SAO VICENTE,11310-000,SP",
       "lat": -23.966837313966906,
       "lon": -46.38561198830293,
@@ -16986,6 +18516,7 @@
       "ddd": 16,
       "gn": "MARIA ROSÂNGELA DE JESUS",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Avenida RIO NEGRO,SAO MIGUEL,FRANCA,14406-005,SP",
       "lat": -20.547358762689424,
       "lon": -47.4170463614139,
@@ -17031,6 +18562,7 @@
       "ddd": 12,
       "gn": "THIAGO BERNARDES VIEIRA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Michele Spina",
       "address": "Rua Comendador RODRIGUES ALVES,CENTRO,GUARATINGUETA,12500-010,SP",
       "lat": -22.815364217131805,
       "lon": -45.19293980552428,
@@ -17076,6 +18608,7 @@
       "ddd": 14,
       "gn": "JOAO PAULO VENDRAMINI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Michele Spina",
       "address": "Rua QUINZE DE NOVEMBRO,VILA MAMEDINA,LENÇOIS PAULISTA,18681-038,SP",
       "lat": -22.598606727652925,
       "lon": -48.79964593252011,
@@ -17121,6 +18654,7 @@
       "ddd": 19,
       "gn": "RODRIGO DE SOUZA ALBANO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Michele Spina",
       "address": "Rua Coronel JOSE JULIO,CENTRO,CASA BRANCA,13700-000,SP",
       "lat": -21.77448356998615,
       "lon": -47.08332603254423,
@@ -17166,6 +18700,7 @@
       "ddd": 12,
       "gn": "CAMILA DEOLINDA SALGADO",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Rua RUBIAO JUNIOR,CENTRO,SAO JOSE DOS CAMPOS,12210-180,SP",
       "lat": -23.184230356507364,
       "lon": -45.88561784599709,
@@ -17211,6 +18746,7 @@
       "ddd": 19,
       "gn": "VIVIAN GABRIELA SOARES MARTINS TOSTES",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua FERNANDO CAMARGO,CENTRO,AMERICANA,13465-020,SP",
       "lat": -22.73851970524147,
       "lon": -47.32968891717543,
@@ -17256,6 +18792,7 @@
       "ddd": 19,
       "gn": "LEILA CRISTINA NABUCO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Avenida JOSE PAULINO,SANTA CECILIA,PAULINIA,13140-320,SP",
       "lat": -22.76184752726004,
       "lon": -47.15539754416402,
@@ -17301,6 +18838,7 @@
       "ddd": 19,
       "gn": "RAFAEL MICHELINI MENONCELLO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua CANDIDO BUENO,CENTRO,JAGUARIUNA,13910-033,SP",
       "lat": -22.706303236159638,
       "lon": -46.984556646011576,
@@ -17346,6 +18884,7 @@
       "ddd": 16,
       "gn": "VAGO_DDD 16 (Maristela)",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Rua INACIO FRANCO,CENTRO,MORRO AGUDO,14640-000,SP",
       "lat": -20.73209103532533,
       "lon": -48.058667759563086,
@@ -17391,6 +18930,7 @@
       "ddd": 17,
       "gn": "VITOR FERNANDO FARIA SARAVALLI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Outros VIA CONSELHEIRO ANTONIO PRADO,PEDRO CAVALINI,BARRETOS,14784-200,SP",
       "lat": -20.5733679894368,
       "lon": -48.55976311908353,
@@ -17436,6 +18976,7 @@
       "ddd": 19,
       "gn": "DAVID GOMES NEGRAO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua JOSE MARIA MIRANDA,CENTRO,SUMARE,13170-001,SP",
       "lat": -22.823077380806627,
       "lon": -47.26736077668907,
@@ -17481,6 +19022,7 @@
       "ddd": 19,
       "gn": "RAFAEL MICHELINI MENONCELLO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Michele Spina",
       "address": "Praça BERNARDINO DE CAMPOS,CENTRO,ITAPIRA,13970-005,SP",
       "lat": -22.435844844865745,
       "lon": -46.82218777485459,
@@ -17526,6 +19068,7 @@
       "ddd": 12,
       "gn": "THIAGO BERNARDES VIEIRA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Avenida ANDROMEDA,JARDIM SATELITE,SAO JOSE DOS CAMPOS,12230-000,SP",
       "lat": -23.22304350770872,
       "lon": -45.88775783323779,
@@ -17571,6 +19114,7 @@
       "ddd": 12,
       "gn": "CAMILA DEOLINDA SALGADO",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Avenida DEPUTADO BENEDITO MATARAZZO 9403,JARDIM PAULISTA,SAO JOSE DOS CAMPOS,12215-900,SP",
       "lat": -23.19971301123844,
       "lon": -45.88106120338003,
@@ -17616,6 +19160,7 @@
       "ddd": 19,
       "gn": "LEILA CRISTINA NABUCO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua TREZE DE MAIO,CENTRO,CAMPINAS,13010-070,SP",
       "lat": -22.9066222758574,
       "lon": -47.06270824785141,
@@ -17661,6 +19206,7 @@
       "ddd": 19,
       "gn": "FREDERICO CARNEIRO SANTIAGO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Avenida CONDE FRANCISCO MATARAZZO JUNIOR,VILA PAULISTA,RIO CLARO,13506-845,SP",
       "lat": -22.412776707169183,
       "lon": -47.55409021391864,
@@ -17706,6 +19252,7 @@
       "ddd": 19,
       "gn": "RODRIGO DE SOUZA ALBANO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua R 3,CENTRO,RIO CLARO,13500-161,SP",
       "lat": -22.405258001197897,
       "lon": -47.56118156136088,
@@ -17751,6 +19298,7 @@
       "ddd": 19,
       "gn": "VIVIAN GABRIELA SOARES MARTINS TOSTES",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Avenida NOSSA SENHORA DE FÁTIMA ,VILA ISRAEL,AMERICANA,13465-520,SP",
       "lat": -22.74626249123533,
       "lon": -47.30716510552638,
@@ -17796,6 +19344,7 @@
       "ddd": 13,
       "gn": "NELISA APARECIDA BARREIROS FERREIRA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Michele Spina",
       "address": "Avenida PREFEITO JONAS BANKS LEITE,CENTRO,REGISTRO,11900-000,SP",
       "lat": -24.49484473455917,
       "lon": -47.844731118967225,
@@ -17841,6 +19390,7 @@
       "ddd": 15,
       "gn": "VALERIA DE SOUZA ZAMBUZI",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Michele Spina",
       "address": "Rua CAPITAO ANTONIO LOUREIRO,CENTRO,PIEDADE,18170-000,SP",
       "lat": -23.712422233342703,
       "lon": -47.41655687666192,
@@ -17886,6 +19436,7 @@
       "ddd": 12,
       "gn": "NATAN DOS SANTOS MOREIRA LIMA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Michele Spina",
       "address": "Avenida FREI ORESTES GIRARDI,VILA ABERNESSIA,CAMPOS DO JORDAO,12467-012,SP",
       "lat": -22.741663310086505,
       "lon": -45.59557283922643,
@@ -17931,6 +19482,7 @@
       "ddd": 12,
       "gn": "NATAN DOS SANTOS MOREIRA LIMA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Avenida ARTHUR COSTA FILHO,CENTRO,CARAGUATATUBA,11660-005,SP",
       "lat": -23.62383202513607,
       "lon": -45.41062313248905,
@@ -17976,6 +19528,7 @@
       "ddd": 13,
       "gn": "PAULA AZEVEDO TIBURCIO",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Rua AMAZONAS,VILA ALICE (VICENTE DE CARVALHO),GUARUJA,11450-210,SP",
       "lat": -23.94270395467303,
       "lon": -46.29977947665482,
@@ -18021,6 +19574,7 @@
       "ddd": 19,
       "gn": "RODRIGO DE SOUZA ALBANO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Michele Spina",
       "address": "Avenida 29 DE AGOSTO,CENTRO,LEME,13610-210,SP",
       "lat": -22.1834586342079,
       "lon": -47.385031072318114,
@@ -18066,6 +19620,7 @@
       "ddd": 16,
       "gn": "MARISTELA CAPARROZ DE LIRA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Rua DOMINGOS ROBERT,CENTRO,IBITINGA,14940-000,SP",
       "lat": -21.758436126570448,
       "lon": -48.82967513069895,
@@ -18111,6 +19666,7 @@
       "ddd": 18,
       "gn": "NILTON JUNIOR FRANCISCO",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Avenida MANOEL GOULART,VILA SANTA HELENA,PRESIDENTE PRUDENTE,19060-000,SP",
       "lat": -22.11552025089077,
       "lon": -51.407733073018186,
@@ -18156,6 +19712,7 @@
       "ddd": 14,
       "gn": "JOAO PAULO VENDRAMINI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Michele Spina",
       "address": "Avenida MARGINAL 200,VILA REAL,BOTUCATU,18606-294,SP",
       "lat": -22.91458211787357,
       "lon": -48.46312053251059,
@@ -18201,6 +19758,7 @@
       "ddd": 18,
       "gn": "VANIA DIAS MALAMAN",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua PAES LEME,CENTRO,ANDRADINA,16900-010,SP",
       "lat": -20.90074552331042,
       "lon": -51.38237197674457,
@@ -18246,6 +19804,7 @@
       "ddd": 15,
       "gn": "VALERIA DE SOUZA ZAMBUZI",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Avenida JOSÉ JOAQUIM DE LACERDA ,VILA SANTANA,SOROCABA,18080-691,SP",
       "lat": -23.478488404840927,
       "lon": -47.45549473433948,
@@ -18291,6 +19850,7 @@
       "ddd": 18,
       "gn": "VANIA DIAS MALAMAN",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua BARAO DO RIO BRANCO,CENTRO,BIRIGUI,16200-001,SP",
       "lat": -21.29164335342536,
       "lon": -50.34142191906334,
@@ -18336,6 +19896,7 @@
       "ddd": 14,
       "gn": "VAGO (João)",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua CONSELHEIRO DANTAS,CENTRO,SANTA CRUZ DO RIO PARDO,18900-079,SP",
       "lat": -22.90246473499452,
       "lon": -49.6285449748408,
@@ -18381,6 +19942,7 @@
       "ddd": 14,
       "gn": "VAGO (João)",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Rafael Lopes",
       "address": "Rua GENERAL MARCONDES SALGADO,CHACARA DAS FLORES,BAURU,17013-113,SP",
       "lat": -22.31548509866775,
       "lon": -49.06641173252845,
@@ -18426,6 +19988,7 @@
       "ddd": 19,
       "gn": "DAVID GOMES NEGRAO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua SETE DE SETEMBRO,CENTRO,AMERICANA,13465-320,SP",
       "lat": -22.738403415103484,
       "lon": -47.33207999018617,
@@ -18471,6 +20034,7 @@
       "ddd": 15,
       "gn": "GLAUCIA CAVALCANTE MARTINS",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Michele Spina",
       "address": "Avenida BRASIL,CENTRO,CERQUILHO,18520-085,SP",
       "lat": -23.164311765424237,
       "lon": -47.74149458832742,
@@ -18516,6 +20080,7 @@
       "ddd": 16,
       "gn": "MARIA ROSÂNGELA DE JESUS",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Rua MAJOR CLAUDIANO,CENTRO,FRANCA,14400-690,SP",
       "lat": -20.5354811940608,
       "lon": -47.400288380733286,
@@ -18561,6 +20126,7 @@
       "ddd": 18,
       "gn": "VANIA DIAS MALAMAN",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Avenida MANOEL PARADA DE CARVALHO,CENTRO,VALPARAISO,16880-000,SP",
       "lat": -21.22487316142858,
       "lon": -50.86811263255996,
@@ -18606,6 +20172,7 @@
       "ddd": 14,
       "gn": "VAGO (João)",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Avenida PEDRO DE TOLEDO,CENTRO,PROMISSAO,16370-000,SP",
       "lat": -21.537668208004664,
       "lon": -49.85800691721042,
@@ -18651,6 +20218,7 @@
       "ddd": 16,
       "gn": "RODRIGO PROSPERO FERREIRA DA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Avenida PRESIDENTE KENNEDY,RIBEIRANIA,RIBEIRAO PRETO,14096-901,SP",
       "lat": -22.904755148880096,
       "lon": -47.09513925093386,
@@ -18696,6 +20264,7 @@
       "ddd": 13,
       "gn": "PAULA AZEVEDO TIBURCIO",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Rua FREI GASPAR,CENTRO,SAO VICENTE,11310-060,SP",
       "lat": -23.96737146475112,
       "lon": -46.38374021142664,
@@ -18741,6 +20310,7 @@
       "ddd": 12,
       "gn": "NATAN DOS SANTOS MOREIRA LIMA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Avenida DONA MARIA ALVES,CENTRO,UBATUBA,11690-156,SP",
       "lat": -23.43328892401727,
       "lon": -45.073536847835385,
@@ -18786,6 +20356,7 @@
       "ddd": 19,
       "gn": "VIVIAN GABRIELA SOARES MARTINS TOSTES",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua GOVERNADOR PEDRO DE TOLEDO,CENTRO,PIRACICABA,13400-070,SP",
       "lat": -22.72580758637875,
       "lon": -47.64786383067064,
@@ -18831,6 +20402,7 @@
       "ddd": 12,
       "gn": "NATAN DOS SANTOS MOREIRA LIMA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Rua Princesa Isabel,PEREQUE,ILHABELA,11630-067,SP",
       "lat": -23.815328711790997,
       "lon": -45.36626540549406,
@@ -18876,6 +20448,7 @@
       "ddd": 16,
       "gn": "RODRIGO PROSPERO FERREIRA DA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Ivone Anjos",
       "address": "Rua ANANIAS DA COSTA FREITAS,CENTRO,PONTAL,14180-000,SP",
       "lat": -21.028692737535167,
       "lon": -48.038102984698135,
@@ -18921,6 +20494,7 @@
       "ddd": 12,
       "gn": "THIAGO BERNARDES VIEIRA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Michele Spina",
       "address": "Avenida JUSCELINO KUBITSCHEK DE OLIVEIRA,CAMPO DO GALVAO,GUARATINGUETA,12505-300,SP",
       "lat": -22.812346283679783,
       "lon": -45.19773608507731,
@@ -18966,6 +20540,7 @@
       "ddd": 14,
       "gn": "VAGO (João)",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Rafael Lopes",
       "address": "Avenida TAMOIOS,CENTRO,TUPA,17600-005,SP",
       "lat": -21.930799545711192,
       "lon": -50.51519710370462,
@@ -19011,6 +20586,7 @@
       "ddd": 19,
       "gn": "RAFAEL MICHELINI MENONCELLO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Avenida ESTER,CENTRO,COSMOPOLIS,13150-029,SP",
       "lat": -22.645392150613745,
       "lon": -47.19738190368353,
@@ -19056,6 +20632,7 @@
       "ddd": 19,
       "gn": "WILLIAM DE OLIVEIRA BONFIM",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua RANGEL PESTANA,CENTRO,PIRACICABA,13400-385,SP",
       "lat": -22.7276251727768,
       "lon": -47.648571890186425,
@@ -19101,6 +20678,7 @@
       "ddd": 16,
       "gn": "VAGO_DDD16 (Rosangela)",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Ivone Anjos",
       "address": "Rua BARAO DO RIO BRANCO,CENTRO,SERRANA,14150-000,SP",
       "lat": -21.212171332572908,
       "lon": -47.5965853767359,
@@ -19146,6 +20724,7 @@
       "ddd": 19,
       "gn": "LEILA CRISTINA NABUCO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Avenida WASHINGTON LUIS,VILA MARIETA,CAMPINAS,13042-105,SP",
       "lat": -22.937301271403477,
       "lon": -47.04941173279673,
@@ -19191,6 +20770,7 @@
       "ddd": 17,
       "gn": "RENATO PIQUERA AZEVEDO",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Avenida 9 DE JULHO,CENTRO,JOSE BONIFACIO,15200-000,SP",
       "lat": -21.055898093839204,
       "lon": -49.68598334605934,
@@ -19236,6 +20816,7 @@
       "ddd": 16,
       "gn": "MARIA ROSÂNGELA DE JESUS",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Rua SAO SEBASTIAO,CENTRO,RIBEIRAO PRETO,14015-040,SP",
       "lat": -21.176758530031524,
       "lon": -47.80886536594879,
@@ -19281,6 +20862,7 @@
       "ddd": 14,
       "gn": "VAGO (João)",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Rafael Lopes",
       "address": "Avenida 15 DE NOVEMBRO,CENTRO,BARIRI,17250-000,SP",
       "lat": -22.07228350440789,
       "lon": -48.73686839020576,
@@ -19326,6 +20908,7 @@
       "ddd": 19,
       "gn": "WILLIAM DE OLIVEIRA BONFIM",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua LUIZ SPIANDORELLI NETO,LOTEAMENTO PAIQUERE,VALINHOS,13271-570,SP",
       "lat": -22.981460242465253,
       "lon": -47.012178219014,
@@ -19371,6 +20954,7 @@
       "ddd": 15,
       "gn": "VALERIA DE SOUZA ZAMBUZI",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Michele Spina",
       "address": "Rua ONZE DE AGOSTO,CENTRO,TATUI,18270-001,SP",
       "lat": -23.34742881862266,
       "lon": -47.84751623249748,
@@ -19416,6 +21000,7 @@
       "ddd": 13,
       "gn": "NELISA APARECIDA BARREIROS FERREIRA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Avenida MARINA,CENTRO,MONGAGUA,11730-000,SP",
       "lat": -24.092622194339565,
       "lon": -46.61942013247459,
@@ -19461,6 +21046,7 @@
       "ddd": 19,
       "gn": "VIVIAN GABRIELA SOARES MARTINS TOSTES",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Avenida LIMEIRA,AREAO,PIRACICABA,13414-018,SP",
       "lat": -22.70400074612934,
       "lon": -47.64977246178313,
@@ -19506,6 +21092,7 @@
       "ddd": 19,
       "gn": "DAVID GOMES NEGRAO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Michele Spina",
       "address": "Rua DONA BALBINA,CENTRO,PORTO FERREIRA,13660-000,SP",
       "lat": -21.85711397065081,
       "lon": -47.48023813069601,
@@ -19551,6 +21138,7 @@
       "ddd": 16,
       "gn": "VAGO_DDD 16 (Rodrigo)",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Rua FLORIANO PEIXOTO,CENTRO,BRODOWSKI,14340-000,SP",
       "lat": -20.992649946288893,
       "lon": -47.6607460614016,
@@ -19596,6 +21184,7 @@
       "ddd": 12,
       "gn": "THIAGO BERNARDES VIEIRA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Rua ANDORRA,JARDIM AMERICA,SAO JOSE DOS CAMPOS,12235-050,SP",
       "lat": -23.23642089079618,
       "lon": -45.89775757667651,
@@ -19641,6 +21230,7 @@
       "ddd": 17,
       "gn": "RENATO PIQUERA AZEVEDO",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Rafael Lopes",
       "address": "Rua JOÃO PACHECO DE LIMA,CENTRO,AURIFLAMA,15350-000,SP",
       "lat": -20.68727682493542,
       "lon": -50.55334549024512,
@@ -19686,6 +21276,7 @@
       "ddd": 16,
       "gn": "MARISTELA CAPARROZ DE LIRA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Rua NOVE DE JULHO,CENTRO,SAO CARLOS,13560-042,SP",
       "lat": -22.020921249561606,
       "lon": -47.89236435952644,
@@ -19731,6 +21322,7 @@
       "ddd": 16,
       "gn": "MARISTELA CAPARROZ DE LIRA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Ivone Anjos",
       "address": "Rua RUI BARBOSA,CENTRO,MATAO,15990-030,SP",
       "lat": -21.603107875463657,
       "lon": -48.364270461384265,
@@ -19776,6 +21368,7 @@
       "ddd": 19,
       "gn": "DAVID GOMES NEGRAO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Michele Spina",
       "address": "Rua Coronel ARTHUR WHITAKER,CENTRO,DESCALVADO,13690-000,SP",
       "lat": -21.907197052187325,
       "lon": -47.61969893254041,
@@ -19821,6 +21414,7 @@
       "ddd": 17,
       "gn": "VITOR FERNANDO FARIA SARAVALLI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Rafael Lopes",
       "address": "Rua JOSE BONIFACIO,CENTRO,VIRADOURO,14740-000,SP",
       "lat": -20.870803559053822,
       "lon": -48.29638820373465,
@@ -19866,6 +21460,7 @@
       "ddd": 18,
       "gn": "NILTON JUNIOR FRANCISCO",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua CARLOS PEREIRA DA SILVA,GUANABARA,ARACATUBA,16026-037,SP",
       "lat": -21.211979638013283,
       "lon": -50.46994681906556,
@@ -19911,6 +21506,7 @@
       "ddd": 14,
       "gn": "VAGO (João)",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Rafael Lopes",
       "address": "Avenida DR. QUINZINHO,CHACARA PECCIOLI,JAU,17210-110,SP",
       "lat": -22.296772726691707,
       "lon": -48.54588208835332,
@@ -19956,6 +21552,7 @@
       "ddd": 14,
       "gn": "JOAO PAULO VENDRAMINI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua DOS TUCUNARES,JARDIM MARIA MARTHA,MARILIA,17057-280,SP",
       "lat": -22.1862293314832,
       "lon": -49.96706013437794,
@@ -20001,6 +21598,7 @@
       "ddd": 16,
       "gn": "RODRIGO PROSPERO FERREIRA DA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Rua BARAO DO RIO BRANCO,CENTRO,SERTAOZINHO,14160-570,SP",
       "lat": -21.13865107716349,
       "lon": -47.98860987731172,
@@ -20046,6 +21644,7 @@
       "ddd": 14,
       "gn": "VAGO (João)",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Rafael Lopes",
       "address": "Rua LOURENCO PRADO,CENTRO,JAU,17201-000,SP",
       "lat": -22.295325724945087,
       "lon": -48.5570598306832,
@@ -20091,6 +21690,7 @@
       "ddd": 17,
       "gn": "ANA CLINIO DA SILVA",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua AMAZONAS,CENTRO,VOTUPORANGA,15500-004,SP",
       "lat": -20.422183709922688,
       "lon": -49.97433011908769,
@@ -20136,6 +21736,7 @@
       "ddd": 17,
       "gn": "ANA CLINIO DA SILVA",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Rafael Lopes",
       "address": "Rua GENERAL GLICERIO,CENTRO,SAO JOSE DO RIO PRETO,15060-000,SP",
       "lat": -20.810437000800302,
       "lon": -49.381225530725686,
@@ -20181,6 +21782,7 @@
       "ddd": 14,
       "gn": "JOAO PAULO VENDRAMINI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua NOVE DE JULHO,CENTRO,MARILIA,17500-002,SP",
       "lat": -22.217780199261767,
       "lon": -49.95023097670701,
@@ -20226,6 +21828,7 @@
       "ddd": 17,
       "gn": "VITOR FERNANDO FARIA SARAVALLI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua Coronel JOAO MANOEL,CENTRO,BEBEDOURO,14700-020,SP",
       "lat": -20.94880522685514,
       "lon": -48.47920966140276,
@@ -20271,6 +21874,7 @@
       "ddd": 17,
       "gn": "ANA CLINIO DA SILVA",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Rafael Lopes",
       "address": "Avenida BRIGADEIRO FARIA LIMA,JARDIM MORUMBI,SAO JOSE DO RIO PRETO,15090-900,SP",
       "lat": -20.83454360776567,
       "lon": -49.398885519076224,
@@ -20316,6 +21920,7 @@
       "ddd": 16,
       "gn": "MARIA ROSÂNGELA DE JESUS",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Rua MAJOR CLAUDIANO,CENTRO,FRANCA,14400-690,SP",
       "lat": -20.53677726104689,
       "lon": -47.40042785558982,
@@ -20361,6 +21966,7 @@
       "ddd": 14,
       "gn": "JOAO PAULO VENDRAMINI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Rafael Lopes",
       "address": "Rua HENRIQUE SAVI,VILA AVIACAO,BAURU,17011-900,SP",
       "lat": -22.34255817351412,
       "lon": -49.04928267471159,
@@ -20406,6 +22012,7 @@
       "ddd": 16,
       "gn": "MARISTELA CAPARROZ DE LIRA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Avenida ALBERTO BENASSI,JARDIM DOS MANACAS,ARARAQUARA,14804-300,SP",
       "lat": -21.782944887785536,
       "lon": -48.20134185953333,
@@ -20451,6 +22058,7 @@
       "ddd": 18,
       "gn": "NILTON JUNIOR FRANCISCO",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua 9 DE JULHO,CENTRO,MIRANDOPOLIS,16800-000,SP",
       "lat": -21.129505637874704,
       "lon": -51.104180247903045,
@@ -20496,6 +22104,7 @@
       "ddd": 19,
       "gn": "WILLIAM DE OLIVEIRA BONFIM",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua QUINZE DE NOVEMBRO,CENTRO,INDAIATUBA,13330-070,SP",
       "lat": -23.083778723262604,
       "lon": -47.21321291499045,
@@ -20541,6 +22150,7 @@
       "ddd": 16,
       "gn": "MARISTELA CAPARROZ DE LIRA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Rua NOVE DE JULHO,CENTRO,ARARAQUARA,14801-295,SP",
       "lat": -21.79149012617256,
       "lon": -48.17478064603838,
@@ -20586,6 +22196,7 @@
       "ddd": 16,
       "gn": "RODRIGO PROSPERO FERREIRA DA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Rua SAO SEBASTIAO,CENTRO,RIBEIRAO PRETO,14015-040,SP",
       "lat": -21.175407940393853,
       "lon": -47.81028157218445,
@@ -20631,6 +22242,7 @@
       "ddd": 17,
       "gn": "VITOR FERNANDO FARIA SARAVALLI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Avenida 19,CENTRO,BARRETOS,14780-300,SP",
       "lat": -20.55934567099938,
       "lon": -48.569740146073,
@@ -20676,6 +22288,7 @@
       "ddd": 14,
       "gn": "VAGO (João)",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua RIO BRANCO,CENTRO,LINS,16400-010,SP",
       "lat": -21.67220236032993,
       "lon": -49.75195257487675,
@@ -20721,6 +22334,7 @@
       "ddd": 15,
       "gn": "GLAUCIA CAVALCANTE MARTINS",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Avenida GISELE CONSTANTINO,PARQUE BELA VISTA,VOTORANTIM,18110-650,SP",
       "lat": -23.53349865570841,
       "lon": -47.46426061288578,
@@ -20766,6 +22380,7 @@
       "ddd": 16,
       "gn": "MARIA ROSÂNGELA DE JESUS",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Ivone Anjos",
       "address": "Rua Coronel JOAQUIM ROSA,CENTRO,BATATAIS,14300-001,SP",
       "lat": -20.890545415520645,
       "lon": -47.58310395955854,
@@ -20811,6 +22426,7 @@
       "ddd": 16,
       "gn": "MARIA ROSÂNGELA DE JESUS",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Avenida CORONEL FERNANDO FERREIRA LEITE,JARDIM CALIFORNIA,RIBEIRAO PRETO,14026-900,SP",
       "lat": -21.2117907895564,
       "lon": -47.81596531906583,
@@ -20856,6 +22472,7 @@
       "ddd": 15,
       "gn": "GLAUCIA CAVALCANTE MARTINS",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Avenida AFONSO VERGUEIRO,SOROCABA SHOPPING,SOROCABA,18035-900,SP",
       "lat": -23.496693431411217,
       "lon": -47.46769686785073,
@@ -20901,6 +22518,7 @@
       "ddd": 15,
       "gn": "GLAUCIA CAVALCANTE MARTINS",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Rua Doutor BRAGUINHA,CENTRO,SOROCABA,18010-120,SP",
       "lat": -23.49966763774347,
       "lon": -47.45797715948211,
@@ -20946,6 +22564,7 @@
       "ddd": 17,
       "gn": "RENATO PIQUERA AZEVEDO",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua BRASIL,CENTRO,CATANDUVA,15800-030,SP",
       "lat": -21.137006847491136,
       "lon": -48.97314571906768,
@@ -20991,6 +22610,7 @@
       "ddd": 17,
       "gn": "RENATO PIQUERA AZEVEDO",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Rafael Lopes",
       "address": "Rua 9 DE JULHO,CENTRO,MIRASSOL,15130-067,SP",
       "lat": -20.818424998653924,
       "lon": -49.51345177490112,
@@ -21036,6 +22656,7 @@
       "ddd": 13,
       "gn": "PAULA AZEVEDO TIBURCIO",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Rua JOAO PESSOA,CENTRO,SANTOS,11013-000,SP",
       "lat": -23.93469101636772,
       "lon": -46.328036474809146,
@@ -21081,6 +22702,7 @@
       "ddd": 12,
       "gn": "THIAGO BERNARDES VIEIRA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Rua OLIMPIO CATAO,CENTRO,JACAREI,12308-051,SP",
       "lat": -23.3040015400973,
       "lon": -45.962460859488125,
@@ -21126,6 +22748,7 @@
       "ddd": 16,
       "gn": "VAGO_DDD 16 (Maristela)",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Ivone Anjos",
       "address": "Rua XV DE NOVEMBRO,CENTRO,CRAVINHOS,14140-000,SP",
       "lat": -21.34091312381836,
       "lon": -47.73428581721612,
@@ -21171,6 +22794,7 @@
       "ddd": 16,
       "gn": "VAGO_DDD16 (Rosangela)",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Ivone Anjos",
       "address": "Rua PRESIDENTE VARGAS,JARDIM BOA VISTA,SANTA ROSA DE VITERBO,14270-000,SP",
       "lat": -21.484078762494143,
       "lon": -47.364609174882204,
@@ -21216,6 +22840,7 @@
       "ddd": 19,
       "gn": "RAFAEL MICHELINI MENONCELLO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua FRANCISCO FRANCO DE GODOY BUENO,IMOVEL PEDREGULHAL,MOGI GUACU,13845-180,SP",
       "lat": -22.375542171905,
       "lon": -46.94331178568265,
@@ -21261,6 +22886,7 @@
       "ddd": 13,
       "gn": "PAULA AZEVEDO TIBURCIO",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Camila Stefanelli",
       "address": "Avenida JOAQUIM MIGUEL COUTO,VILA PAULISTA,CUBATAO,11510-010,SP",
       "lat": -23.88439427743777,
       "lon": -46.42115954597571,
@@ -21306,6 +22932,7 @@
       "ddd": 17,
       "gn": "RENATO PIQUERA AZEVEDO",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Avenida ENGENHEIRO JOSE NELSON MACHADO,CENTRO,CATANDUVA,15800-200,SP",
       "lat": -21.13704679764965,
       "lon": -48.97311353289272,
@@ -21351,6 +22978,7 @@
       "ddd": 19,
       "gn": "FREDERICO CARNEIRO SANTIAGO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Michele Spina",
       "address": "Rua ADEMAR DE BARROS,CENTRO,SAO JOAO DA BOA VISTA,13870-080,SP",
       "lat": -21.968634684442826,
       "lon": -46.79654944603333,
@@ -21396,6 +23024,7 @@
       "ddd": 19,
       "gn": "FREDERICO CARNEIRO SANTIAGO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Avenida DE CILLO,CENTRO,SANTA BARBARA D'OESTE,13450-041,SP",
       "lat": -22.753322689232423,
       "lon": -47.41277550368029,
@@ -21441,6 +23070,7 @@
       "ddd": 15,
       "gn": "VALERIA DE SOUZA ZAMBUZI",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Avenida DOUTOR AFONSO VERGUEIRO,CENTRO,SOROCABA,18035-370,SP",
       "lat": -23.49590337168556,
       "lon": -47.465399761328094,
@@ -21486,6 +23116,7 @@
       "ddd": 19,
       "gn": "DAVID GOMES NEGRAO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Praça DAS BANDEIRAS,CENTRO,SUMARE,13170-400,SP",
       "lat": -22.82379478118612,
       "lon": -47.27046581901884,
@@ -21531,6 +23162,7 @@
       "ddd": 19,
       "gn": "WILLIAM DE OLIVEIRA BONFIM",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua XV DE NOVEMBRO,CENTRO,CAPIVARI,13360-000,SP",
       "lat": -22.99790910519308,
       "lon": -47.50414383250808,
@@ -21576,6 +23208,7 @@
       "ddd": 19,
       "gn": "WILLIAM DE OLIVEIRA BONFIM",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua JOSE CAMILO DE CAMARGO,REMANSO CAMPINEIRO,HORTOLANDIA,13184-494,SP",
       "lat": -22.86354945033211,
       "lon": -47.21370146987842,
@@ -21621,6 +23254,7 @@
       "ddd": 14,
       "gn": "JOAO PAULO VENDRAMINI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua PARANA,CENTRO,OURINHOS,19900-020,SP",
       "lat": -22.979910231046176,
       "lon": -49.868746103673736,
@@ -21666,6 +23300,7 @@
       "ddd": 16,
       "gn": "RODRIGO PROSPERO FERREIRA DA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Rua BARAO DO RIO BRANCO,CENTRO,SERTAOZINHO,14160-570,SP",
       "lat": -21.137930578787664,
       "lon": -47.98956474363727,
@@ -21711,6 +23346,7 @@
       "ddd": 17,
       "gn": "VITOR FERNANDO FARIA SARAVALLI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua SAO JOAO,PATRIMONIO DE SAO JOAO BATISTA,OLIMPIA,15400-065,SP",
       "lat": -20.73965234334057,
       "lon": -48.91443520558418,
@@ -21756,6 +23392,7 @@
       "ddd": 19,
       "gn": "RODRIGO DE SOUZA ALBANO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Rua WASHINGTON LUIZ,CENTRO,AMERICANA,13465-520,SP",
       "lat": -22.739772992107675,
       "lon": -47.33231171717535,
@@ -21801,6 +23438,7 @@
       "ddd": 15,
       "gn": "VALERIA DE SOUZA ZAMBUZI",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Michele Spina",
       "address": "Rua Doutor COUTINHO,CENTRO,ITAPETININGA,18200-358,SP",
       "lat": -23.57763474847181,
       "lon": -48.03779124598509,
@@ -21846,6 +23484,7 @@
       "ddd": 14,
       "gn": "VAGO (João)",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua CARLOS FERRARI,FERRAROPOLIS,GARCA,17400-000,SP",
       "lat": -22.2112876563984,
       "lon": -49.654957447872015,
@@ -21891,6 +23530,7 @@
       "ddd": 19,
       "gn": "WILLIAM DE OLIVEIRA BONFIM",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Alameda FILTROS MANN,JARDIM TROPICAL,INDAIATUBA,13344-580,SP",
       "lat": -23.116138498103663,
       "lon": -47.219448961339765,
@@ -21936,6 +23576,7 @@
       "ddd": 12,
       "gn": "NATAN DOS SANTOS MOREIRA LIMA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Michele Spina",
       "address": "Avenida NESRALLA RUBEZ,CENTRO,CRUZEIRO,12701-000,SP",
       "lat": -22.576875760183317,
       "lon": -44.95917907485045,
@@ -21981,6 +23622,7 @@
       "ddd": 17,
       "gn": "VITOR FERNANDO FARIA SARAVALLI",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Avenida ONZE,CENTRO,GUAIRA,14790-000,SP",
       "lat": -20.32007999711733,
       "lon": -48.31074426142007,
@@ -22026,6 +23668,7 @@
       "ddd": 16,
       "gn": "VAGO_DDD 16 (Maristela)",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Praça RUY BARBOSA,CENTRO,IGARAPAVA,14540-000,SP",
       "lat": -20.039536671602605,
       "lon": -47.74770993074697,
@@ -22071,6 +23714,7 @@
       "ddd": 15,
       "gn": "GLAUCIA CAVALCANTE MARTINS",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Rafael Lopes",
       "address": "Rua LARA CAMPOS,CENTRO,TIETE,18530-000,SP",
       "lat": -23.102899648013345,
       "lon": -47.7154532343508,
@@ -22116,6 +23760,7 @@
       "ddd": 18,
       "gn": "NILTON JUNIOR FRANCISCO",
       "gf": "VIVIANE TANGARI LEMOS PONTES",
+      "gt": "Ivone Anjos",
       "address": "Rua Doutor JOSE FOZ,CENTRO,PRESIDENTE PRUDENTE,19010-041,SP",
       "lat": -22.123850518735946,
       "lon": -51.38454270369885,
@@ -22161,6 +23806,7 @@
       "ddd": 15,
       "gn": "GLAUCIA CAVALCANTE MARTINS",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Michele Spina",
       "address": "Rua SAO ROQUE,CENTRO,BOITUVA,18550-077,SP",
       "lat": -23.284026408451176,
       "lon": -47.67175244783992,
@@ -22206,6 +23852,7 @@
       "ddd": 19,
       "gn": "LEILA CRISTINA NABUCO",
       "gf": "HELBER EMILIANO ZAROS",
+      "gt": "Silvio Borges",
       "address": "Avenida IGUATEMI,VILA BRANDINA,CAMPINAS,13092-902,SP",
       "lat": -22.892485427883614,
       "lon": -47.02840387894928,
@@ -22251,6 +23898,7 @@
       "ddd": 12,
       "gn": "THIAGO BERNARDES VIEIRA",
       "gf": "RAFAEL SILVEIRA DE CARVALHO ",
+      "gt": "Michele Spina",
       "address": "Rua DOS EXPEDICIONARIOS,CENTRO,PINDAMONHANGABA,12400-370,SP",
       "lat": -22.926211246057303,
       "lon": -45.46167426134541,
@@ -22296,6 +23944,7 @@
       "ddd": 16,
       "gn": "VAGO_DDD 16 (Maristela)",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Ivone Anjos",
       "address": "Rua SENADOR JOAQUIM MIGUEL,CENTRO,JARDINOPOLIS,14680-000,SP",
       "lat": -21.020994836273776,
       "lon": -47.76939549023582,
@@ -22341,6 +23990,7 @@
       "ddd": 16,
       "gn": "RODRIGO PROSPERO FERREIRA DA SILVA",
       "gf": "EDUARDO ALVES DE QUEIROZ",
+      "gt": "Ivone Anjos",
       "address": "Rua SAO PAULO,CENTRO,SAO JOAQUIM DA BARRA,14600-000,SP",
       "lat": -20.5798449772497,
       "lon": -47.85960694607263,

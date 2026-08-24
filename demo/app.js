@@ -16,6 +16,11 @@ function firstName(n){if(String(n).startsWith('VAGO'))return n;return String(n).
 function initials(n){const b=String(n||'').trim().split(/\s+/);return b.length>1?(b[0][0]+b[b.length-1][0]).toUpperCase():String(n||'?').slice(0,2).toUpperCase()}
 function cargoClass(c){return c==='Cargo III'?'cargo-iii':c==='Cargo II'?'cargo-ii':c==='Cargo I'?'cargo-i':'cargo-vago'}
 function gfColor(data,n){const i=data.gfs.findIndex(x=>x.name===n);return GF_COLORS[Math.max(0,i)%GF_COLORS.length]}
+function matchesGt(item,gt){return gt==='Todos'||item.gt===gt||(item.gtNames&&item.gtNames.includes(gt))}
+function gfsForGt(data,gt){return data.gfs.filter(g=>matchesGt(g,gt))}
+function scopeStores(data,gt,gf){return data.stores.filter(s=>matchesGt(s,gt)&&(gf==='Todos'||s.gf===gf))}
+function scopeName(gt,gf){if(gt==='Todos'&&gf==='Todos')return 'Todos os Territoriais';if(gf!=='Todos')return firstName(gf);return 'GT '+firstName(gt)}
+function uniqueCount(items,key){return new Set(items.map(x=>x[key]).filter(Boolean)).size}
 function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function metricLabel(k){const m=METRICS.find(x=>x[0]===k);return m?m[1]:k}
 function officialStatus(store,product){const p=store.performance[product];return p?p.status:'Sem dado'}
@@ -31,6 +36,91 @@ function googleDirectionsUrl(route){
   let u='https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(origin)+'&destination='+encodeURIComponent(dest)+'&travelmode=driving';
   if(way)u+='&waypoints='+encodeURIComponent(way);
   return u;
+}
+function haversineKm(a,b){
+  const r=6371.0088,lat1=a.lat*Math.PI/180,lat2=b.lat*Math.PI/180,dlat=(b.lat-a.lat)*Math.PI/180,dlon=(b.lon-a.lon)*Math.PI/180;
+  const x=Math.sin(dlat/2)**2+Math.cos(lat1)*Math.cos(lat2)*Math.sin(dlon/2)**2;
+  return 2*r*Math.asin(Math.min(1,Math.sqrt(x)));
+}
+function routeDistanceKm(route){
+  let total=0;
+  for(let i=1;i<(route||[]).length;i++)total+=haversineKm(route[i-1],route[i]);
+  return Math.round(total*10)/10;
+}
+function routePriorityScore(store,product){
+  if(!product)return Math.max(...METRICS.map(([key])=>routePriorityScore(store,key)));
+  const p=store.performance[product],v=p&&p.value,st=p&&p.status;
+  if(st==='Zerado')return 500;
+  if(st==='Crítico')return 400-(v||0);
+  if(st==='Baixa Performance')return 300-(v||0);
+  if(st==='Oportunidade')return 200-(v||0);
+  if(st==='Produtivo')return 100-(v||0)/10;
+  return 0;
+}
+function prioritySortedStores(stores,product){
+  return stores.slice().sort((a,b)=>routePriorityScore(b,product)-routePriorityScore(a,product)||String(a.city).localeCompare(String(b.city))||String(a.code).localeCompare(String(b.code)));
+}
+function buildVisitRoute(stores,product){
+  const points=prioritySortedStores(stores.filter(s=>Number.isFinite(s.lat)&&Number.isFinite(s.lon)),product);
+  if(points.length<3)return points;
+  const route=[points.shift()];
+  while(points.length){
+    const current=route[route.length-1];
+    const idx=points.reduce((best,_,i)=>haversineKm(current,points[i])<haversineKm(current,points[best])?i:best,0);
+    route.push(points.splice(idx,1)[0]);
+  }
+  return route;
+}
+function routeStoreWorstMetric(store){
+  return METRICS.map(([key,label])=>({key,label,p:store.performance[key],score:routePriorityScore(store,key)}))
+    .filter(x=>x.p&&x.p.value!=null)
+    .sort((a,b)=>b.score-a.score)[0]||null;
+}
+function routeStoreStatus(store){
+  const worst=routeStoreWorstMetric(store);
+  return worst?worst.p.status:'Sem dado';
+}
+function routeStoreStatusText(store){
+  const worst=routeStoreWorstMetric(store);
+  return worst?worst.p.status+' • '+worst.label+' '+pctText(worst.p.value):'Sem dado';
+}
+function routeStatsForStores(stores){
+  let zero=0,critical=0,low=0,opportunity=0,productive=0,valid=0;
+  stores.forEach(s=>{
+    const st=routeStoreStatus(s);
+    if(st==='Sem dado')return;
+    valid++;
+    if(st==='Zerado')zero++;
+    else if(st==='Crítico')critical++;
+    else if(st==='Baixa Performance')low++;
+    else if(st==='Oportunidade')opportunity++;
+    else if(st==='Produtivo')productive++;
+  });
+  return {zero,critical,low,below80:critical+low,opportunity,productive,valid,productivePct:valid?Math.round(productive/valid*1000)/10:0};
+}
+function routeStatusSummary(stores,product){
+  const st=product?statsForStores(stores,product):routeStatsForStores(stores);
+  return attentionBreakdownText(st)+' • '+st.productive+' produtivas';
+}
+function statusClassName(status){
+  if(status==='Zerado')return 'zero';
+  if(status==='Crítico')return 'critical';
+  if(status==='Baixa Performance')return 'low';
+  if(status==='Oportunidade')return 'opp';
+  if(status==='Produtivo')return 'prod';
+  return 'nodata';
+}
+function productCell(store,key){
+  const p=store.performance[key]||{},value=p.value==null?'sem %':pctText(p.value),st=p.status||'Sem dado';
+  return `<td class="${statusClassName(st)}"><b>${esc(value)}</b><span>${esc(st)}</span></td>`;
+}
+function exportRoutePdf(route,context){
+  const title='Roteiro de visitas';
+  const rows=route.map((s,i)=>`<tr><td>${i+1}</td><td><b>${esc(s.code)}</b><br><span>${esc(s.name)}</span></td><td>${esc(s.city)}<br><span>${esc(s.group)}</span></td><td>${esc(firstName(s.gn))}<br><span>${esc(firstName(s.gf))}</span></td>${METRICS.map(([key])=>productCell(s,key)).join('')}</tr>`).join('');
+  const win=window.open('','_blank');
+  if(!win)return;
+  win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${title}</title><style>body{font-family:Segoe UI,Arial,sans-serif;margin:18px;color:#252525}h1{margin:0 0 8px;font-size:22px}.export-info{margin:0 0 12px;color:#555;font-size:11px;line-height:1.45}.export-info b{color:#252525}table{width:100%;border-collapse:collapse;margin-top:10px}th{background:#252525;color:#fff;text-align:left;font-size:9px;padding:6px}td{border-bottom:1px solid #e5e5e5;font-size:9px;padding:6px;vertical-align:top}td span{color:#666;font-size:8px}td b{font-size:10px}.zero{background:#f3f4f6}.critical{background:#fee2e2}.low{background:#ffedd5}.opp{background:#fef9c3}.prod{background:#dcfce7}.nodata{background:#f8fafc}@media print{body{margin:12px}tr{page-break-inside:avoid}}</style></head><body><h1>${title}</h1><p class="export-info"><b>Data de exportação:</b> ${new Date().toLocaleDateString('pt-BR')}<br><b>Filtros selecionados:</b> ${esc(context)}</p><table><thead><tr><th>#</th><th>Loja</th><th>Cidade / Grupo</th><th>GN / GF</th>${METRICS.map(([,label])=>`<th>${esc(label)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table><script>window.onload=function(){setTimeout(function(){window.print()},250)}</script></body></html>`);
+  win.document.close();
 }
 function statsForStores(stores,product){
   let zero=0,critical=0,low=0,opportunity=0,productive=0,high=0,valid=0;
@@ -55,7 +145,7 @@ function problemRanking(stores,product,keyFn){
   return Object.keys(groups).map(name=>{
     const stats=statsForStores(groups[name],product);
     return {name,stores:groups[name].length,stats,problem:stats.zero+stats.below80,productivePct:stats.productivePct};
-  }).sort((a,b)=>b.problem-a.problem||b.stats.zero-a.stats.zero||b.stats.critical-a.stats.critical||b.stats.low-a.stats.low||b.stats.opportunity-a.stats.opportunity||b.stores-a.stores);
+  }).sort((a,b)=>b.stats.zero-a.stats.zero||b.problem-a.problem||b.stats.critical-a.stats.critical||b.stats.low-a.stats.low||b.stats.opportunity-a.stats.opportunity||b.stores-a.stores);
 }
 function pctText(v){return v==null?'sem %':Number(v).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'%'}
 function attentionBreakdownText(stats){
@@ -95,7 +185,7 @@ function Card({title,subtitle,children,action,className}){
     children
   );
 }
-function PageHead({eyebrow,title,text,right}){return h('div',{className:'page-head'},h('div',null,h('span',{className:'eyebrow'},eyebrow),h('h1',null,title),h('p',null,text)),right||null)}
+function PageHead({eyebrow,title,text,right}){return h('div',{className:'page-head'},h('div',null,eyebrow&&h('span',{className:'eyebrow'},eyebrow),h('h1',null,title),text&&h('p',null,text)),right||null)}
 function ProductTabs({product,setProduct,compact}){return h('div',{className:'product-tabs '+(compact?'compact':'')},...METRICS.map(m=>h('button',{key:m[0],className:product===m[0]?'active':'',onClick:()=>setProduct(m[0])},m[1])))}
 function StatCard({label,value,kind,sub}){return h('div',{className:'status-card '+kind},h('span',null,label),h('b',null,value),sub&&h('small',null,sub))}
 function GfCard({data,gf,onClick,active}){
@@ -105,14 +195,21 @@ function GfCard({data,gf,onClick,active}){
     h('div',{className:'profile-link'},active?'Filial selecionada':'Filtrar visão →')
   );
 }
+function GtCard({gt,onClick,active}){
+  return h('button',{className:'profile-card gt-card '+(active?'selected':''),style:{'--accent':'#252525'},onClick:()=>onClick(gt)},
+    h('div',{className:'profile-top'},h('div',{className:'avatar lg',style:{'--avatar':'#252525'}},h('span',{className:'avatar-initials'},gt.initials||initials(gt.name))),h('div',null,h('span',{className:'eyebrow'},'Gerente Territorial'),h('h4',null,firstName(gt.name)))),
+    h('div',{className:'profile-kpis'},...[[gt.gfs,'GFs'],[gt.gns,'GNs'],[gt.stores,'Lojas'],[gt.cities,'Cidades']].map((x,i)=>h('div',{key:i},h('b',null,x[0]),h('span',null,x[1])))),
+    h('div',{className:'profile-link'},active?'Territorial selecionado':'Filtrar território →')
+  );
+}
 class MapBox extends React.Component{
   constructor(props){super(props);this.mapId='leaflet-'+Math.random().toString(36).slice(2);this.map=null}
   componentDidMount(){this.draw()}
-  componentDidUpdate(prev){if(prev.stores!==this.props.stores||prev.product!==this.props.product||prev.route!==this.props.route)this.draw()}
+  componentDidUpdate(prev){if(prev.stores!==this.props.stores||prev.product!==this.props.product||prev.route!==this.props.route||prev.statusMode!==this.props.statusMode)this.draw()}
   componentWillUnmount(){if(this.map)this.map.remove()}
   draw(){
     if(!window.L)return;
-    const data=this.props.data,product=this.props.product||'bl',list=this.props.stores||data.stores,route=this.props.route||null;
+    const data=this.props.data,product=this.props.product||'bl',list=this.props.stores||data.stores,route=this.props.route||null,statusMode=this.props.statusMode||'product';
     const valid=list.filter(s=>Number.isFinite(s.lat)&&Number.isFinite(s.lon));
     if(this.map){this.map.remove();this.map=null}
     this.map=L.map(this.mapId,{preferCanvas:true});
@@ -120,12 +217,13 @@ class MapBox extends React.Component{
     const bounds=[];
     valid.forEach(s=>{
       bounds.push([s.lat,s.lon]);
-      const st=visualStatus(s,product),border=PERF_COLORS[st]||'#94A3B8',fill=gfColor(data,s.gf);
+      const st=statusMode==='route'?routeStoreStatus(s):visualStatus(s,product),border=PERF_COLORS[st]||'#94A3B8',fill=gfColor(data,s.gf);
+      const statusLabel=statusMode==='route'?'Pior status':metricLabel(product);
       const html='<div class="store-map-pin" style="background:'+fill+';border-color:'+border+'"><span>'+statusSymbol(st)+'</span></div>';
       const icon=L.divIcon({className:'store-map-pin-wrap',html,iconSize:[24,24],iconAnchor:[12,12]});
       L.marker([s.lat,s.lon],{icon}).addTo(this.map)
         .bindTooltip(esc(s.code)+' • '+esc(s.city)+' • '+esc(st),{direction:'top'})
-        .bindPopup('<div class="map-popup"><b>'+esc(s.code)+'</b><span>'+esc(s.city)+' • DDD '+esc(s.ddd)+'</span><small>'+esc(firstName(s.gn))+' • '+esc(metricLabel(product))+': '+esc(st)+'</small><a href="'+googleStoreUrl(s)+'" target="_blank" rel="noopener">Abrir no Google Maps ↗</a></div>');
+        .bindPopup('<div class="map-popup"><b>'+esc(s.code)+'</b><span>'+esc(s.city)+' • DDD '+esc(s.ddd)+'</span><small>'+esc(firstName(s.gn))+' • '+esc(statusLabel)+': '+esc(st)+'</small><a href="'+googleStoreUrl(s)+'" target="_blank" rel="noopener">Abrir no Google Maps ↗</a></div>');
     });
     if(route&&route.length){
       const seq=route.filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lon));
@@ -151,7 +249,7 @@ function Drawer({data,gn,onClose,onRoute,product}){
   return h('div',{className:'drawer-backdrop',onMouseDown:onClose},
     h('aside',{className:'drawer',onMouseDown:e=>e.stopPropagation()},
       h('button',{className:'drawer-close',onClick:onClose},'✕'),
-      h('div',{className:'drawer-profile'},h(Avatar,{data,person:gn,size:'xl'}),h('div',null,h('span',{className:'eyebrow'},'Gerente de Negócios'),h('h2',null,gn.name),h('span',{className:'cargo-badge '+cargoClass(gn.cargo)},gn.cargo),h('p',null,gn.gf))),
+      h('div',{className:'drawer-profile'},h(Avatar,{data,person:gn,size:'xl'}),h('div',null,h('span',{className:'eyebrow'},'Gerente de Negócios'),h('h2',null,gn.name),h('span',{className:'cargo-badge '+cargoClass(gn.cargo)},gn.cargo),h('p',null,gn.gt+' → '+gn.gf))),
       h('div',{className:'drawer-kpis'},...[[gn.stores,'Lojas'],[gn.cities,'Cidades'],[gn.ddds,'DDDs'],[gn.groups,'Grupos']].map((x,i)=>h('div',{key:i},h('b',null,x[0]),h('span',null,x[1])))),
       h('div',{className:'quick-diagnosis'},h('b',null,'Diagnóstico rápido • '+metricLabel(product)),h('p',null,diagnosisText(firstName(gn.name),st,product))),
       h('div',{className:'status-grid drawer-status'},h(StatCard,{label:'Zeradas',value:st.zero,kind:'zero'}),h(StatCard,{label:'Baixa / Crítico',value:st.below80,kind:'low'}),h(StatCard,{label:'Oportunidade',value:st.opportunity,kind:'opp'}),h(StatCard,{label:'Produtivas',value:st.productive,kind:'prod'})),
@@ -161,39 +259,80 @@ function Drawer({data,gn,onClose,onRoute,product}){
     )
   );
 }
-function Overview({data,product,setProduct,gf,setGf,selectGn,setPage,mapGroup,setMapGroup}){
-  const scope=gf==='Todos'?data.stores:data.stores.filter(s=>s.gf===gf);
+function Overview({data,product,setProduct,gt,setGt,gf,setGf,selectGn,setPage,mapGroup,setMapGroup}){
+  const availableGfs=gfsForGt(data,gt);
+  const scope=scopeStores(data,gt,gf);
   const mapGroups=groupsForStores(scope);
   const activeMapGroup=mapGroup==='Todos'||mapGroups.includes(mapGroup)?mapGroup:'Todos';
   const mapStores=filterStoresByGroup(scope,activeMapGroup);
-  const st=statsForStores(scope,product);
-  const gnRank=problemRanking(scope,product,s=>s.gn).slice(0,6);
-  const groupRank=problemRanking(scope,product,s=>s.group).slice(0,6);
+  const viewScope=mapStores;
+  const st=statsForStores(viewScope,product);
+  const gtRank=problemRanking(viewScope,product,s=>s.gt);
+  const gnRank=problemRanking(viewScope,product,s=>s.gn);
+  const groupRank=problemRanking(viewScope,product,s=>s.group);
+  const gfRank=problemRanking(viewScope,product,s=>s.gf);
+  const cityRank=problemRanking(viewScope,product,s=>s.city);
+  const productRadar=METRICS.map(([key,label])=>{const x=statsForStores(viewScope,key);return {key,label,stats:x,problem:x.zero+x.below80}})
+    .sort((a,b)=>b.stats.zero-a.stats.zero||b.problem-a.problem||b.stats.opportunity-a.stats.opportunity);
+  const maxProductProblem=Math.max(1,...productRadar.map(x=>x.problem));
+  const channelKpis=[
+    ['Lojas',viewScope.length],['Cidades',uniqueCount(viewScope,'city')],['DDDs',uniqueCount(viewScope,'ddd')],['Grupos Rede',uniqueCount(viewScope,'group')],
+    ['Territoriais',uniqueCount(viewScope,'gt')],['Filiais',uniqueCount(viewScope,'gf')],['GNs',uniqueCount(viewScope,'gn')]
+  ];
+  const rankList=(items,type,onClick)=>h('div',{className:'manager-rank-list'},...items.slice(0,5).map((x,i)=>h('button',{key:type+x.name,onClick:()=>onClick&&onClick(x)},
+    h('span',{className:'rank'},i+1),
+    h('div',null,h('b',null,type==='gn'||type==='gf'||type==='gt'?firstName(x.name):x.name),h('small',null,x.stores+' lojas • '+attentionBreakdownText(x.stats))),
+    h('strong',null,x.problem)
+  )));
   return h('div',{className:'page'},
-    h(PageHead,{eyebrow:'PROBLEMA → RESPONSÁVEL → AÇÃO',title:'Visão Gerencial',text:'A primeira tela já mostra onde está a oportunidade. Use Produto e Filial sem navegar por várias páginas.',right:h('span',{className:'pill'},data.meta.period)}),
-    h('div',{className:'kpi-grid kpi-compact'},...[['GFs',data.kpis.gfs],['GNs',data.kpis.gns],['Lojas',data.kpis.stores],['Grupos',data.kpis.groups],['Cidades',data.kpis.cities],['DDDs',data.kpis.ddds]].map(x=>h('div',{className:'kpi-card',key:x[0]},h('div',null,h('div',{className:'kpi-label'},x[0]),h('div',{className:'kpi-value'},x[1]))))),
-    h(Card,{title:'Estrutura do canal',subtitle:'Selecione uma Filial e toda a leitura abaixo é filtrada automaticamente'},h('div',{className:'gf-cards'},...data.gfs.map(g=>h(GfCard,{key:g.name,data,gf:g,active:gf===g.name,onClick:x=>setGf(gf===x.name?'Todos':x.name)})))),
-    h('div',{className:'focus-bar'},h('div',null,h('b',null,'Produto em análise'),h('span',null,gf==='Todos'?'Canal completo':firstName(gf))),h(ProductTabs,{product,setProduct})),
-    h('div',{className:'status-grid'},h(StatCard,{label:'Zeradas',value:st.zero,kind:'zero',sub:metricLabel(product)}),h(StatCard,{label:'Baixa + Crítico',value:st.below80,kind:'low',sub:'abaixo de 80%'}),h(StatCard,{label:'Oportunidade',value:st.opportunity,kind:'opp',sub:'80% a 99%'}),h(StatCard,{label:'Produtivas',value:st.productive,kind:'prod',sub:'≥100%'}),h(StatCard,{label:'Alta performance*',value:st.high,kind:'high',sub:'≥120% • visual'})),
-    h('div',{className:'diagnosis-grid-v5'},
-      h(Card,{title:'GNs que requer atenção',subtitle:'Classificados do pior para o melhor pelo volume de lojas zeradas, críticas e baixa performance'},h('div',{className:'action-list attention-list'},...gnRank.map((x,i)=>h('button',{key:x.name,onClick:()=>selectGn(data.gns.find(g=>g.name===x.name))},h('span',{className:'rank'},i+1),h('div',null,h('b',null,firstName(x.name)),h('small',null,x.stores+' lojas • '+attentionBreakdownText(x.stats))))))),
-      h(Card,{title:'Grupos Rede que requer atenção',subtitle:'Classificados do pior para o melhor pelo volume de lojas zeradas, críticas e baixa performance',action:h('button',{className:'outline-btn',onClick:()=>setPage('groups')},'Ver diagnóstico de rede')},h('div',{className:'action-list attention-list'},...groupRank.map((x,i)=>h('button',{key:x.name,onClick:()=>setPage('groups')},h('span',{className:'rank'},i+1),h('div',null,h('b',null,x.name),h('small',null,x.stores+' lojas • '+attentionBreakdownText(x.stats)))))))
+    h(PageHead,{eyebrow:'',title:'Visão Gerencial',text:'',right:h('span',{className:'pill'},data.meta.period)}),
+    h('div',{className:'manager-control-strip'},
+      h('label',null,h('span',null,'Territorial'),h('select',{value:gt,onChange:e=>{setGt(e.target.value);setGf('Todos')}},h('option',{value:'Todos'},'Todos os Territoriais'),...data.gts.map(t=>h('option',{key:t.name,value:t.name},t.name)))),
+      h('label',null,h('span',null,'Filial'),h('select',{value:gf,onChange:e=>setGf(e.target.value)},h('option',{value:'Todos'},'Todas as Filiais'),...availableGfs.map(g=>h('option',{key:g.name,value:g.name},g.name)))),
+      h('label',null,h('span',null,'Grupo Rede'),h('select',{value:activeMapGroup,onChange:e=>setMapGroup(e.target.value)},h('option',{value:'Todos'},'Todos os Grupos'),...mapGroups.map(x=>h('option',{key:x,value:x},x)))),
+      h('div',{className:'manager-product-filter'},h('span',null,'Produto'),h(ProductTabs,{product,setProduct,compact:true})),
+      h('button',{className:'outline-btn clear-filter-btn',onClick:()=>{setGt('Todos');setGf('Todos');setMapGroup('Todos')}},'Limpar')
+    ),
+    h('section',{className:'manager-hero'},
+      h('div',{className:'manager-channel-card'},
+        h('div',{className:'manager-channel-head'},
+          h('div',null,h('span',{className:'eyebrow'},'Resumo do canal'),h('p',null,'Cobertura e estrutura comercial do recorte selecionado.')),
+          h('button',{className:'outline-btn',onClick:()=>setPage('stores')},'Ver base de lojas')
+        ),
+        h('div',{className:'manager-channel-kpis'},...channelKpis.map(x=>h('div',{key:x[0]},h('b',null,x[1]),h('span',null,x[0])))),
+        h('div',{className:'manager-channel-health'},
+          h('div',null,h('span',null,'Produto selecionado'),h('b',null,metricLabel(product)),h('small',null,attentionBreakdownText(st)))
+        )
+      ),
+      h('div',{className:'manager-radar'},
+        h('div',{className:'manager-radar-head'},h('b',null,'Radar por produto'),h('span',null,'abaixo de 80%')),
+        h('div',{className:'product-radar-grid'},...productRadar.map(x=>h('button',{key:x.key,className:'product-radar-card '+(x.key===product?'active':''),onClick:()=>setProduct(x.key)},
+          h('span',null,x.label),h('b',null,x.problem),h('small',null,attentionBreakdownText(x.stats)),
+          h('i',null,h('em',{style:{width:Math.round(x.problem/maxProductProblem*100)+'%'}}))
+        )))
+      )
+    ),
+    h('div',{className:'manager-status-strip'},h(StatCard,{label:'Zeradas',value:st.zero,kind:'zero',sub:metricLabel(product)}),h(StatCard,{label:'Baixa + Crítico',value:st.below80,kind:'low',sub:'abaixo de 80%'}),h(StatCard,{label:'Oportunidade',value:st.opportunity,kind:'opp',sub:'80% a 99%'}),h(StatCard,{label:'Produtivas',value:st.productive,kind:'prod',sub:'≥100%'}),h(StatCard,{label:'Alta performance*',value:st.high,kind:'high',sub:'≥120% • visual'})),
+    h('div',{className:'manager-breakdown-grid'},
+      h(Card,{title:'Territorial',subtitle:'Volume e problema por território',className:'manager-focus-card'},rankList(gtRank,'gt',x=>{setGt(x.name);setGf('Todos')})),
+      h(Card,{title:'Filial',subtitle:'Onde o resultado precisa de gestão',className:'manager-focus-card'},rankList(gfRank,'gf',x=>setGf(x.name))),
+      h(Card,{title:'GN',subtitle:'Responsáveis que requerem ação',className:'manager-focus-card'},rankList(gnRank,'gn',x=>selectGn(data.gns.find(g=>g.name===x.name))))
+    ),
+    h('div',{className:'manager-focus-grid'},
+      h(Card,{title:'Grupos Rede que requer atenção',subtitle:'Clique para filtrar a visão gerencial',className:'manager-focus-card'},rankList(groupRank,'group',x=>setMapGroup(x.name))),
+      h(Card,{title:'Cidades para concentrar atuação',subtitle:'Onde a operação explica o problema',className:'manager-focus-card'},rankList(cityRank,'city',()=>setPage('stores')))
     ),
     h('div',{className:'home-map-grid'},
-      h(Card,{title:'Mapa do problema',subtitle:metricLabel(product)+' • '+(gf==='Todos'?'todas as Filiais':firstName(gf))+' • '+(activeMapGroup==='Todos'?'todos os Grupos':activeMapGroup),action:h('div',{className:'map-card-actions'},h('select',{className:'map-group-select',value:activeMapGroup,onChange:e=>setMapGroup(e.target.value)},h('option',{value:'Todos'},'Todos os Grupos'),...mapGroups.map(x=>h('option',{key:x,value:x},x))),h('button',{className:'outline-btn',onClick:()=>setPage('map')},'Abrir mapa completo'))},h(MapBox,{data,stores:mapStores,product,height:450}),h(PerfLegend,{data})),
-      h(Card,{title:'Produtos: onde está a maior oportunidade?',subtitle:'Quantidade de lojas abaixo de 80% por produto'},
-        h('div',{className:'product-problem-list'},...METRICS.map(m=>{const x=statsForStores(scope,m[0]);return h('button',{key:m[0],onClick:()=>{setProduct(m[0]);setPage('products')}},h('span',null,m[1]),h('div',{className:'mini-bar'},h('i',{style:{width:Math.min(100,x.below80/(x.valid||1)*100)+'%'}})),h('b',null,x.below80+' lojas'))})),
-        h('div',{className:'method-note'},'* Alta Performance é apenas um sinalizador visual provisório (≥120%) e não altera os status oficiais.')
-      )
+      h(Card,{title:'Mapa do Canal',subtitle:metricLabel(product)+' • '+scopeName(gt,gf)+' • '+(activeMapGroup==='Todos'?'todos os Grupos':activeMapGroup),action:h('div',{className:'map-card-actions'},h('select',{className:'map-group-select',value:activeMapGroup,onChange:e=>setMapGroup(e.target.value)},h('option',{value:'Todos'},'Todos os Grupos'),...mapGroups.map(x=>h('option',{key:x,value:x},x))),h('button',{className:'outline-btn',onClick:()=>setPage('map')},'Abrir mapa completo'))},h(MapBox,{data,stores:mapStores,product,height:620}),h(PerfLegend,{data}))
     )
   );
 }
-function Products({data,product,setProduct,gf,setGf,selectGn}){
-  const scope=gf==='Todos'?data.stores:data.stores.filter(s=>s.gf===gf),st=statsForStores(scope,product);
+function Products({data,product,setProduct,gt,setGt,gf,setGf,selectGn}){
+  const availableGfs=gfsForGt(data,gt),scope=scopeStores(data,gt,gf),st=statsForStores(scope,product);
   const gnRank=problemRanking(scope,product,s=>s.gn),groupRank=problemRanking(scope,product,s=>s.group),cityRank=problemRanking(scope,product,s=>s.city);
   const problemStores=scope.filter(s=>['Zerado','Crítico','Baixa Performance'].includes(officialStatus(s,product))).sort((a,b)=>(a.performance[product].value||0)-(b.performance[product].value||0));
   return h('div',{className:'page'},
-    h(PageHead,{eyebrow:'VISÃO POR PRODUTO',title:metricLabel(product),text:'Escolha o produto e veja imediatamente Filial, GN, Grupo Rede, cidade e lojas que explicam o resultado.',right:h('select',{className:'head-select',value:gf,onChange:e=>setGf(e.target.value)},h('option',{value:'Todos'},'Todas as Filiais'),...data.gfs.map(g=>h('option',{key:g.name,value:g.name},g.name)))}),
+    h(PageHead,{eyebrow:'VISÃO POR PRODUTO',title:metricLabel(product),text:'Escolha o produto e veja imediatamente Territorial, Filial, GN, Grupo Rede, cidade e lojas que explicam o resultado.',right:h('div',{className:'head-actions'},h('select',{className:'head-select',value:gt,onChange:e=>setGt(e.target.value)},h('option',{value:'Todos'},'Todos os Territoriais'),...data.gts.map(t=>h('option',{key:t.name,value:t.name},t.name))),h('select',{className:'head-select',value:gf,onChange:e=>setGf(e.target.value)},h('option',{value:'Todos'},'Todas as Filiais'),...availableGfs.map(g=>h('option',{key:g.name,value:g.name},g.name))))}),
     h(ProductTabs,{product,setProduct}),
     h('div',{className:'status-grid top-space'},h(StatCard,{label:'Zeradas',value:st.zero,kind:'zero'}),h(StatCard,{label:'Baixa + Crítico',value:st.below80,kind:'low'}),h(StatCard,{label:'Oportunidade',value:st.opportunity,kind:'opp'}),h(StatCard,{label:'Produtivas',value:st.productive,kind:'prod'}),h(StatCard,{label:'Alta performance*',value:st.high,kind:'high'})),
     h('div',{className:'three-col'},
@@ -210,19 +349,21 @@ function Products({data,product,setProduct,gf,setGf,selectGn}){
     )
   );
 }
-function Gns({data,product,setProduct,gf,setGf,q,setQ,selectGn}){
-  const list=data.gns.filter(g=>(gf==='Todos'||g.gf===gf)&&(g.name+' '+g.gf+' '+g.cargo).toLowerCase().includes(q.toLowerCase()));
+function Gns({data,product,setProduct,gt,setGt,gf,setGf,q,setQ,selectGn}){
+  const availableGfs=gfsForGt(data,gt);
+  const list=data.gns.filter(g=>matchesGt(g,gt)&&(gf==='Todos'||g.gf===gf)&&(g.name+' '+g.gf+' '+g.gt+' '+g.cargo).toLowerCase().includes(q.toLowerCase()));
   return h('div',{className:'page'},
     h(PageHead,{eyebrow:'GERENTES DE NEGÓCIOS',title:'Visão em lista',text:'Mais informação na mesma tela e menos cliques para chegar ao problema.'}),
-    h('div',{className:'filter-row'},h(ProductTabs,{product,setProduct,compact:true}),h('select',{value:gf,onChange:e=>setGf(e.target.value)},h('option',{value:'Todos'},'Todas as Filiais'),...data.gfs.map(g=>h('option',{key:g.name,value:g.name},firstName(g.name)))),h('input',{value:q,onChange:e=>setQ(e.target.value),placeholder:'Buscar GN...'})),
+    h('div',{className:'filter-row'},h(ProductTabs,{product,setProduct,compact:true}),h('select',{value:gt,onChange:e=>setGt(e.target.value)},h('option',{value:'Todos'},'Todos os Territoriais'),...data.gts.map(t=>h('option',{key:t.name,value:t.name},firstName(t.name)))),h('select',{value:gf,onChange:e=>setGf(e.target.value)},h('option',{value:'Todos'},'Todas as Filiais'),...availableGfs.map(g=>h('option',{key:g.name,value:g.name},firstName(g.name)))),h('input',{value:q,onChange:e=>setQ(e.target.value),placeholder:'Buscar GN...'})),
     h('div',{className:'manager-table'},
-      h('div',{className:'manager-tr manager-th'},...['GN','Cargo','Filial','Lojas','Cidades','Zeradas','Baixa/Crítico','Produtivas','Leitura'].map(x=>h('span',{key:x},x))),
-      ...list.map(g=>{const stores=data.stores.filter(s=>s.gn===g.name),st=statsForStores(stores,product);return h('button',{className:'manager-tr',key:g.name,onClick:()=>selectGn(g)},h('span',{className:'manager-person'},h(Avatar,{data,person:g,size:'sm'}),h('b',null,firstName(g.name))),h('span',null,h('i',{className:'cargo-badge '+cargoClass(g.cargo)},g.cargo)),h('span',null,firstName(g.gf)),h('b',null,g.stores),h('span',null,g.cities),h('strong',{className:'txt-zero'},st.zero),h('strong',{className:'txt-low'},st.below80),h('strong',{className:'txt-prod'},st.productive),h('span',{className:'row-diagnosis'},diagnosisText(firstName(g.name),st,product)))})
+      h('div',{className:'manager-tr manager-th'},...['GN','Cargo','Territorial','Filial','Lojas','Cidades','Zeradas','Baixa/Crítico','Produtivas','Leitura'].map(x=>h('span',{key:x},x))),
+      ...list.map(g=>{const stores=data.stores.filter(s=>s.gn===g.name),st=statsForStores(stores,product);return h('button',{className:'manager-tr',key:g.name,onClick:()=>selectGn(g)},h('span',{className:'manager-person'},h(Avatar,{data,person:g,size:'sm'}),h('b',null,firstName(g.name))),h('span',null,h('i',{className:'cargo-badge '+cargoClass(g.cargo)},g.cargo)),h('span',null,firstName(g.gt)),h('span',null,firstName(g.gf)),h('b',null,g.stores),h('span',null,g.cities),h('strong',{className:'txt-zero'},st.zero),h('strong',{className:'txt-low'},st.below80),h('strong',{className:'txt-prod'},st.productive),h('span',{className:'row-diagnosis'},diagnosisText(firstName(g.name),st,product)))})
     )
   );
 }
-function Groups({data,product,setProduct,gf,setGf,q,setQ}){
-  const scope=gf==='Todos'?data.stores:data.stores.filter(s=>s.gf===gf);
+function Groups({data,product,setProduct,gt,setGt,gf,setGf,q,setQ}){
+  const availableGfs=gfsForGt(data,gt);
+  const scope=scopeStores(data,gt,gf);
   const groups=problemRanking(scope,product,s=>s.group).filter(x=>x.name.toLowerCase().includes(q.toLowerCase()));
   const cards=groups.map(x=>{
     const stores=scope.filter(s=>s.group===x.name),gns=[...new Set(stores.map(s=>s.gn))],cities=[...new Set(stores.map(s=>s.city))],st=x.stats;
@@ -237,46 +378,104 @@ function Groups({data,product,setProduct,gf,setGf,q,setQ}){
   });
   return h('div',{className:'page'},
     h(PageHead,{eyebrow:'PARCEIRO / GRUPO REDE',title:'Diagnóstico por Grupo Rede',text:'Consolida lojas do mesmo grupo para identificar oportunidades que podem estar no parceiro, e não apenas no GN.'}),
-    h('div',{className:'filter-row'},h(ProductTabs,{product,setProduct,compact:true}),h('select',{value:gf,onChange:e=>setGf(e.target.value)},h('option',{value:'Todos'},'Todas as Filiais'),...data.gfs.map(g=>h('option',{key:g.name,value:g.name},firstName(g.name)))),h('input',{value:q,onChange:e=>setQ(e.target.value),placeholder:'Buscar Grupo Rede...'})),
+    h('div',{className:'filter-row'},h(ProductTabs,{product,setProduct,compact:true}),h('select',{value:gt,onChange:e=>setGt(e.target.value)},h('option',{value:'Todos'},'Todos os Territoriais'),...data.gts.map(t=>h('option',{key:t.name,value:t.name},firstName(t.name)))),h('select',{value:gf,onChange:e=>setGf(e.target.value)},h('option',{value:'Todos'},'Todas as Filiais'),...availableGfs.map(g=>h('option',{key:g.name,value:g.name},firstName(g.name)))),h('input',{value:q,onChange:e=>setQ(e.target.value),placeholder:'Buscar Grupo Rede...'})),
     h('div',{className:'group-list'},...cards)
   );
 }
-function Stores({data,product,setProduct,gf,setGf,group,setGroup,q,setQ,selectGn}){
-  const groups=[...new Set(data.stores.map(s=>s.group))].sort();
-  const list=data.stores.filter(s=>(gf==='Todos'||s.gf===gf)&&(group==='Todos'||s.group===group)&&(s.code+' '+s.city+' '+s.gn+' '+s.group).toLowerCase().includes(q.toLowerCase()));
+function Stores({data,product,setProduct,gt,setGt,gf,setGf,group,setGroup,q,setQ,selectGn}){
+  const availableGfs=gfsForGt(data,gt);
+  const base=scopeStores(data,gt,gf);
+  const groups=groupsForStores(base);
+  const list=base.filter(s=>(group==='Todos'||s.group===group)&&(s.code+' '+s.city+' '+s.gn+' '+s.gf+' '+s.gt+' '+s.group).toLowerCase().includes(q.toLowerCase()));
   return h('div',{className:'page'},
     h(PageHead,{eyebrow:'LOJAS',title:'Lojas agrupáveis por Grupo Rede',text:'Filtre Grupo, Filial ou Produto e identifique o responsável sem sair da lista.'}),
-    h('div',{className:'filter-row'},h(ProductTabs,{product,setProduct,compact:true}),h('select',{value:gf,onChange:e=>setGf(e.target.value)},h('option',{value:'Todos'},'Todas as Filiais'),...data.gfs.map(g=>h('option',{key:g.name,value:g.name},firstName(g.name)))),h('select',{value:group,onChange:e=>setGroup(e.target.value)},h('option',{value:'Todos'},'Todos os Grupos'),...groups.map(x=>h('option',{key:x,value:x},x))),h('input',{value:q,onChange:e=>setQ(e.target.value),placeholder:'Loja, cidade, GN...'})),
+    h('div',{className:'filter-row'},h(ProductTabs,{product,setProduct,compact:true}),h('select',{value:gt,onChange:e=>setGt(e.target.value)},h('option',{value:'Todos'},'Todos os Territoriais'),...data.gts.map(t=>h('option',{key:t.name,value:t.name},firstName(t.name)))),h('select',{value:gf,onChange:e=>setGf(e.target.value)},h('option',{value:'Todos'},'Todas as Filiais'),...availableGfs.map(g=>h('option',{key:g.name,value:g.name},firstName(g.name)))),h('select',{value:group,onChange:e=>setGroup(e.target.value)},h('option',{value:'Todos'},'Todos os Grupos'),...groups.map(x=>h('option',{key:x,value:x},x))),h('input',{value:q,onChange:e=>setQ(e.target.value),placeholder:'Loja, cidade, GN...'})),
     h('div',{className:'simple-table'},
       h('div',{className:'simple-tr store-th'},...['Loja','Grupo Rede','Cidade','GN','Filial','Atingimento','Status'].map(x=>h('span',{key:x},x))),
       ...list.map(s=>h('div',{className:'simple-tr store-data',key:s.code},h('b',null,s.code),h('span',null,s.group),h('span',null,s.city),h('button',{className:'table-link',onClick:()=>selectGn(data.gns.find(g=>g.name===s.gn))},firstName(s.gn)),h('span',null,firstName(s.gf)),h('strong',null,s.performance[product].value==null?'—':s.performance[product].value.toFixed(1)+'%'),h('span',null,h('i',{className:'health-dot',style:{background:PERF_COLORS[visualStatus(s,product)]}}),visualStatus(s,product))))
     )
   );
 }
-function MapPage({data,product,setProduct,gf,setGf,mapGroup,setMapGroup}){
-  const gfStores=gf==='Todos'?data.stores:data.stores.filter(s=>s.gf===gf);
+function MapPage({data,product,setProduct,gt,setGt,gf,setGf,mapGroup,setMapGroup}){
+  const availableGfs=gfsForGt(data,gt);
+  const gfStores=scopeStores(data,gt,gf);
   const mapGroups=groupsForStores(gfStores);
   const activeMapGroup=mapGroup==='Todos'||mapGroups.includes(mapGroup)?mapGroup:'Todos';
   const stores=filterStoresByGroup(gfStores,activeMapGroup);
   return h('div',{className:'page'},
     h(PageHead,{eyebrow:'MAPA DE LOJAS',title:'Território + produtividade na mesma leitura',text:'A cor interna identifica a Filial; a borda e o sinalizador mostram o status no produto selecionado.'}),
-    h('div',{className:'filter-row map-filter'},h(ProductTabs,{product,setProduct}),h('div',{className:'map-filter-selects'},h('select',{value:gf,onChange:e=>setGf(e.target.value)},h('option',{value:'Todos'},'Todas as Filiais'),...data.gfs.map(g=>h('option',{key:g.name,value:g.name},g.name))),h('select',{value:activeMapGroup,onChange:e=>setMapGroup(e.target.value)},h('option',{value:'Todos'},'Todos os Grupos'),...mapGroups.map(x=>h('option',{key:x,value:x},x))))),
+    h('div',{className:'filter-row map-filter'},h(ProductTabs,{product,setProduct}),h('div',{className:'map-filter-selects'},h('select',{value:gt,onChange:e=>setGt(e.target.value)},h('option',{value:'Todos'},'Todos os Territoriais'),...data.gts.map(t=>h('option',{key:t.name,value:t.name},t.name))),h('select',{value:gf,onChange:e=>setGf(e.target.value)},h('option',{value:'Todos'},'Todas as Filiais'),...availableGfs.map(g=>h('option',{key:g.name,value:g.name},g.name))),h('select',{value:activeMapGroup,onChange:e=>setMapGroup(e.target.value)},h('option',{value:'Todos'},'Todos os Grupos'),...mapGroups.map(x=>h('option',{key:x,value:x},x))))),
     h(Card,null,h(MapBox,{data,stores,product,height:690}),h(PerfLegend,{data}),h('div',{className:'method-note'},'Alta Performance (★) = ≥120% apenas como sinalizador visual provisório. O status oficial continua Produtivo para ≥100%.'))
   );
 }
-function Routes({data,routeName,setRouteName}){
-  const gn=data.gns.find(g=>g.name===routeName)||data.gns[0],stores=data.stores.filter(s=>s.gn===gn.name);
-  return h('div',{className:'page'},
-    h(PageHead,{eyebrow:'ROTEIRIZAÇÃO',title:'Circuito entre as próprias lojas',text:'Prévia geográfica para discussão. O KM real virá do Planejamento e a rota viária poderá ser integrada posteriormente.',right:h('select',{className:'head-select',value:gn.name,onChange:e=>setRouteName(e.target.value)},...data.gns.map(g=>h('option',{key:g.name,value:g.name},g.name)))}),
-    h('div',{className:'route-layout'},
-      h(Card,{title:firstName(gn.name),subtitle:gn.cargo+' • '+gn.gf},h('div',{className:'route-profile'},h(Avatar,{data,person:gn,size:'lg'}),h('div',{className:'route-big-number'},h('b',null,gn.routePreviewKm.toLocaleString('pt-BR')+' km'),h('span',null,'prévia Haversine'))),h('button',{className:'google-maps-btn',onClick:()=>window.open(googleDirectionsUrl(gn.routePreview),'_blank','noopener')},'⌖ Abrir trajeto no Google Maps'),h('div',{className:'route-steps'},...gn.routePreview.map((p,i)=>h('div',{key:p.code},h('i',null,i+1),h('span',null,h('b',null,p.code),p.city))))),
-      h(Card,null,h(MapBox,{data,stores,product:'bl',route:gn.routePreview,height:650}))
-    )
-  );
+class Routes extends React.Component{
+  constructor(props){super(props);this.state={group:'Todos',routeGn:props.routeName||'Todos',q:'',selectedCodes:[]}}
+  componentDidUpdate(prev){
+    if(prev.routeName!==this.props.routeName&&this.props.routeName){
+      const codes=this.props.data.stores.filter(s=>s.gn===this.props.routeName).map(s=>s.code);
+      this.setState({routeGn:this.props.routeName,selectedCodes:codes});
+    }
+  }
+  setSelectedCodes=codes=>this.setState({selectedCodes:[...new Set(codes)]});
+  toggleStore=code=>this.setState(s=>({selectedCodes:s.selectedCodes.includes(code)?s.selectedCodes.filter(x=>x!==code):s.selectedCodes.concat(code)}));
+  render(){
+    const {data,gt,setGt,gf,setGf}=this.props,s=this.state;
+    const availableGfs=gfsForGt(data,gt),base=scopeStores(data,gt,gf),groups=groupsForStores(base);
+    const activeGroup=s.group==='Todos'||groups.includes(s.group)?s.group:'Todos';
+    const groupStores=filterStoresByGroup(base,activeGroup);
+    const gnNames=[...new Set(groupStores.map(x=>x.gn).filter(Boolean))].sort();
+    const activeGn=s.routeGn==='Todos'||gnNames.includes(s.routeGn)?s.routeGn:'Todos';
+    const q=s.q.toLowerCase();
+    const candidates=prioritySortedStores(groupStores.filter(x=>(activeGn==='Todos'||x.gn===activeGn)&&(x.code+' '+x.name+' '+x.city+' '+x.group+' '+x.gn).toLowerCase().includes(q)));
+    const selectedStores=prioritySortedStores(data.stores.filter(x=>s.selectedCodes.includes(x.code)&&groupStores.some(y=>y.code===x.code)&&(activeGn==='Todos'||x.gn===activeGn)));
+    const route=buildVisitRoute(selectedStores),mapsRoute=route.slice(0,11),routeKm=routeDistanceKm(route);
+    const selectedStats=routeStatsForStores(selectedStores);
+    const badCandidates=candidates.filter(x=>['Zerado','Crítico','Baixa Performance'].includes(routeStoreStatus(x)));
+    const mapStores=selectedStores.length?selectedStores:candidates.slice(0,60);
+    const candidateRows=candidates.map(store=>h('button',{className:'route-store-row '+(s.selectedCodes.includes(store.code)?'selected':''),key:store.code,onClick:()=>this.toggleStore(store.code)},
+      h('span',null,h('input',{type:'checkbox',checked:s.selectedCodes.includes(store.code),readOnly:true})),
+      h('span',null,h('b',null,store.code),h('small',null,store.name+' • '+store.group)),
+      h('span',null,store.city),
+      h('span',null,firstName(store.gn)),
+      h('strong',null,routeStoreStatusText(store))
+    ));
+    const routeSteps=route.map((p,i)=>h('div',{key:p.code},h('i',null,i+1),h('span',null,h('b',null,p.code+' • '+p.city),routeStoreStatusText(p))));
+    return h('div',{className:'page route-planner-page'},
+      h(PageHead,{eyebrow:'ROTEIRIZAÇÃO',title:'Roteiro de visitas',text:'Monte uma lista de lojas por Territorial, Filial, GN e Grupo Rede. O painel prioriza os piores status e organiza a sequência por proximidade.'}),
+      h(Card,{title:'Filtros do roteiro',subtitle:'Escolha a carteira de visita e selecione as lojas que entram na rota'},
+        h('div',{className:'route-filter-grid'},
+          h('label',null,h('span',null,'Gerente Territorial'),h('select',{value:gt,onChange:e=>{setGt(e.target.value);this.setState({group:'Todos',routeGn:'Todos',selectedCodes:[]})}},h('option',{value:'Todos'},'Todos os Territoriais'),...data.gts.map(t=>h('option',{key:t.name,value:t.name},t.name)))),
+          h('label',null,h('span',null,'Gerente Filial'),h('select',{value:gf,onChange:e=>{setGf(e.target.value);this.setState({group:'Todos',routeGn:'Todos',selectedCodes:[]})}},h('option',{value:'Todos'},'Todas as Filiais'),...availableGfs.map(g=>h('option',{key:g.name,value:g.name},g.name)))),
+          h('label',null,h('span',null,'Grupo Rede'),h('select',{value:activeGroup,onChange:e=>this.setState({group:e.target.value,routeGn:'Todos',selectedCodes:[]})},h('option',{value:'Todos'},'Todos os Grupos'),...groups.map(x=>h('option',{key:x,value:x},x)))),
+          h('label',null,h('span',null,'GN'),h('select',{value:activeGn,onChange:e=>this.setState({routeGn:e.target.value,selectedCodes:[]})},h('option',{value:'Todos'},'Todos os GNs'),...gnNames.map(x=>h('option',{key:x,value:x},x)))),
+          h('label',null,h('span',null,'Buscar loja'),h('input',{value:s.q,onChange:e=>this.setState({q:e.target.value}),placeholder:'Código, cidade, grupo...'}))
+        )
+      ),
+      h('div',{className:'route-command-grid'},
+        h(Card,{title:'Carteira filtrada',subtitle:candidates.length+' lojas disponíveis • '+badCandidates.length+' em zerada/crítica/baixa'},
+          h('div',{className:'route-actions'},h('button',{className:'outline-btn',onClick:()=>this.setSelectedCodes(badCandidates.slice(0,20).map(x=>x.code))},'Selecionar críticas/baixas'),h('button',{className:'outline-btn',onClick:()=>this.setSelectedCodes(candidates.slice(0,20).map(x=>x.code))},'Selecionar top 20'),h('button',{className:'outline-btn',onClick:()=>this.setSelectedCodes(candidates.map(x=>x.code))},'Selecionar todas'),h('button',{className:'outline-btn',onClick:()=>this.setSelectedCodes([])},'Limpar')),
+          h('div',{className:'route-store-table'},
+            h('div',{className:'route-store-row route-store-head'},h('span',null,''),h('span',null,'Loja'),h('span',null,'Cidade'),h('span',null,'GN'),h('span',null,'Status')),
+            ...candidateRows
+          )
+        ),
+        h('div',{className:'route-side'},
+          h(Card,{title:'Roteiro montado',subtitle:selectedStores.length?routeStatusSummary(selectedStores):'Selecione lojas para montar a rota'},
+            h('div',{className:'route-summary-grid'},h(StatCard,{label:'Selecionadas',value:selectedStores.length,kind:'zero'}),h(StatCard,{label:'Baixa + Crítico',value:selectedStats.below80,kind:'low'}),h(StatCard,{label:'Oportunidade',value:selectedStats.opportunity,kind:'opp'}),h(StatCard,{label:'Prévia KM',value:routeKm,kind:'prod'})),
+            h('button',{className:'google-maps-btn',disabled:!mapsRoute.length,onClick:()=>mapsRoute.length&&window.open(googleDirectionsUrl(mapsRoute),'_blank','noopener')},'Abrir roteiro no Google Maps'),
+            selectedStores.length>11?h('div',{className:'route-limit-note'},'Google Maps abre os 11 primeiros pontos. O PDF mantém todas as lojas selecionadas.'):null,
+            h('button',{className:'outline-btn export-route-btn',disabled:!route.length,onClick:()=>route.length&&exportRoutePdf(route,'Territorial/Filial: '+scopeName(gt,gf)+' • Grupo Rede: '+(activeGroup==='Todos'?'todos os Grupos':activeGroup)+' • GN: '+(activeGn==='Todos'?'todos os GNs':activeGn))},'Exportar PDF'),
+            h('div',{className:'route-steps'},...routeSteps)
+          ),
+          h(Card,{title:'Mapa da visita',subtitle:selectedStores.length?'Sequência otimizada por proximidade':'Prévia das lojas filtradas'},h(MapBox,{data,stores:mapStores,route,height:430,statusMode:'route'}))
+        )
+      )
+    );
+  }
 }
 function Methodology({data}){
   return h('div',{className:'page'},
-    h(PageHead,{eyebrow:'TRANSPARÊNCIA',title:'Critérios, fórmulas e regras',text:'Tudo o que aparece no Canal 360 precisa ser explicável e auditável.'}),
+    h(PageHead,{eyebrow:'TRANSPARÊNCIA',title:'Critérios, fórmulas e regras',text:'Tudo o que aparece no painel precisa ser explicável e auditável.'}),
     h('div',{className:'method-grid'},
       h(Card,{title:'Status oficiais por produto',subtitle:'Regras da aba PARAMETRO'},h('div',{className:'rule-list'},...data.methodology.officialStatuses.map(x=>h('div',{key:x.name},h('i',{style:{background:PERF_COLORS[x.name]||'#94A3B8'}}),h('b',null,x.name),h('strong',null,x.rule),h('span',null,x.description))))),
       h(Card,{title:'Fórmulas usadas no protótipo'},h('div',{className:'formula-list'},h('div',null,h('b',null,'% de lojas produtivas'),h('p',null,data.methodology.productivePct)),h('div',null,h('b',null,'Índice comparativo'),h('p',null,data.methodology.comparativeIndex)),h('div',null,h('b',null,'Alta Performance'),h('p',null,data.methodology.highPerformance)))),
@@ -287,20 +486,19 @@ function Methodology({data}){
 }
 function Sidebar({page,setPage,data}){
   return h('aside',{className:'sidebar'},
-    h('div',{className:'brand'},h('div',{className:'brand-icon'},h('img',{src:'https://mondrian.claro.com.br/brands/nosvg/assinatura-claro.png',alt:'Claro'})),h('div',null,h('b',null,'CANAL 360'),h('span',null,'Agente Autorizado'))),
-    h('nav',null,...NAV.map(x=>h('button',{key:x[0],className:page===x[0]?'active':'',onClick:()=>setPage(x[0])},h('span',{className:'nav-ico'},x[1]),h('span',null,x[2])))),
-    h('div',{className:'sidebar-bottom'},h('b',null,'▤ Dados atuais'),h('div',null,data.meta.sourceNote))
+    h('div',{className:'brand'},h('div',{className:'brand-icon'},h('img',{src:'https://mondrian.claro.com.br/brands/nosvg/assinatura-claro.png',alt:'Claro'})),h('div',null,h('span',null,'Agente Autorizado'))),
+    h('nav',null,...NAV.map(x=>h('button',{key:x[0],className:page===x[0]?'active':'',onClick:()=>setPage(x[0])},h('span',{className:'nav-ico'},x[1]),h('span',null,x[2]))))
   );
 }
 class App extends React.Component{
-  constructor(props){super(props);this.state={page:'overview',product:'tv',gf:'Todos',mapGroup:'Todos',gnName:null,routeName:props.data.gns[0].name,gnQ:'',groupQ:'',storeQ:'',storeGroup:'Todos'}}
+  constructor(props){super(props);this.state={page:'overview',product:'tv',gt:'Todos',gf:'Todos',mapGroup:'Todos',gnName:null,routeName:props.data.gns[0].name,gnQ:'',groupQ:'',storeQ:'',storeGroup:'Todos'}}
   setPage=page=>this.setState({page});
   selectGn=gn=>gn&&this.setState({gnName:gn.name});
   closeGn=()=>this.setState({gnName:null});
   openRoute=gn=>this.setState({gnName:null,routeName:gn.name,page:'routes'});
   render(){
     const d=this.props.data,s=this.state,selectedGn=d.gns.find(g=>g.name===s.gnName)||null;
-    const common={data:d,product:s.product,setProduct:v=>this.setState({product:v}),gf:s.gf,setGf:v=>this.setState({gf:v,mapGroup:'Todos'}),mapGroup:s.mapGroup,setMapGroup:v=>this.setState({mapGroup:v}),selectGn:this.selectGn};
+    const common={data:d,product:s.product,setProduct:v=>this.setState({product:v}),gt:s.gt,setGt:v=>this.setState({gt:v,gf:'Todos',mapGroup:'Todos',storeGroup:'Todos'}),gf:s.gf,setGf:v=>this.setState({gf:v,mapGroup:'Todos',storeGroup:'Todos'}),mapGroup:s.mapGroup,setMapGroup:v=>this.setState({mapGroup:v}),selectGn:this.selectGn};
     let content;
     if(s.page==='overview')content=h(Overview,Object.assign({},common,{setPage:this.setPage}));
     else if(s.page==='products')content=h(Products,common);
@@ -308,11 +506,11 @@ class App extends React.Component{
     else if(s.page==='groups')content=h(Groups,Object.assign({},common,{q:s.groupQ,setQ:v=>this.setState({groupQ:v})}));
     else if(s.page==='stores')content=h(Stores,Object.assign({},common,{q:s.storeQ,setQ:v=>this.setState({storeQ:v}),group:s.storeGroup,setGroup:v=>this.setState({storeGroup:v})}));
     else if(s.page==='map')content=h(MapPage,common);
-    else if(s.page==='routes')content=h(Routes,{data:d,routeName:s.routeName,setRouteName:v=>this.setState({routeName:v})});
+    else if(s.page==='routes')content=h(Routes,Object.assign({},common,{routeName:s.routeName}));
     else content=h(Methodology,{data:d});
     return h('div',{className:'app'},
       h(Sidebar,{page:s.page,setPage:this.setPage,data:d}),
-      h('main',{className:'main'},h('div',{className:'topbar'},h('span',null,h('i',{className:'live-dot'}),'V5 • problema primeiro'),h('span',{className:'method-pill'},metricLabel(s.product)+' • '+(s.gf==='Todos'?'Todas as Filiais':firstName(s.gf)))),h('div',{className:'content'},content)),
+      h('main',{className:'main'},h('div',{className:'topbar'},h('span',{className:'method-pill'},metricLabel(s.product)+' • '+scopeName(s.gt,s.gf))),h('div',{className:'content'},content)),
       h(Drawer,{data:d,gn:selectedGn,onClose:this.closeGn,onRoute:this.openRoute,product:s.product})
     );
   }

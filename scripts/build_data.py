@@ -208,6 +208,13 @@ def initials(name):
     return (bits[0][0] + bits[-1][0]).upper()
 
 
+def clean_label(value, default="Não informado"):
+    text = " ".join(str(value or "").strip().split())
+    if not text or text.lower() in {"nan", "none", ".", "-"}:
+        return default
+    return text
+
+
 def haversine(lat1, lon1, lat2, lon2):
     r = 6371.0088
     p1, p2 = math.radians(lat1), math.radians(lat2)
@@ -313,6 +320,8 @@ def main():
     df["GN_ATUAL"] = df["Nome GN"].fillna(df["GN"])
     df["GF_ATUAL"] = df["Nome Gerente Filial"].fillna(df["GF"])
     df["GR_ATUAL"] = df["GR_carteira"].fillna(df["GR"])
+    terr_col = "TERR_carteira" if "TERR_carteira" in df.columns else "TERR"
+    df["GT_ATUAL"] = df[terr_col].map(clean_label)
 
     stores = []
     for _, r in df.iterrows():
@@ -335,6 +344,7 @@ def main():
             "ddd": int(number(r["DDD"])) if number(r["DDD"]) is not None else None,
             "gn": str(r["GN_ATUAL"]),
             "gf": str(r["GF_ATUAL"]),
+            "gt": str(r["GT_ATUAL"]),
             "address": str(r["ENDEREÇO"]),
             "lat": lat,
             "lon": lon,
@@ -345,6 +355,7 @@ def main():
     gns_out = []
     for gn, g in df.groupby("GN_ATUAL", sort=True):
         gf = str(g["GF_ATUAL"].dropna().iloc[0])
+        gt = str(g["GT_ATUAL"].dropna().iloc[0])
         cargo_raw = g["CARGO GN"].dropna().mode()
         cargo_raw = cargo_raw.iloc[0] if len(cargo_raw) else "Não informado"
         route, route_km = greedy_route(g.to_dict("records"))
@@ -355,6 +366,7 @@ def main():
             "initials": initials(gn),
             "photoFile": None,
             "gf": gf,
+            "gt": gt,
             "cargo": short_cargo(cargo_raw),
             "cargoRaw": str(cargo_raw),
             "stores": int(g["CODIGO\nAGENTE"].nunique()),
@@ -374,15 +386,39 @@ def main():
     gfs_out = []
     for gf, g in df.groupby("GF_ATUAL", sort=True):
         gn_names = sorted(g["GN_ATUAL"].dropna().astype(str).unique().tolist())
+        gt_names = sorted(g["GT_ATUAL"].dropna().astype(str).unique().tolist())
         gfs_out.append({
             "name": str(gf),
             "initials": initials(gf),
             "photoFile": gf_photo_file(gf),
+            "gt": gt_names[0] if len(gt_names) == 1 else "Múltiplos",
+            "gtNames": gt_names,
             "gns": len(gn_names),
             "stores": int(g["CODIGO\nAGENTE"].nunique()),
             "cities": int(g["Cidade"].nunique()),
             "ddds": int(g["DDD"].nunique()),
             "groups": int(g["GR_ATUAL"].nunique()),
+            "gnNames": gn_names,
+            "cityList": sorted(g["Cidade"].dropna().astype(str).unique().tolist()),
+            "dddList": sorted([int(x) for x in pd.to_numeric(g["DDD"], errors="coerce").dropna().unique().tolist()]),
+            "performance": perf_obj(g),
+            "productStats": product_stats(g),
+        })
+
+    gts_out = []
+    for gt, g in df.groupby("GT_ATUAL", sort=True):
+        gf_names = sorted(g["GF_ATUAL"].dropna().astype(str).unique().tolist())
+        gn_names = sorted(g["GN_ATUAL"].dropna().astype(str).unique().tolist())
+        gts_out.append({
+            "name": str(gt),
+            "initials": initials(gt),
+            "gfs": len(gf_names),
+            "gns": len(gn_names),
+            "stores": int(g["CODIGO\nAGENTE"].nunique()),
+            "cities": int(g["Cidade"].nunique()),
+            "ddds": int(g["DDD"].nunique()),
+            "groups": int(g["GR_ATUAL"].nunique()),
+            "gfNames": gf_names,
             "gnNames": gn_names,
             "cityList": sorted(g["Cidade"].dropna().astype(str).unique().tolist()),
             "dddList": sorted([int(x) for x in pd.to_numeric(g["DDD"], errors="coerce").dropna().unique().tolist()]),
@@ -407,9 +443,11 @@ def main():
             "cities": int(g["Cidade"].nunique()),
             "gns": int(g["GN_ATUAL"].nunique()),
             "gfs": int(g["GF_ATUAL"].nunique()),
+            "gts": int(g["GT_ATUAL"].nunique()),
             "dddList": sorted([int(x) for x in pd.to_numeric(g["DDD"], errors="coerce").dropna().unique().tolist()]),
             "gnNames": sorted(g["GN_ATUAL"].dropna().astype(str).unique().tolist()),
             "gfNames": sorted(g["GF_ATUAL"].dropna().astype(str).unique().tolist()),
+            "gtNames": sorted(g["GT_ATUAL"].dropna().astype(str).unique().tolist()),
             "cityList": sorted(g["Cidade"].dropna().astype(str).unique().tolist()),
             "storeCodes": g["CODIGO\nAGENTE"].astype(str).tolist(),
             "performance": perf,
@@ -430,9 +468,11 @@ def main():
             "cities": int(g["Cidade"].nunique()),
             "gns": int(g["GN_ATUAL"].nunique()),
             "gfs": int(g["GF_ATUAL"].nunique()),
+            "gts": int(g["GT_ATUAL"].nunique()),
             "cityList": sorted(g["Cidade"].dropna().astype(str).unique().tolist()),
             "gnNames": sorted(g["GN_ATUAL"].dropna().astype(str).unique().tolist()),
             "gfNames": sorted(g["GF_ATUAL"].dropna().astype(str).unique().tolist()),
+            "gtNames": sorted(g["GT_ATUAL"].dropna().astype(str).unique().tolist()),
             "performance": perf,
             "performanceIndex": idx,
             "performanceClass": performance_class(idx),
@@ -450,9 +490,11 @@ def main():
             "stores": int(g["CODIGO\nAGENTE"].nunique()),
             "gns": int(g["GN_ATUAL"].nunique()),
             "gfs": int(g["GF_ATUAL"].nunique()),
+            "gts": int(g["GT_ATUAL"].nunique()),
             "groups": int(g["GR_ATUAL"].nunique()),
             "gnNames": sorted(g["GN_ATUAL"].dropna().astype(str).unique().tolist()),
             "gfNames": sorted(g["GF_ATUAL"].dropna().astype(str).unique().tolist()),
+            "gtNames": sorted(g["GT_ATUAL"].dropna().astype(str).unique().tolist()),
             "performance": perf,
             "performanceIndex": idx,
             "performanceClass": performance_class(idx),
@@ -479,6 +521,7 @@ def main():
             "routeNote": "Circuito geográfico de protótipo por proximidade entre lojas (Haversine). Não representa KM viário nem KM realizado.",
         },
         "kpis": {
+            "gts": int(df["GT_ATUAL"].nunique()),
             "gfs": int(df["GF_ATUAL"].nunique()),
             "gns": int(df["GN_ATUAL"].nunique()),
             "stores": int(df["CODIGO\nAGENTE"].nunique()),
@@ -492,6 +535,7 @@ def main():
         "groupSummaries": group_summaries,
         "dddSummaries": ddd_summaries,
         "citySummaries": city_summaries,
+        "gts": gts_out,
         "gfs": gfs_out,
         "gns": gns_out,
         "stores": stores,
