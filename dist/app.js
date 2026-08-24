@@ -484,15 +484,16 @@ function Methodology({data}){
     )
   );
 }
-function Sidebar({page,setPage,data}){
-  return h('aside',{className:'sidebar'},
+function Sidebar({page,setPage,data,open,onClose}){
+  return h('aside',{className:'sidebar '+(open?'mobile-open':'')},
     h('div',{className:'brand'},h('div',{className:'brand-icon'},h('img',{src:'https://mondrian.claro.com.br/brands/nosvg/assinatura-claro.png',alt:'Claro'})),h('div',null,h('span',null,'Agente Autorizado'))),
+    h('button',{className:'mobile-menu-close',onClick:onClose},'Fechar'),
     h('nav',null,...NAV.map(x=>h('button',{key:x[0],className:page===x[0]?'active':'',onClick:()=>setPage(x[0])},h('span',{className:'nav-ico'},x[1]),h('span',null,x[2]))))
   );
 }
 class App extends React.Component{
-  constructor(props){super(props);this.state={page:'overview',product:'tv',gt:'Todos',gf:'Todos',mapGroup:'Todos',gnName:null,routeName:props.data.gns[0].name,gnQ:'',groupQ:'',storeQ:'',storeGroup:'Todos'}}
-  setPage=page=>this.setState({page});
+  constructor(props){super(props);this.state={page:'overview',product:'tv',gt:'Todos',gf:'Todos',mapGroup:'Todos',gnName:null,routeName:props.data.gns[0].name,gnQ:'',groupQ:'',storeQ:'',storeGroup:'Todos',mobileMenuOpen:false}}
+  setPage=page=>this.setState({page,mobileMenuOpen:false});
   selectGn=gn=>gn&&this.setState({gnName:gn.name});
   closeGn=()=>this.setState({gnName:null});
   openRoute=gn=>this.setState({gnName:null,routeName:gn.name,page:'routes'});
@@ -509,8 +510,9 @@ class App extends React.Component{
     else if(s.page==='routes')content=h(Routes,Object.assign({},common,{routeName:s.routeName}));
     else content=h(Methodology,{data:d});
     return h('div',{className:'app'},
-      h(Sidebar,{page:s.page,setPage:this.setPage,data:d}),
-      h('main',{className:'main'},h('div',{className:'topbar'},h('span',{className:'method-pill'},metricLabel(s.product)+' • '+scopeName(s.gt,s.gf))),h('div',{className:'content'},content)),
+      h(Sidebar,{page:s.page,setPage:this.setPage,data:d,open:s.mobileMenuOpen,onClose:()=>this.setState({mobileMenuOpen:false})}),
+      s.mobileMenuOpen?h('button',{className:'mobile-sidebar-backdrop',onClick:()=>this.setState({mobileMenuOpen:false}),tabIndex:-1},''):null,
+      h('main',{className:'main'},h('div',{className:'topbar'},h('button',{className:'mobile-menu-button',onClick:()=>this.setState({mobileMenuOpen:true})},'Menu'),h('span',{className:'method-pill'},metricLabel(s.product)+' • '+scopeName(s.gt,s.gf))),h('div',{className:'content'},content)),
       h(Drawer,{data:d,gn:selectedGn,onClose:this.closeGn,onRoute:this.openRoute,product:s.product})
     );
   }

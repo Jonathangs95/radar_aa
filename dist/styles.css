@@ -152,3 +152,22 @@ body{background:#F6F6F6}.sidebar{border-right:3px solid #DA291C}.brand-icon{widt
 @media(max-width:760px){.content{padding:16px 12px;overflow:hidden}.page-head{margin-bottom:14px}.page-head .pill{display:none}.manager-hero{grid-template-columns:minmax(0,1fr)}.manager-channel-card,.manager-radar,.manager-control-strip,.manager-breakdown-grid,.manager-focus-grid,.home-map-grid,.card{min-width:0}.manager-channel-card{padding:14px;min-height:0}.manager-channel-head{flex-direction:column}.manager-channel-head h2{font-size:24px}.manager-channel-head p{max-width:100%;overflow-wrap:anywhere;font-size:14px}.manager-channel-head .outline-btn{width:100%}.manager-channel-kpis{grid-template-columns:minmax(0,1fr)}.manager-channel-kpis div{min-width:0;min-height:88px}.manager-channel-kpis b{font-size:31px}.manager-channel-health{grid-template-columns:minmax(0,1fr)}.manager-breakdown-grid{grid-template-columns:minmax(0,1fr)}.manager-focus-grid{grid-template-columns:minmax(0,1fr)}.manager-control-strip .product-tabs{flex-wrap:wrap}.manager-control-strip .product-tabs button{white-space:normal}.manager-rank-list button{grid-template-columns:26px minmax(0,1fr) 32px}.manager-rank-list small{-webkit-line-clamp:3}.product-radar-grid{grid-template-columns:minmax(0,1fr)}.product-radar-card{min-height:112px;min-width:0}.product-radar-card b{font-size:26px}}
 @media(max-width:950px){.main{width:calc(100vw - 74px);max-width:calc(100vw - 74px);overflow-x:hidden}.topbar{padding:0 12px}.topbar span{display:none}}
 .home-map-grid{grid-template-columns:1fr}
+@media(max-width:950px){.brand{justify-content:center;padding:4px 0 22px}.brand-icon{width:42px;height:42px;flex:0 0 42px;aspect-ratio:1;border-radius:50%;padding:6px}.brand-icon img{width:100%;height:100%;object-fit:contain}}
+.mobile-menu-button,.mobile-menu-close,.mobile-sidebar-backdrop{display:none}
+@media(max-width:950px){
+  .sidebar{width:min(280px,82vw);transform:translateX(-105%);transition:transform .2s ease;z-index:90;padding:22px 16px}
+  .sidebar.mobile-open{transform:translateX(0)}
+  .sidebar .brand{justify-content:flex-start;padding:4px 8px 18px}
+  .sidebar .brand div:last-child,.sidebar nav button span:nth-child(2){display:block}
+  .sidebar nav button{justify-content:flex-start}
+  .mobile-menu-close{display:block;position:absolute;right:14px;top:16px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;border-radius:9px;padding:7px 10px;font-size:10px;font-weight:800}
+  .mobile-sidebar-backdrop{display:block;position:fixed;inset:0;border:0;background:rgba(10,10,10,.42);z-index:80;padding:0}
+  .mobile-menu-button{display:flex;align-items:center;justify-content:center;border:1px solid #e0e4ec;background:#fff;color:#252525;border-radius:10px;padding:8px 12px;font-size:11px;font-weight:800}
+  .main{margin-left:0;width:100vw;max-width:100vw;overflow-x:hidden}
+  .topbar{height:50px;padding:0 12px;justify-content:flex-start}
+  .topbar span{display:none}
+  .content{max-width:none;width:100%;padding:16px 12px}
+  .home-map-grid .mapbox{min-height:520px}
+  .manager-channel-head>div{min-width:0;width:100%}
+  .manager-channel-head p{white-space:normal;overflow-wrap:anywhere;font-size:13px;line-height:1.45}
+}
