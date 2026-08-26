@@ -1,0 +1,24 @@
+CANAL 360 - FOTOS DOS GERENTES FILIAIS
+=======================================
+
+Coloque os PNGs nesta pasta usando EXATAMENTE estes nomes:
+
+- eduardo_alves_de_queiroz.png
+- helber_emiliano_zaros.png
+- rafael_silveira_de_carvalho.png
+- viviane_tangari_lemos_pontes.png
+
+As fotos informadas (255 x 254 px, 330 dpi, PNG 32 bits) sao compativeis.
+O site recorta a imagem em circulo com object-fit: cover, sem distorcao.
+
+Se uma foto estiver ausente, com nome diferente ou nao puder ser carregada,
+o Canal 360 mostra automaticamente as iniciais da pessoa.
+
+As fotos aparecem em:
+- Estrutura do Canal na Home
+- Tela Gerentes Filiais
+- Seletor de GFs
+- Cabecalho/perfil da equipe do GF
+
+Nao e necessario executar ATUALIZAR_DADOS.bat apenas para trocar uma foto.
+Basta substituir o PNG e atualizar o navegador com Ctrl+F5 se necessario.
