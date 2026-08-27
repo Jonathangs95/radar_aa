@@ -31,12 +31,16 @@ function isProductivityEligible(store,product){const p=store.performance[product
 function visualStatus(store,product){const p=store.performance[product];if(!p)return 'Sem dado';if(p.status===EXCEPTION_NAO_CABO)return EXCEPTION_NAO_CABO;return p.status}
 function statusSymbol(st){if(st===EXCEPTION_NAO_CABO)return 'NC';if(st==='Produtivo')return '✓';if(st==='Oportunidade')return '•';if(st==='Baixa Performance'||st==='Crítico')return '!';if(st==='Zerado')return '0';return '?'}
 function googleStoreUrl(s){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(s.lat+','+s.lon)}
-function googleDirectionsUrl(route){
-  const pts=(route||[]).filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lon)).slice(0,11);
-  if(!pts.length)return 'https://www.google.com/maps';
-  if(pts.length===1)return googleStoreUrl(pts[0]);
-  const origin=pts[0].lat+','+pts[0].lon,dest=pts[pts.length-1].lat+','+pts[pts.length-1].lon;
-  const way=pts.slice(1,-1).map(p=>p.lat+','+p.lon).join('|');
+function googleDirectionsUrl(route,originText,destinationText){
+  const pts=(route||[]).filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lon));
+  if(!pts.length&&!originText)return 'https://www.google.com/maps';
+  if(pts.length===1&&!originText&&!destinationText)return googleStoreUrl(pts[0]);
+  const limit=originText||destinationText?9:11,limited=pts.slice(0,limit);
+  const coord=p=>p.lat+','+p.lon;
+  const origin=originText||coord(limited[0]);
+  const dest=destinationText||coord(limited[limited.length-1]);
+  const wayPts=originText&&destinationText?limited:(originText?limited.slice(0,-1):(destinationText?limited.slice(1):limited.slice(1,-1)));
+  const way=wayPts.map(coord).join('|');
   let u='https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(origin)+'&destination='+encodeURIComponent(dest)+'&travelmode=driving';
   if(way)u+='&waypoints='+encodeURIComponent(way);
   return u;
@@ -50,6 +54,34 @@ function routeDistanceKm(route){
   let total=0;
   for(let i=1;i<(route||[]).length;i++)total+=haversineKm(route[i-1],route[i]);
   return Math.round(total*10)/10;
+}
+function endpointPoint(address,lat,lon,kind){
+  return {code:kind==='start'?'INÍCIO':'FIM',name:address,city:kind==='start'?'Endereço início':'Endereço fim',lat,lon,kind,address};
+}
+function routeWithEndpoints(route,startPoint,endPoint){
+  return [startPoint||null,...(route||[]),endPoint||null].filter(Boolean);
+}
+async function geocodeAddress(address){
+  const q=String(address||'').trim();
+  if(!q)return null;
+  const params=new URLSearchParams({format:'json',limit:'1',countrycodes:'br',q:q});
+  const res=await fetch('https://nominatim.openstreetmap.org/search?'+params.toString());
+  if(!res.ok)throw new Error('Endereço não localizado');
+  const found=await res.json();
+  if(!found.length)throw new Error('Endereço não localizado');
+  return {address:q,lat:Number(found[0].lat),lon:Number(found[0].lon)};
+}
+async function drivingRouteKm(points){
+  const valid=(points||[]).filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lon));
+  if(valid.length<2)return 0;
+  if(valid.length>80)return routeDistanceKm(valid);
+  const coords=valid.map(p=>p.lon+','+p.lat).join(';');
+  const res=await fetch('https://router.project-osrm.org/route/v1/driving/'+coords+'?overview=false');
+  if(!res.ok)throw new Error('Servico de rota indisponivel');
+  const data=await res.json();
+  const distance=data.routes&&data.routes[0]&&data.routes[0].distance;
+  if(distance==null)throw new Error('Rota nao calculada');
+  return Math.round(distance/100)/10;
 }
 function routePriorityScore(store,product){
   if(!product)return Math.max(...METRICS.map(([key])=>routePriorityScore(store,key)));
@@ -222,6 +254,10 @@ function farolRowsFor(stores,level,keyFn,product,onClick){
     return {level,name,storeList:rows,stores:rows.length,cities:uniqueCount(rows,'city'),ddds:uniqueCount(rows,'ddd'),dddList:compactDddList(rows),groups:uniqueCount(rows,'group'),gfs:uniqueCount(rows,'gf'),gns:uniqueCount(rows,'gn'),stats,radar,onClick};
   }).sort((a,b)=>b.stats.zero-a.stats.zero||(b.stats.zero+b.stats.below80)-(a.stats.zero+a.stats.below80)||b.stats.opportunity-a.stats.opportunity||b.stores-a.stores||a.name.localeCompare(b.name));
 }
+function farolHoverSummary(row){
+  const cards=farolStructureCards(row).map(x=>h('span',{key:x[0],className:x[2]||''},h('small',null,x[0]),h('b',null,x[1])));
+  return h('span',{className:'farol-hover-summary'},h('strong',null,'Resumo do canal'),h('span',{className:'farol-hover-grid'},...cards));
+}
 function pctText(v){return v==null?'sem %':Number(v).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'%'}
 function attentionBreakdownText(stats){
   const parts=[];
@@ -265,30 +301,41 @@ function Card({title,subtitle,children,action,className}){
 function PageHead({eyebrow,title,text,right}){return h('div',{className:'page-head'},h('div',null,eyebrow&&h('span',{className:'eyebrow'},eyebrow),h('h1',null,title),text&&h('p',null,text)),right||null)}
 function ProductTabs({product,setProduct,compact}){return h('div',{className:'product-tabs '+(compact?'compact':'')},...METRICS.map(m=>h('button',{key:m[0],className:product===m[0]?'active':'',onClick:()=>setProduct(m[0])},m[1])))}
 function StatCard({label,value,kind,sub}){return h('div',{className:'status-card '+kind},h('span',null,label),h('b',null,value),sub&&h('small',null,sub))}
-function FarolTable({data,stores,product,setGt,setGf,selectGn,selectNode,setMapGroup}){
-  const sections=[
-    {title:'Territorial',rows:farolRowsFor(stores,'Territorial',s=>s.gt,product),click:r=>selectNode('gt',r.name)},
-    {title:'Filial',rows:farolRowsFor(stores,'Filial',s=>s.gf,product),click:r=>selectNode('gf',r.name)},
-    {title:'GN',rows:farolRowsFor(stores,'GN',s=>s.gn,product),click:r=>selectGn(data.gns.find(g=>g.name===r.name))},
-    {title:'Grupo Rede',rows:farolRowsFor(stores,'Grupo Rede',s=>s.group,product),click:r=>setMapGroup(r.name)}
-  ];
-  const renderRow=(row,onClick)=>h('button',{className:'farol-tr farol-row',key:row.level+row.name,onClick:()=>onClick(row)},
-    h('span',{className:'farol-name'},h('i',{className:'farol-light '+farolClass(row.stats)}),h('b',null,row.name)),
-    h('span',{className:'farol-structure'},
-      ...farolStructureCards(row).map(x=>h('i',{key:x[0],className:'farol-card-chip '+x[2]},h('small',null,x[0]),h('b',null,x[1])))
-    ),
-    h('span',{className:'farol-current'},
-      ...farolStatusCards(row.stats).map(x=>h('i',{key:x[0],className:'farol-card-chip '+x[2]},h('small',null,x[0]),h('b',null,x[1])))
-    ),
-    h('span',{className:'farol-radar'},...row.radar.map(x=>h('i',{key:x.key,className:x.key===product?'active':''},h('small',null,x.label),h('b',null,x.count))))
-  );
-  return h('div',{className:'farol-table'},
-    h('div',{className:'farol-tr farol-th'},h('span',null,'Farol'),h('span',null,'Resumo do canal'),h('span',null,metricLabel(product)),h('span',null,'Produtos abaixo de 80%')),
-    ...sections.flatMap(section=>[
-      h('div',{className:'farol-section',key:'sec'+section.title},section.title),
-      ...section.rows.map(row=>renderRow(row,section.click))
-    ])
-  );
+class FarolTable extends React.Component{
+  constructor(props){super(props);this.state={gnOpen:false}}
+  render(){
+    const {data,stores,product,setGt,setGf,selectGn,selectNode,setMapGroup}=this.props,gnOpen=this.state.gnOpen;
+    const sections=[
+      {title:'Territorial',rows:farolRowsFor(stores,'Territorial',s=>s.gt,product),click:r=>selectNode('gt',r.name)},
+      {title:'Filial',rows:farolRowsFor(stores,'Filial',s=>s.gf,product),click:r=>selectNode('gf',r.name)},
+      {title:'GN',rows:farolRowsFor(stores,'GN',s=>s.gn,product),click:r=>selectGn(data.gns.find(g=>g.name===r.name))},
+      {title:'Grupo Rede',rows:farolRowsFor(stores,'Grupo Rede',s=>s.group,product),click:r=>setMapGroup(r.name)}
+    ];
+    const renderRow=(row,onClick)=>h('button',{className:'farol-tr farol-row',key:row.level+row.name,onClick:()=>onClick(row)},
+      h('span',{className:'farol-name'},h('i',{className:'farol-light '+farolClass(row.stats)}),h('b',null,row.name),farolHoverSummary(row)),
+      h('span',{className:'farol-signal'},
+        h('i',{className:'signal-chip zero'},h('small',null,'Zeradas'),h('b',null,row.stats.zero)),
+        h('i',{className:'signal-chip bad'},h('small',null,'Crit.+Baixa'),h('b',null,row.stats.below80)),
+        h('i',{className:'signal-chip opp'},h('small',null,'Oportun.'),h('b',null,row.stats.opportunity)),
+        h('i',{className:'signal-chip ok'},h('small',null,'Produtivas'),h('b',null,row.stats.productive)),
+        h('i',{className:'signal-chip exception'},h('small',null,'Exc.'),h('b',null,row.stats.exception||0))
+      ),
+      h('span',{className:'farol-radar'},...row.radar.map(x=>h('i',{key:x.key,className:x.key===product?'active':''},h('small',null,x.label),h('b',null,x.count))))
+    );
+    return h('div',{className:'farol-table'},
+      h('div',{className:'farol-tr farol-th'},h('span',null,'Responsavel'),h('span',null,metricLabel(product)),h('span',null,'Produtos abaixo de 80%')),
+      ...sections.flatMap(section=>{
+        const isGn=section.title==='GN';
+        return [
+          h('div',{className:'farol-section '+(isGn?'collapsible':''),key:'sec'+section.title},
+            h('span',null,section.title),
+            isGn?h('button',{type:'button',onClick:()=>this.setState({gnOpen:!gnOpen})},gnOpen?'Recolher GNs':'Expandir GNs'):null
+          ),
+          ...(isGn&&!gnOpen?[]:section.rows.map(row=>renderRow(row,section.click)))
+        ];
+      })
+    );
+  }
 }
 function GfCard({data,gf,onClick,active}){
   return h('button',{className:'profile-card '+(active?'selected':''),style:{'--accent':gfColor(data,gf.name)},onClick:()=>onClick(gf)},
@@ -329,6 +376,13 @@ class MapBox extends React.Component{
     });
     if(route&&route.length){
       const seq=route.filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lon));
+      seq.forEach(p=>{
+        bounds.push([p.lat,p.lon]);
+        if(p.kind==='start'||p.kind==='end'){
+          const icon=L.divIcon({className:'route-endpoint-wrap',html:'<div class="route-endpoint '+p.kind+'">'+(p.kind==='start'?'IN':'FIM')+'</div>',iconSize:[34,24],iconAnchor:[17,12]});
+          L.marker([p.lat,p.lon],{icon}).addTo(this.map).bindTooltip(esc(p.name||p.address||p.code),{direction:'top'});
+        }
+      });
       if(seq.length>1)L.polyline(seq.map(p=>[p.lat,p.lon]),{color:CLARO,weight:4,opacity:.85,dashArray:'10 7'}).addTo(this.map);
     }
     if(bounds.length>1)this.map.fitBounds(bounds,{padding:[24,24],maxZoom:11});
@@ -543,7 +597,7 @@ function MapPage({data,product,setProduct,gt,setGt,gf,setGf,mapGroup,setMapGroup
   );
 }
 class Routes extends React.Component{
-  constructor(props){super(props);this.state={group:'Todos',routeGn:props.routeName||'Todos',q:'',selectedCodes:[]}}
+  constructor(props){super(props);this.state={group:'Todos',routeGn:props.routeName||'Todos',q:'',selectedCodes:[],startAddress:'',endAddress:'',startPoint:null,endPoint:null,driveKm:null,routeKey:'',routeCalcStatus:''}}
   componentDidUpdate(prev){
     if(prev.routeName!==this.props.routeName&&this.props.routeName){
       const codes=this.props.data.stores.filter(s=>s.gn===this.props.routeName).map(s=>s.code);
@@ -562,7 +616,10 @@ class Routes extends React.Component{
     const q=s.q.toLowerCase();
     const candidates=prioritySortedStores(groupStores.filter(x=>(activeGn==='Todos'||x.gn===activeGn)&&(x.code+' '+x.name+' '+x.city+' '+x.group+' '+x.gn).toLowerCase().includes(q)));
     const selectedStores=prioritySortedStores(data.stores.filter(x=>s.selectedCodes.includes(x.code)&&groupStores.some(y=>y.code===x.code)&&(activeGn==='Todos'||x.gn===activeGn)));
-    const route=buildVisitRoute(selectedStores),mapsRoute=route.slice(0,11),routeKm=routeDistanceKm(route);
+    const route=buildVisitRoute(selectedStores),routeKey=[s.startAddress,s.endAddress,s.selectedCodes.slice().sort().join('|')].join('::');
+    const hasFreshKm=s.routeKey===routeKey&&s.driveKm!=null;
+    const fullRoute=routeWithEndpoints(route,s.routeKey===routeKey?s.startPoint:null,s.routeKey===routeKey?s.endPoint:null);
+    const mapsRoute=route.slice(0,(s.startAddress||s.endAddress)?9:11),routeKm=hasFreshKm?s.driveKm:routeDistanceKm(fullRoute);
     const selectedStats=routeStatsForStores(selectedStores);
     const badCandidates=candidates.filter(x=>['Zerado','Crítico','Baixa Performance'].includes(routeStoreStatus(x)));
     const mapStores=selectedStores.length?selectedStores:candidates.slice(0,60);
@@ -574,6 +631,20 @@ class Routes extends React.Component{
       h('strong',null,routeStoreStatusText(store))
     ));
     const routeSteps=route.map((p,i)=>h('div',{key:p.code},h('i',null,i+1),h('span',null,h('b',null,p.code+' • '+p.city),routeStoreStatusText(p))));
+    const calculateKm=async()=>{
+      if(!route.length){this.setState({routeCalcStatus:'Selecione lojas para calcular.'});return;}
+      this.setState({routeCalcStatus:'Calculando KM total...',driveKm:null});
+      try{
+        const startRaw=s.startAddress.trim()?await geocodeAddress(s.startAddress):null;
+        const endRaw=s.endAddress.trim()?await geocodeAddress(s.endAddress):null;
+        const start=startRaw?endpointPoint(s.startAddress,startRaw.lat,startRaw.lon,'start'):null;
+        const end=endRaw?endpointPoint(s.endAddress,endRaw.lat,endRaw.lon,'end'):null;
+        const km=await drivingRouteKm(routeWithEndpoints(route,start,end));
+        this.setState({startPoint:start,endPoint:end,driveKm:km,routeKey,routeCalcStatus:'KM total atualizado.'});
+      }catch(err){
+        this.setState({startPoint:null,endPoint:null,driveKm:null,routeKey,routeCalcStatus:'Não foi possível calcular por ruas. Mantida prévia geográfica.'});
+      }
+    };
     return h('div',{className:'page route-planner-page'},
       h(PageHead,{eyebrow:'ROTEIRIZAÇÃO',title:'Roteiro de visitas',text:'Monte uma lista de lojas por Territorial, Filial, GN e Grupo Rede. O painel prioriza os piores status e organiza a sequência por proximidade.'}),
       h(Card,{title:'Filtros do roteiro',subtitle:'Escolha a carteira de visita e selecione as lojas que entram na rota'},
@@ -583,6 +654,11 @@ class Routes extends React.Component{
           h('label',null,h('span',null,'Grupo Rede'),h('select',{value:activeGroup,onChange:e=>this.setState({group:e.target.value,routeGn:'Todos',selectedCodes:[]})},h('option',{value:'Todos'},'Todos os Grupos'),...groups.map(x=>h('option',{key:x,value:x},x)))),
           h('label',null,h('span',null,'GN'),h('select',{value:activeGn,onChange:e=>this.setState({routeGn:e.target.value,selectedCodes:[]})},h('option',{value:'Todos'},'Todos os GNs'),...gnNames.map(x=>h('option',{key:x,value:x},x)))),
           h('label',null,h('span',null,'Buscar loja'),h('input',{value:s.q,onChange:e=>this.setState({q:e.target.value}),placeholder:'Código, cidade, grupo...'}))
+        ),
+        h('div',{className:'route-address-grid'},
+          h('label',null,h('span',null,'Endereço início'),h('input',{value:s.startAddress,onChange:e=>this.setState({startAddress:e.target.value,driveKm:null,routeCalcStatus:''}),placeholder:'Rua, número, cidade'})),
+          h('label',null,h('span',null,'Endereço fim'),h('input',{value:s.endAddress,onChange:e=>this.setState({endAddress:e.target.value,driveKm:null,routeCalcStatus:''}),placeholder:'Casa, escritório ou base'})),
+          h('button',{className:'outline-btn',onClick:calculateKm,disabled:!route.length},'Calcular KM total')
         )
       ),
       h('div',{className:'route-command-grid'},
@@ -595,13 +671,14 @@ class Routes extends React.Component{
         ),
         h('div',{className:'route-side'},
           h(Card,{title:'Roteiro montado',subtitle:selectedStores.length?routeStatusSummary(selectedStores):'Selecione lojas para montar a rota'},
-            h('div',{className:'route-summary-grid'},h(StatCard,{label:'Selecionadas',value:selectedStores.length,kind:'zero'}),h(StatCard,{label:'Baixa + Crítico',value:selectedStats.below80,kind:'low'}),h(StatCard,{label:'Oportunidade',value:selectedStats.opportunity,kind:'opp'}),h(StatCard,{label:'Exceções Não Cabo',value:selectedStats.exception||0,kind:'exception'}),h(StatCard,{label:'Prévia KM',value:routeKm,kind:'prod'})),
-            h('button',{className:'google-maps-btn',disabled:!mapsRoute.length,onClick:()=>mapsRoute.length&&window.open(googleDirectionsUrl(mapsRoute),'_blank','noopener')},'Abrir roteiro no Google Maps'),
-            selectedStores.length>11?h('div',{className:'route-limit-note'},'Google Maps abre os 11 primeiros pontos. O PDF mantém todas as lojas selecionadas.'):null,
-            h('button',{className:'outline-btn export-route-btn',disabled:!route.length,onClick:()=>route.length&&exportRoutePdf(route,'Territorial/Filial: '+scopeName(gt,gf)+' • Grupo Rede: '+(activeGroup==='Todos'?'todos os Grupos':activeGroup)+' • GN: '+(activeGn==='Todos'?'todos os GNs':activeGn))},'Exportar PDF'),
+            h('div',{className:'route-summary-grid'},h(StatCard,{label:'Selecionadas',value:selectedStores.length,kind:'zero'}),h(StatCard,{label:'Baixa + Crítico',value:selectedStats.below80,kind:'low'}),h(StatCard,{label:'Oportunidade',value:selectedStats.opportunity,kind:'opp'}),h(StatCard,{label:'Exceções Não Cabo',value:selectedStats.exception||0,kind:'exception'}),h(StatCard,{label:hasFreshKm?'KM total':'Prévia KM',value:routeKm,kind:'prod'})),
+            s.routeCalcStatus?h('div',{className:'route-limit-note'},s.routeCalcStatus):null,
+            h('button',{className:'google-maps-btn',disabled:!mapsRoute.length,onClick:()=>mapsRoute.length&&window.open(googleDirectionsUrl(mapsRoute,s.startAddress,s.endAddress),'_blank','noopener')},'Abrir roteiro no Google Maps'),
+            selectedStores.length>((s.startAddress||s.endAddress)?9:11)?h('div',{className:'route-limit-note'},'Google Maps abre os primeiros pontos permitidos pela rota. O PDF mantém todas as lojas selecionadas.'):null,
+            h('button',{className:'outline-btn export-route-btn',disabled:!route.length,onClick:()=>route.length&&exportRoutePdf(route,'Origem: '+(s.startAddress||'primeira loja')+' • Fim: '+(s.endAddress||'ultima loja')+' • Territorial/Filial: '+scopeName(gt,gf)+' • Grupo Rede: '+(activeGroup==='Todos'?'todos os Grupos':activeGroup)+' • GN: '+(activeGn==='Todos'?'todos os GNs':activeGn))},'Exportar PDF'),
             h('div',{className:'route-steps'},...routeSteps)
           ),
-          h(Card,{title:'Mapa da visita',subtitle:selectedStores.length?'Sequência otimizada por proximidade':'Prévia das lojas filtradas'},h(MapBox,{data,stores:mapStores,route,height:430,statusMode:'route'}))
+          h(Card,{title:'Mapa da visita',subtitle:selectedStores.length?'Sequência otimizada por proximidade':'Prévia das lojas filtradas'},h(MapBox,{data,stores:mapStores,route:fullRoute,height:430,statusMode:'route'}))
         )
       )
     );
@@ -652,7 +729,7 @@ class App extends React.Component{
     return h('div',{className:'app'},
       h(Sidebar,{page:s.page,setPage:this.setPage,data:d,open:s.mobileMenuOpen,onClose:()=>this.setState({mobileMenuOpen:false})}),
       s.mobileMenuOpen?h('button',{className:'mobile-sidebar-backdrop',onClick:()=>this.setState({mobileMenuOpen:false}),tabIndex:-1},''):null,
-      h('main',{className:'main'},h('div',{className:'topbar'},h('button',{className:'mobile-menu-button',onClick:()=>this.setState({mobileMenuOpen:true})},'Menu'),h('span',{className:'method-pill'},metricLabel(s.product)+' • '+scopeName(s.gt,s.gf))),h('div',{className:'content'},content)),
+      h('main',{className:'main'},h('div',{className:'topbar'},h('button',{className:'mobile-menu-button',onClick:()=>this.setState({mobileMenuOpen:true})},'Menu')),h('div',{className:'content'},content)),
       h(Drawer,{data:d,node:s.detailNode,onClose:this.closeDetail,onRoute:this.openRoute,onFilter:this.applyNodeFilter,onSelectNode:this.selectNode,product:s.product})
     );
   }
@@ -662,3 +739,4 @@ fetch('data/channel-data.json')
   .then(data=>ReactDOM.render(h(App,{data}),document.getElementById('root')))
   .catch(err=>{document.getElementById('root').innerHTML='<div class="loading">Erro ao carregar os dados: '+esc(String(err))+'</div>'});
 })();
+

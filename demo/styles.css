@@ -242,3 +242,47 @@ body{background:#F6F6F6}.sidebar{border-right:3px solid #DA291C}.brand-icon{widt
 .farol-radar em{margin-top:auto;font-style:normal;font-size:7px;color:#777}
 @media(max-width:1200px){.farol-tr{grid-template-columns:1fr}.farol-th{display:none}.farol-name{min-height:40px}.farol-row>span:nth-child(n+3){border-left:0;padding-left:0}.farol-structure,.farol-current,.farol-radar{grid-template-columns:repeat(auto-fit,minmax(72px,1fr))}.farol-card-chip.ddd{grid-column:auto}.farol-card-chip.ddd b{font-size:18px}}
 @media(max-width:760px){.manager-control-strip{top:56px}.farol-tr,.farol-section{min-width:0}.farol-tr{grid-template-columns:1fr}.farol-card-chip b,.farol-radar b{font-size:18px}.farol-card .card-head{position:static}}
+
+/* Farol decisao: linha enxuta, resumo por hover e GNs recolhiveis */
+.farol-card{overflow:visible}
+.farol-table{overflow:visible;border-radius:14px}
+.farol-tr{min-width:0;grid-template-columns:minmax(190px,1.05fr) minmax(330px,1.45fr) minmax(300px,1.25fr);gap:12px;padding:9px 10px}
+.farol-th{display:grid;background:#252525;color:#fff;border-radius:10px 10px 0 0}
+.farol-section{min-width:0;display:flex;align-items:center;justify-content:space-between;background:#d8d8d8;color:#252525;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.7px;padding:9px 12px;border-top:1px solid #c8c8c8;border-bottom:1px solid #c8c8c8}
+.farol-section button{border:1px solid #c8c8c8;background:#fff;color:#252525;border-radius:999px;padding:5px 9px;font-size:8px;font-weight:900;text-transform:uppercase}
+.farol-row{align-items:center;position:relative}
+.farol-row>span:nth-child(n+3),.farol-th>span:nth-child(n+3){border-left:1px solid #dedede;padding-left:12px}
+.farol-name{position:relative;display:grid;grid-template-columns:12px minmax(0,1fr);gap:7px;align-items:center;min-width:0}
+.farol-name b{font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.farol-name:hover b{color:#DA291C}
+.farol-hover-summary{display:none;position:absolute;left:calc(100% + 12px);top:50%;transform:translateY(-50%);z-index:80;width:360px;background:#fff;border:1px solid #d8d8d8;border-radius:10px;padding:10px;box-shadow:0 18px 42px rgba(15,23,42,.18);text-align:left;pointer-events:none}
+.farol-name:hover .farol-hover-summary{display:block}
+.farol-hover-summary strong{display:block;font-size:9px;margin-bottom:7px;color:#252525}
+.farol-hover-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.farol-hover-grid>span{border:1px solid #eeeeee;background:#fafafa;border-radius:8px;padding:7px 5px;text-align:center;min-width:0}
+.farol-hover-grid>span.ddd{grid-column:span 2}
+.farol-hover-summary small{display:block;font-size:6.5px;color:#777;text-transform:uppercase;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.farol-hover-summary b{display:block;margin-top:3px;font-size:14px;color:#252525;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.farol-signal{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;min-width:0}
+.signal-chip{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:1px solid #e8e8e8;border-radius:9px;padding:7px 4px;min-height:50px;background:#fafafa;font-style:normal}
+.signal-chip small{font-size:6.4px;text-transform:uppercase;font-weight:900;color:#666;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.signal-chip b{font-size:18px;line-height:1;margin-top:3px;color:#252525}
+.signal-chip.zero{border-color:#111827;background:#f4f4f5}.signal-chip.zero b{font-size:22px;color:#111827}
+.signal-chip.bad{border-color:#F97316;background:#fff6ed}.signal-chip.bad b{color:#F97316}
+.signal-chip.opp{border-color:#EAB308;background:#fffbea}.signal-chip.opp b{color:#A16207}
+.signal-chip.ok{border-color:#22C55E;background:#effdf4}.signal-chip.ok b{color:#16A34A}
+.signal-chip.exception{border-color:#64748B;background:#f1f5f9}.signal-chip.exception b{color:#64748B}
+.farol-radar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;min-width:0}
+.farol-radar i{align-items:center;justify-content:center;text-align:center;min-height:50px;padding:7px 4px}
+.farol-radar small{font-size:6.8px;text-transform:uppercase}
+.farol-radar b{font-size:18px}
+@media(max-width:1200px){.farol-tr{grid-template-columns:1fr}.farol-th{display:none}.farol-row>span:nth-child(n+3){border-left:0;padding-left:0}.farol-signal,.farol-radar{grid-template-columns:repeat(auto-fit,minmax(72px,1fr))}.farol-hover-summary{left:18px;top:calc(100% + 6px);transform:none;width:min(360px,calc(100vw - 56px))}}
+.route-address-grid{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;margin-top:12px;padding-top:12px;border-top:1px solid #eeeeee}
+.route-address-grid label{display:flex;flex-direction:column;gap:6px;min-width:0}
+.route-address-grid label>span{font-size:9px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:#7A7A7A}
+.route-address-grid input{border:1px solid #dedede;background:#fff;border-radius:10px;padding:9px 10px;font-size:11px;color:#333;min-width:0}
+.route-address-grid button{height:37px;white-space:nowrap}
+.route-endpoint-wrap{background:transparent!important;border:0!important}
+.route-endpoint{min-width:34px;height:24px;border-radius:999px;background:#252525;color:#fff;border:2px solid #fff;display:grid;place-items:center;font-size:8px;font-weight:900;box-shadow:0 2px 8px rgba(0,0,0,.28)}
+.route-endpoint.end{background:#DA291C}
+@media(max-width:900px){.route-address-grid{grid-template-columns:1fr}.route-address-grid button{width:100%}}
