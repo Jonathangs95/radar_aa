@@ -14,6 +14,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "dados_fontes"
+PRODUCTS_DIR = DATA_DIR / "produtos"
 OUT = ROOT / "demo" / "data" / "channel-data.json"
 
 CARTEIRA_EXTENSIONS = {".xlsb", ".xlsx"}
@@ -43,10 +44,33 @@ METRICS = {
     "pos": {"label": "Pós Total", "sheet": "POS_TOTAL", "target": "POS_TOTAL"},
     "conta": {"label": "Conta", "sheet": "BASE_CONTA", "target": "CONTA"},
     "controle": {"label": "Controle", "sheet": "BASE_CONTROLE", "target": "CONTROLE"},
+    "controleMulti": {"label": "Multi Controle", "sheet": "BASE_CONTROLE_MULTI", "target": "CONTROLE_MULTI", "optional": True},
+    "protecao": {
+        "label": "Proteção Móvel",
+        "target": "PROTECAO_MOVEL",
+        "external": "protecao_movel",
+        "details": ["seguro", "total", "semSeguro"],
+    },
+    "claroTroca": {
+        "label": "Claro Troca",
+        "target": "CLARO_TROCA",
+        "external": "claro_troca",
+        "details": ["trocas", "base"],
+        "optional": True,
+    },
+    "blPme": {"label": "PME BL", "sheet": "BASE_BL_PME", "target": "BL_PME", "optional": True},
+    "minhaClaro": {
+        "label": "Minha Claro",
+        "target": "MINHA_CLARO",
+        "external": "minha_claro",
+        "details": ["gross", "acessos72h"],
+    },
 }
 
 EXCEPTION_NAO_CABO = "Exceção Não Cabo"
+EXCEPTION_NAO_PARTICIPA = "Não participa"
 STATUS_ORDER = ("Zerado", "Crítico", "Baixa Performance", "Oportunidade", "Produtivo", EXCEPTION_NAO_CABO)
+MOBILE_PROTECTION_EXCLUDED_GROUPS = {"HS", "HS TELECOM", "CELLULAR.COM", "CELULLAR.COM"}
 
 GF_PHOTOS = {
     "EDUARDO ALVES DE QUEIROZ": "fotos/eduardo_alves_de_queiroz.png",
@@ -108,6 +132,54 @@ def first_existing(df, candidates):
         if key in normalized:
             return normalized[key]
     return None
+
+
+def find_column(df, candidates, contains=None):
+    col = first_existing(df, candidates)
+    if col:
+        return col
+    contains = contains or []
+    normalized_contains = [normalize_token(x).replace(" ", "").replace("_", "") for x in contains]
+    for current in df.columns:
+        key = normalize_token(current).replace(" ", "").replace("_", "")
+        if all(piece in key for piece in normalized_contains):
+            return current
+    return None
+
+
+def product_path(names):
+    if not PRODUCTS_DIR.exists():
+        return None
+    if isinstance(names, str):
+        names = [names]
+    for name in names:
+        path = PRODUCTS_DIR / name
+        if path.exists():
+            return path
+    wanted = {normalize_token(Path(name).stem).replace(" ", "").replace("_", "") for name in names}
+    for path in sorted(PRODUCTS_DIR.glob("*.xlsx")):
+        key = normalize_token(path.stem).replace(" ", "").replace("_", "")
+        if key in wanted:
+            return path
+    return None
+
+
+def read_product_workbook(names):
+    path = product_path(names)
+    if not path:
+        return None
+    df = read_excel(path, sheet_name=0)
+    df.columns = [str(c).strip() for c in df.columns]
+    return df
+
+
+def group_rule_key(value):
+    return normalize_text(clean_label(value, "")).upper().replace("  ", " ").strip()
+
+
+def participates_mobile_protection(group):
+    key = group_rule_key(group)
+    return key not in MOBILE_PROTECTION_EXCLUDED_GROUPS
 
 
 def carteira_month(path):
@@ -306,7 +378,15 @@ def detect_months(base_frames):
 
 def read_product_bases(gns_path):
     frames = {}
+    workbook = pd.ExcelFile(gns_path)
+    sheets = set(workbook.sheet_names)
     for metric in METRICS.values():
+        if "sheet" not in metric:
+            continue
+        if metric["sheet"] not in sheets:
+            if metric.get("optional"):
+                continue
+            raise ValueError(f"Base GNS precisa ter a aba {metric['sheet']}.")
         df = read_excel(gns_path, sheet_name=metric["sheet"])
         df.columns = [str(c).strip() for c in df.columns]
         if "CODIGO_AGENTE" not in df.columns:
@@ -319,6 +399,11 @@ def read_product_bases(gns_path):
 def build_realized_maps(base_frames, months):
     maps = {}
     for metric in METRICS.values():
+        if "sheet" not in metric:
+            continue
+        if metric["sheet"] not in base_frames:
+            maps[metric["target"]] = {month: {} for month in months}
+            continue
         df = base_frames[metric["sheet"]].copy()
         maps[metric["target"]] = {}
         for month in months:
@@ -329,6 +414,147 @@ def build_realized_maps(base_frames, months):
             values = pd.to_numeric(df[month_col], errors="coerce").fillna(0)
             maps[metric["target"]][month] = values.groupby(df["CODE_KEY"]).sum().to_dict()
     return maps
+
+
+def build_mobile_protection_map():
+    df = read_product_workbook("protecao_movel.xlsx")
+    if df is None:
+        return None
+    code_col = find_column(df, ["Cód. PDV", "Cod. PDV", "Código PDV", "Codigo PDV", "PDV"], contains=["pdv"])
+    seguro_col = find_column(df, ["SEGURO", "SEGURO "])
+    total_col = find_column(df, ["TOTAL", "TOTAL "])
+    sem_seguro_col = find_column(df, ["S/ SEGURO", "SEM SEGURO"])
+    if not code_col or not seguro_col or not total_col:
+        raise ValueError("A base protecao_movel.xlsx precisa ter código do PDV, SEGURO e TOTAL.")
+
+    work = df.copy()
+    work["CODE_KEY"] = work[code_col].map(normalize_code)
+    work["SEGURO_VALUE"] = pd.to_numeric(work[seguro_col], errors="coerce").fillna(0)
+    work["TOTAL_VALUE"] = pd.to_numeric(work[total_col], errors="coerce").fillna(0)
+    if sem_seguro_col:
+        work["SEM_SEGURO_VALUE"] = pd.to_numeric(work[sem_seguro_col], errors="coerce").fillna(0)
+    else:
+        work["SEM_SEGURO_VALUE"] = (work["TOTAL_VALUE"] - work["SEGURO_VALUE"]).clip(lower=0)
+    grouped = work[work["CODE_KEY"] != ""].groupby("CODE_KEY", as_index=True).agg(
+        seguro=("SEGURO_VALUE", "sum"),
+        total=("TOTAL_VALUE", "sum"),
+        semSeguro=("SEM_SEGURO_VALUE", "sum"),
+    )
+    return grouped.to_dict("index")
+
+
+def build_minha_claro_map():
+    df = read_product_workbook("minha_claro.xlsx")
+    if df is None:
+        return None
+    code_col = find_column(df, ["COMTA", "CONTA", "Código", "Codigo"])
+    gross_col = find_column(df, ["GROSS"])
+    access_col = find_column(df, ["ACESSOS_APP_72H", "ACESSOS APP 72H", "ACESSOS 72H"])
+    if not code_col or not gross_col or not access_col:
+        raise ValueError("A base minha_claro.xlsx precisa ter COMTA, GROSS e ACESSOS_APP_72H.")
+
+    work = df.copy()
+    work["CODE_KEY"] = work[code_col].map(normalize_code)
+    work["GROSS_VALUE"] = pd.to_numeric(work[gross_col], errors="coerce").fillna(0)
+    work["ACCESS_VALUE"] = pd.to_numeric(work[access_col], errors="coerce").fillna(0)
+    grouped = work[work["CODE_KEY"] != ""].groupby("CODE_KEY", as_index=True).agg(
+        gross=("GROSS_VALUE", "sum"),
+        acessos72h=("ACCESS_VALUE", "sum"),
+    )
+    return grouped.to_dict("index")
+
+
+def build_claro_troca_map():
+    df = read_product_workbook(["claro_troca.xlsx", "claro troca.xlsx", "claro-troca.xlsx"])
+    if df is None:
+        return None
+    code_col = find_column(df, ["CODIGO_AGENTE", "COMTA", "Cód. PDV", "Cod. PDV", "Código PDV", "Codigo PDV", "PDV"], contains=["pdv"])
+    troca_col = find_column(df, ["CLARO TROCA", "TROCA", "TROCAS", "REALIZADO", "QTD", "QTDE", "VENDAS"])
+    base_col = find_column(df, ["TOTAL", "BASE", "APARELHOS", "ELEGIVEIS", "ELEGÍVEIS"])
+    if not code_col or not troca_col:
+        raise ValueError("A base claro_troca.xlsx precisa ter código do PDV e volume de Claro Troca.")
+
+    work = df.copy()
+    work["CODE_KEY"] = work[code_col].map(normalize_code)
+    work["TROCA_VALUE"] = pd.to_numeric(work[troca_col], errors="coerce").fillna(0)
+    work["BASE_VALUE"] = pd.to_numeric(work[base_col], errors="coerce").fillna(0) if base_col else np.nan
+    grouped = work[work["CODE_KEY"] != ""].groupby("CODE_KEY", as_index=True).agg(
+        trocas=("TROCA_VALUE", "sum"),
+        base=("BASE_VALUE", "sum"),
+    )
+    return grouped.to_dict("index")
+
+
+def external_metric_result(code, group, key, source_map):
+    metric = METRICS[key]
+    if source_map is None:
+        return empty_metric_result(metric)
+
+    if key == "protecao":
+        participant = participates_mobile_protection(group)
+        if not participant:
+            return {
+                "realized": None,
+                "target": None,
+                "pct": None,
+                "status": EXCEPTION_NAO_PARTICIPA,
+                "exception": None,
+                "eligible": False,
+                "details": {"seguro": None, "total": None, "semSeguro": None},
+            }
+        source = source_map.get(code, {})
+        seguro = number(source.get("seguro")) or 0.0
+        total = number(source.get("total")) or 0.0
+        sem_seguro = number(source.get("semSeguro"))
+        if sem_seguro is None:
+            sem_seguro = max(total - seguro, 0.0)
+        pct = seguro / total if total > 0 else 0.0
+        return {
+            "realized": seguro,
+            "target": total,
+            "pct": pct,
+            "status": status_from_pct(pct),
+            "exception": None,
+            "eligible": True,
+            "details": {"seguro": seguro, "total": total, "semSeguro": sem_seguro},
+        }
+
+    if key == "minhaClaro":
+        source = source_map.get(code, {})
+        gross = number(source.get("gross")) or 0.0
+        acessos = number(source.get("acessos72h")) or 0.0
+        pct = acessos / gross if gross > 0 else 0.0
+        return {
+            "realized": acessos,
+            "target": gross,
+            "pct": pct,
+            "status": status_from_pct(pct),
+            "exception": None,
+            "eligible": True,
+            "details": {"gross": gross, "acessos72h": acessos},
+        }
+
+    if key == "claroTroca":
+        source = source_map.get(code, {})
+        trocas = number(source.get("trocas")) or 0.0
+        base = number(source.get("base"))
+        if base is not None and base > 0:
+            pct = trocas / base
+            target = base
+        else:
+            pct = 1.0 if trocas > 0 else 0.0
+            target = None
+        return {
+            "realized": trocas,
+            "target": target,
+            "pct": pct,
+            "status": status_from_pct(pct),
+            "exception": None,
+            "eligible": True,
+            "details": {"trocas": trocas, "base": target},
+        }
+
+    raise ValueError(f"Produto externo não tratado: {key}")
 
 
 def read_cidade_coords():
@@ -388,6 +614,18 @@ def metric_month_result(code, store_type, target_col, target, realized_map):
         "status": status,
         "exception": exception,
         "eligible": eligible,
+    }
+
+
+def empty_metric_result(metric):
+    return {
+        "realized": None,
+        "target": None,
+        "pct": None,
+        "status": "Sem dado",
+        "exception": None,
+        "eligible": False,
+        "details": {detail: None for detail in metric.get("details", [])},
     }
 
 
@@ -468,8 +706,15 @@ def prepare_dataframe(carteira_path, gns_path, month):
         df["LONG"] = np.nan
 
     for key, metric in METRICS.items():
+        if "sheet" not in metric:
+            continue
         target_col = metric["target"]
-        df[f"META_{target_col}"] = df["CHAVE_ATUAL"].map(lambda chave: targets.get(chave, {}).get(target_col))
+        sheet_available = metric["sheet"] in base_frames
+        df[f"META_{target_col}"] = (
+            df["CHAVE_ATUAL"].map(lambda chave: targets.get(chave, {}).get(target_col))
+            if sheet_available
+            else None
+        )
 
         realized_values = []
         pct_values = []
@@ -479,7 +724,11 @@ def prepare_dataframe(carteira_path, gns_path, month):
         for _, row in df.iterrows():
             code = str(row["CODE_KEY"])
             target = number(row[f"META_{target_col}"])
-            current = metric_month_result(code, row["TIPO_ATUAL"], target_col, target, realized_maps[target_col].get(month, {}))
+            current = (
+                metric_month_result(code, row["TIPO_ATUAL"], target_col, target, realized_maps[target_col].get(month, {}))
+                if sheet_available
+                else empty_metric_result(metric)
+            )
             realized_values.append(current["realized"])
             pct_values.append(current["pct"])
             status_values.append(current["status"])
@@ -490,6 +739,44 @@ def prepare_dataframe(carteira_path, gns_path, month):
         df[f"STATUS_{target_col}"] = status_values
         df[f"EXCEPTION_{target_col}"] = exception_values
         df[f"ELIGIBLE_{target_col}"] = eligible_values
+
+    external_maps = {
+        "protecao": build_mobile_protection_map(),
+        "claroTroca": build_claro_troca_map(),
+        "minhaClaro": build_minha_claro_map(),
+    }
+    for key, source_map in external_maps.items():
+        metric = METRICS[key]
+        target_col = metric["target"]
+        realized_values = []
+        target_values = []
+        pct_values = []
+        status_values = []
+        exception_values = []
+        eligible_values = []
+        detail_values = {detail: [] for detail in metric.get("details", [])}
+
+        for _, row in df.iterrows():
+            code = str(row["CODE_KEY"])
+            current = external_metric_result(code, row["GR_ATUAL"], key, source_map)
+            realized_values.append(current["realized"])
+            target_values.append(current["target"])
+            pct_values.append(current["pct"])
+            status_values.append(current["status"])
+            exception_values.append(current["exception"])
+            eligible_values.append(current["eligible"])
+            details = current.get("details", {})
+            for detail in detail_values:
+                detail_values[detail].append(details.get(detail))
+
+        df[f"REAL_{target_col}"] = realized_values
+        df[f"META_{target_col}"] = target_values
+        df[f"PCT_{target_col}"] = pct_values
+        df[f"STATUS_{target_col}"] = status_values
+        df[f"EXCEPTION_{target_col}"] = exception_values
+        df[f"ELIGIBLE_{target_col}"] = eligible_values
+        for detail, values in detail_values.items():
+            df[f"DETAIL_{target_col}_{detail}"] = values
 
     return df, param, read_regional_cities(), month
 
@@ -632,6 +919,8 @@ def greedy_route(rows):
 
 def store_has_problem(row):
     for metric in METRICS.values():
+        if not bool(row.get(f"ELIGIBLE_{metric['target']}", True)):
+            continue
         value = number(row[f"PCT_{metric['target']}"])
         if value is not None and value < 0.80:
             return True
@@ -668,6 +957,12 @@ def make_stores(df, month):
                 "productiveEligible": eligible,
                 "month": month,
             }
+            if metric.get("details"):
+                details = {}
+                for detail in metric["details"]:
+                    value = number(row.get(f"DETAIL_{target_col}_{detail}"))
+                    details[detail] = None if value is None else round(value, 2)
+                performance[key]["details"] = details
         stores.append(
             {
                 "code": str(row["CODIGO_FINAL"]),
@@ -898,7 +1193,7 @@ def main():
             "carteiraFile": carteira_path.name,
             "routeNote": "Circuito geográfico de protótipo por proximidade entre lojas (Haversine). Não representa KM viário nem KM realizado.",
             "coverage": build_coverage(df, regional_cities),
-            "pendingProductsNote": "Arquivos em dados_fontes/produtos ainda não foram integrados nesta etapa.",
+            "extraProductsNote": "Proteção Móvel e Minha Claro integrados. PME BL, Multi Controle e Claro Troca já estão preparados como produtos opcionais para as próximas bases.",
         },
         "kpis": {
             "gts": int(df["GT_ATUAL"].nunique()),
@@ -930,10 +1225,13 @@ def main():
         "methodology": {
             "officialStatuses": build_status_rules(param),
             "productivePct": "% lojas produtivas = lojas com atingimento ≥100% ÷ lojas com dado válido × 100.",
-            "comparativeIndex": "Média simples do % de lojas produtivas em BL, TV, Pós, Conta e Controle, sem pesos.",
+            "comparativeIndex": "Média simples do % de lojas produtivas nos produtos oficiais do painel, sem pesos.",
             "targetRule": "Realizado do mês dividido pela meta da aba PARAMETRO, usando a CHAVE da aba DADOS.",
             "storeUniverse": "A carteira selecionada é o universo oficial de lojas. Códigos XPTO contam como loja e ficam sem dado de produtividade enquanto não existirem nas bases mensais.",
             "nonCaboRule": "Lojas Não Cabo zeradas em BL são identificadas como Exceção Não Cabo e não entram na régua de problema/produtividade de BL. Em TV, a zerada mantém o status oficial e recebe o marcador Não Cabo.",
+            "mobileProtectionRule": "Proteção Móvel usa SEGURO dividido por TOTAL. Grupos HS e Cellular.com não participam e não entram como zerados.",
+            "minhaClaroRule": "Minha Claro usa ACESSOS_APP_72H dividido por GROSS. Toda loja da carteira participa; ausência na base conta como zerado.",
+            "futureProductRule": "PME BL e Multi Controle seguem o mesmo modelo mensal das abas do GNS_Analise. Claro Troca segue o modelo externo de arquivo XLSX em dados_fontes/produtos.",
         },
         "futureIntegrations": [
             {"name": "KM Planejamento", "description": "KM mensal realizado/planejado por GN e/ou GF."},

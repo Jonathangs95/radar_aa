@@ -3,12 +3,15 @@ const h=React.createElement;
 const CLARO='#DA291C';
 const GF_COLORS=['#2563EB','#16A34A','#F59E0B','#7C3AED'];
 const EXCEPTION_NAO_CABO='Exceção Não Cabo';
+const EXCEPTION_NAO_PARTICIPA='Não participa';
 const PERF_COLORS={
   'Zerado':'#111827','Crítico':'#EF4444','Baixa Performance':'#F97316',
   'Oportunidade':'#EAB308','Produtivo':'#22C55E','Sem dado':'#94A3B8',
-  [EXCEPTION_NAO_CABO]:'#64748B'
+  [EXCEPTION_NAO_CABO]:'#64748B',[EXCEPTION_NAO_PARTICIPA]:'#CBD5E1'
 };
-const METRICS=[['bl','Banda Larga'],['tv','TV'],['pos','Pós Total'],['conta','Conta'],['controle','Controle']];
+const METRICS=[['bl','Banda Larga'],['tv','TV'],['pos','Pós Total'],['controleMulti','Multi Controle'],['conta','Conta'],['controle','Controle'],['protecao','Proteção Móvel'],['claroTroca','Claro Troca'],['blPme','PME BL'],['minhaClaro','Minha Claro']];
+const SALES_PANEL_PRODUCTS=['bl','tv','controleMulti','controle','protecao','claroTroca','blPme','pos'];
+const SERVICE_PANEL_PRODUCTS=['minhaClaro'];
 const NAV=[
   ['overview','⌂','Visão Gerencial'],['products','◫','Produtos'],['gns','●','Gerentes de Negócios'],
   ['groups','▦','Grupo Rede'],['stores','▣','Lojas'],['map','⌖','Mapa de Lojas'],
@@ -21,15 +24,17 @@ function gfColor(data,n){const i=data.gfs.findIndex(x=>x.name===n);return GF_COL
 function matchesGt(item,gt){return gt==='Todos'||item.gt===gt||(item.gtNames&&item.gtNames.includes(gt))}
 function gfsForGt(data,gt){return data.gfs.filter(g=>matchesGt(g,gt))}
 function scopeStores(data,gt,gf){return data.stores.filter(s=>matchesGt(s,gt)&&(gf==='Todos'||s.gf===gf))}
+function isProtectionParticipant(store){const p=store.performance&&store.performance.protecao;return !p||p.productiveEligible!==false}
+function scopeStoresForProduct(stores,product){return product==='protecao'?stores.filter(isProtectionParticipant):stores}
 function scopeName(gt,gf){if(gt==='Todos'&&gf==='Todos')return 'Todos os Territoriais';if(gf!=='Todos')return firstName(gf);return 'GT '+firstName(gt)}
 function uniqueCount(items,key){return new Set(items.map(x=>x[key]).filter(Boolean)).size}
 function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function metricLabel(k){const m=METRICS.find(x=>x[0]===k);return m?m[1]:k}
 function officialStatus(store,product){const p=store.performance[product];return p?p.status:'Sem dado'}
-function statusDisplay(store,product){const p=store.performance[product]||{};if(!p.status)return 'Sem dado';if(p.status===EXCEPTION_NAO_CABO)return EXCEPTION_NAO_CABO;if(p.exceptionLabel)return p.status+' • '+p.exceptionLabel;return p.status}
+function statusDisplay(store,product){const p=store.performance[product]||{};if(!p.status)return 'Sem dado';if(p.status===EXCEPTION_NAO_CABO)return EXCEPTION_NAO_CABO;if(p.status===EXCEPTION_NAO_PARTICIPA)return EXCEPTION_NAO_PARTICIPA;if(p.exceptionLabel)return p.status+' • '+p.exceptionLabel;return p.status}
 function isProductivityEligible(store,product){const p=store.performance[product];return !p||p.productiveEligible!==false}
 function visualStatus(store,product){const p=store.performance[product];if(!p)return 'Sem dado';if(p.status===EXCEPTION_NAO_CABO)return EXCEPTION_NAO_CABO;return p.status}
-function statusSymbol(st){if(st===EXCEPTION_NAO_CABO)return 'NC';if(st==='Produtivo')return '✓';if(st==='Oportunidade')return '•';if(st==='Baixa Performance'||st==='Crítico')return '!';if(st==='Zerado')return '0';return '?'}
+function statusSymbol(st){if(st===EXCEPTION_NAO_CABO)return 'NC';if(st===EXCEPTION_NAO_PARTICIPA)return 'NP';if(st==='Produtivo')return '✓';if(st==='Oportunidade')return '•';if(st==='Baixa Performance'||st==='Crítico')return '!';if(st==='Zerado')return '0';return '?'}
 function googleStoreUrl(s){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(s.lat+','+s.lon)}
 function googleDirectionsUrl(route,originText,destinationText){
   const pts=(route||[]).filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lon));
@@ -143,6 +148,7 @@ function routeStatusSummary(stores,product){
 }
 function statusClassName(status){
   if(status===EXCEPTION_NAO_CABO)return 'exception';
+  if(status===EXCEPTION_NAO_PARTICIPA)return 'nodata';
   if(status==='Zerado')return 'zero';
   if(status==='Crítico')return 'critical';
   if(status==='Baixa Performance')return 'low';
@@ -170,11 +176,13 @@ function groupsForStores(stores){return [...new Set(stores.map(s=>s.group).filte
 function filterStoresByGroup(stores,group){return group==='Todos'?stores:stores.filter(s=>s.group===group)}
 function fmtNumber(v){return v==null?'—':Number(v).toLocaleString('pt-BR',{maximumFractionDigits:0})}
 function statsFromEntries(entries){
-  let zero=0,critical=0,low=0,opportunity=0,productive=0,exception=0,valid=0,realized=0,target=0;
+  let zero=0,critical=0,low=0,opportunity=0,productive=0,exception=0,valid=0,realized=0,target=0,details={};
   entries.forEach(p=>{
-    if(!p||p.realized==null&&p.value==null)return;
-    if(p.realized!=null)realized+=Number(p.realized)||0;
+    if(!p)return;
     if(p.exceptionLabel)exception++;
+    if(p.details)Object.keys(p.details).forEach(k=>{if(p.details[k]!=null)details[k]=(details[k]||0)+(Number(p.details[k])||0)});
+    if(p.realized==null&&p.value==null)return;
+    if(p.realized!=null)realized+=Number(p.realized)||0;
     if(p.productiveEligible===false||p.status===EXCEPTION_NAO_CABO)return;
     if(p.value==null)return;
     valid++;
@@ -185,7 +193,83 @@ function statsFromEntries(entries){
     else if(p.status==='Oportunidade')opportunity++;
     else if(p.status==='Produtivo')productive++;
   });
-  return {zero,critical,low,below80:critical+low,opportunity,productive,exception,valid,realized,target,attainmentPct:target?Math.round(realized/target*1000)/10:null,productivePct:valid?Math.round(productive/valid*1000)/10:0};
+  return {zero,critical,low,below80:critical+low,opportunity,productive,exception,valid,realized,target,details,attainmentPct:target?Math.round(realized/target*1000)/10:null,productivePct:valid?Math.round(productive/valid*1000)/10:0};
+}
+function zeroGroupCount(stores,product){
+  const groups=groupBy(stores,s=>s.group||'Sem grupo');
+  return Object.keys(groups).filter(name=>{
+    const eligible=groups[name].map(s=>s.performance[product]).filter(p=>p&&p.productiveEligible!==false);
+    if(!eligible.length)return false;
+    const total=eligible.reduce((sum,p)=>sum+(Number(p.realized)||0),0);
+    return total===0;
+  }).length;
+}
+function productHasData(stores,product){
+  return stores.some(s=>{
+    const p=s.performance&&s.performance[product];
+    return p&&(p.value!=null||p.realized!=null||p.target!=null||(p.details&&Object.values(p.details).some(v=>v!=null)));
+  });
+}
+function productStoresForPanel(stores,product){return scopeStoresForProduct(stores,product)}
+function panelMetricFor(stores,product){
+  const rows=productStoresForPanel(stores,product),loaded=productHasData(rows,product),st=statsForStores(rows,product);
+  const withSale=loaded?rows.filter(s=>{const p=s.performance[product];return p&&p.productiveEligible!==false&&(Number(p.realized)||0)>0}).length:null;
+  return {loaded,withSale,zero:loaded?st.zero:null,productive:st.productive,valid:st.valid,productivePct:loaded?st.productivePct:null};
+}
+function combinedPanelMetric(stores,products){
+  const rows=products.map(key=>panelMetricFor(stores,key)).filter(x=>x.loaded);
+  if(!rows.length)return {loaded:false,withSale:null,zero:null,productivePct:null};
+  const valid=rows.reduce((sum,x)=>sum+(x.valid||0),0),productive=rows.reduce((sum,x)=>sum+(x.productive||0),0);
+  return {
+    loaded:true,
+    withSale:rows.reduce((sum,x)=>sum+(x.withSale||0),0),
+    zero:rows.reduce((sum,x)=>sum+(x.zero||0),0),
+    productivePct:valid?Math.round(productive/valid*1000)/10:null
+  };
+}
+function productConversionPct(stats){
+  return stats.target?Math.round((stats.realized||0)/stats.target*1000)/10:(stats.realized?null:0);
+}
+function productInsightCards(stores,product){
+  const st=statsForStores(stores,product),d=st.details||{};
+  const hasData=productHasData(stores,product);
+  if(!hasData)return [
+    {label:'PDVs com venda',value:'—',kind:'volume',sub:'base pendente'},
+    {label:'Produtividade',value:'—',kind:'prod',sub:'base pendente'},
+    {label:'PDVs zerados',value:'—',kind:'zero',sub:'base pendente'}
+  ];
+  if(product==='protecao')return [
+    {label:'Seguros',value:fmtNumber(d.seguro||st.realized),kind:'prod',sub:'vendidos'},
+    {label:'Aparelhos',value:fmtNumber(d.total||st.target),kind:'volume',sub:'base total'},
+    {label:'Conversão',value:pctText(productConversionPct(st)),kind:'opp',sub:'seguro / total'},
+    {label:'PDVs zerados',value:st.zero,kind:'zero',sub:'grupos participantes'},
+    {label:'Grupos zerados',value:zeroGroupCount(stores,product),kind:'low',sub:'rede sem seguro'}
+  ];
+  if(product==='claroTroca')return [
+    {label:'Trocas',value:fmtNumber(d.trocas||st.realized),kind:'prod',sub:'realizadas'},
+    {label:'Base',value:fmtNumber(d.base||st.target),kind:'volume',sub:'quando houver'},
+    {label:'Conversão',value:pctText(productConversionPct(st)),kind:'opp',sub:'troca / base'},
+    {label:'PDVs zerados',value:st.zero,kind:'zero',sub:'sem troca'},
+    {label:'Grupos zerados',value:zeroGroupCount(stores,product),kind:'low',sub:'rede sem troca'}
+  ];
+  if(product==='minhaClaro')return [
+    {label:'Gross',value:fmtNumber(d.gross||st.target),kind:'volume',sub:'linhas novas'},
+    {label:'Acessos 72h',value:fmtNumber(d.acessos72h||st.realized),kind:'prod',sub:'app Minha Claro'},
+    {label:'Conversão',value:pctText(productConversionPct(st)),kind:'opp',sub:'acessos / gross'},
+    {label:'PDVs zerados',value:st.zero,kind:'zero',sub:'sem acesso 72h'},
+    {label:'Grupos zerados',value:zeroGroupCount(stores,product),kind:'low',sub:'rede sem acesso'}
+  ];
+  return [
+    {label:'Zeradas',value:st.zero,kind:'zero',sub:metricLabel(product)},
+    {label:'Baixa + Crítico',value:st.below80,kind:'low',sub:'abaixo de 80%'},
+    {label:'Oportunidade',value:st.opportunity,kind:'opp',sub:'80% a 99%'},
+    {label:'Produtivas',value:st.productive,kind:'prod',sub:'≥100%'},
+    {label:'Exceções Não Cabo',value:st.exception||0,kind:'exception',sub:'fora da régua BL'}
+  ];
+}
+function inlineMetricStats(stores,product){
+  const cards=productInsightCards(stores,product);
+  return cards.map(x=>h('span',{key:x.label},h('b',{className:x.kind==='zero'?'txt-zero':x.kind==='low'?'txt-low':x.kind==='prod'?'txt-prod':''},x.value),' '+x.label.toLowerCase()));
 }
 function problemRanking(stores,product,keyFn){
   const groups=groupBy(stores,keyFn);
@@ -199,6 +283,7 @@ function productProblemCount(stores,product){
   return {count:s.zero+s.below80,stats:s};
 }
 function farolClass(stats){
+  if(!stats.valid&&!stats.realized&&!stats.target)return 'gray';
   if(stats.zero>0)return 'red';
   if(stats.below80>0)return 'orange';
   if(stats.opportunity>0)return 'yellow';
@@ -206,6 +291,7 @@ function farolClass(stats){
   return 'green';
 }
 function farolLabel(stats){
+  if(!stats.valid&&!stats.realized&&!stats.target)return 'Sem dado';
   if(stats.zero>0)return 'Zerado';
   if(stats.below80>0)return 'Abaixo de 80%';
   if(stats.opportunity>0)return 'Oportunidade';
@@ -258,8 +344,14 @@ function farolHoverSummary(row){
   const cards=farolStructureCards(row).map(x=>h('span',{key:x[0],className:x[2]||''},h('small',null,x[0]),h('b',null,x[1])));
   return h('span',{className:'farol-hover-summary'},h('strong',null,'Resumo do canal'),h('span',{className:'farol-hover-grid'},...cards));
 }
+function farolStructureSummary(row){
+  return h('span',{className:'farol-structure'},
+    ...farolStructureCards(row).map(x=>h('i',{key:x[0],className:'farol-card-chip '+(x[2]||'')},h('small',null,x[0]),h('b',null,x[1])))
+  );
+}
 function pctText(v){return v==null?'sem %':Number(v).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'%'}
 function attentionBreakdownText(stats){
+  if(!stats.valid&&!stats.realized&&!stats.target)return 'base pendente';
   const parts=[];
   if(stats.zero)parts.push(stats.zero+' '+(stats.zero===1?'zerada':'zeradas'));
   if(stats.critical)parts.push(stats.critical+' '+(stats.critical===1?'crítica':'críticas'));
@@ -272,6 +364,7 @@ function attentionBreakdownText(stats){
 }
 function diagnosisText(name,stats,product){
   const p=metricLabel(product);
+  if(!stats.valid&&!stats.realized)return name+' ainda não possui base carregada para '+p+'.';
   if(stats.zero>0)return name+' possui '+stats.zero+' loja(s) zerada(s) em '+p+' e '+stats.below80+' abaixo de 80%. Prioridade de investigação.';
   if(stats.below80>0)return name+' concentra '+stats.below80+' loja(s) abaixo de 80% em '+p+'. Oportunidade de atuação.';
   if(stats.opportunity>0)return name+' tem '+stats.opportunity+' loja(s) entre 80% e 99% em '+p+', próximas da meta.';
@@ -299,39 +392,97 @@ function Card({title,subtitle,children,action,className}){
   );
 }
 function PageHead({eyebrow,title,text,right}){return h('div',{className:'page-head'},h('div',null,eyebrow&&h('span',{className:'eyebrow'},eyebrow),h('h1',null,title),text&&h('p',null,text)),right||null)}
-function ProductTabs({product,setProduct,compact}){return h('div',{className:'product-tabs '+(compact?'compact':'')},...METRICS.map(m=>h('button',{key:m[0],className:product===m[0]?'active':'',onClick:()=>setProduct(m[0])},m[1])))}
+function ProductTabs({product,setProduct,compact}){return h('select',{className:'product-select '+(compact?'compact':''),value:product,onChange:e=>setProduct(e.target.value)},...METRICS.map(m=>h('option',{key:m[0],value:m[0]},m[1])))}
 function StatCard({label,value,kind,sub}){return h('div',{className:'status-card '+kind},h('span',null,label),h('b',null,value),sub&&h('small',null,sub))}
+function panelProductLabel(key){
+  return key==='bl'?'Banda Larga (BL)':key==='blPme'?'PME BL':key==='minhaClaro'?'APP Minha Claro':metricLabel(key);
+}
+function panelColumns(data,stores,gt,gf,dimension){
+  const key=dimension==='gt'?'gt':'gf';
+  const allowed=new Set(stores.map(s=>s[key]).filter(Boolean));
+  if(key==='gt')return data.gts.filter(item=>(gt==='Todos'||item.name===gt)&&allowed.has(item.name));
+  return data.gfs.filter(item=>(gf==='Todos'||item.name===gf)&&matchesGt(item,gt)&&allowed.has(item.name));
+}
+function panelColumnLabel(item,dimension){
+  return dimension==='gt'?String(item.name).toUpperCase():firstName(item.name).toUpperCase();
+}
+function panelValue(value,kind){
+  if(value==null)return '—';
+  return kind==='pct'?pctText(value):fmtNumber(value);
+}
+function productPanelCells(stores,product){
+  const m=panelMetricFor(stores,product);
+  return [
+    h('td',{key:'sale'},panelValue(m.withSale,'num')),
+    h('td',{key:'prod'},panelValue(m.productivePct,'pct')),
+    h('td',{key:'zero',className:m.zero>0?'panel-zero':''},panelValue(m.zero,'num'))
+  ];
+}
+function totalPanelCells(stores,products){
+  const m=combinedPanelMetric(stores,products);
+  return [
+    h('td',{key:'sale'},panelValue(m.withSale,'num')),
+    h('td',{key:'prod'},panelValue(m.productivePct,'pct')),
+    h('td',{key:'zero'},panelValue(m.zero,'num'))
+  ];
+}
+function ManagerProductMatrix({data,stores,gt,gf,dimension}){
+  const key=dimension==='gt'?'gt':'gf';
+  const label=key==='gt'?'territorial':'filial';
+  const columns=panelColumns(data,stores,gt,gf,key);
+  const headerSpan=1+columns.length*3;
+  const storesForColumn=col=>stores.filter(s=>s[key]===col.name);
+  const renderRow=(product,kind)=>h('tr',{key:product,className:kind||''},
+    h('th',null,panelProductLabel(product)),
+    ...columns.flatMap(col=>productPanelCells(storesForColumn(col),product))
+  );
+  return h('section',{className:'manager-panel-card'},
+    h('div',{className:'manager-panel-scroll'},
+      h('table',{className:'manager-panel-table'},
+        h('thead',null,
+          h('tr',{className:'panel-title-row'},h('th',{colSpan:headerSpan},'Painel gerencial por '+label+' • PDVs com venda, produtividade e PDVs sem venda no mês')),
+          h('tr',{className:'panel-group-row'},h('th',{rowSpan:2},'Produto'),...columns.map(col=>h('th',{key:col.name,colSpan:3},panelColumnLabel(col,key)+' • '+storesForColumn(col).length+' PDVs'))),
+          h('tr',{className:'panel-metric-row'},...columns.flatMap(col=>['PDVs c/ venda','Prod.','PDVs zerados'].map((label,i)=>h('th',{key:col.name+'-'+i},label))))
+        ),
+        h('tbody',null,
+          ...SALES_PANEL_PRODUCTS.map(product=>renderRow(product)),
+          h('tr',{className:'panel-total-row'},h('th',null,'Total'),...columns.flatMap(col=>totalPanelCells(storesForColumn(col),SALES_PANEL_PRODUCTS))),
+          h('tr',{className:'panel-service-row'},h('th',{colSpan:headerSpan},'Serviço — APP Minha Claro')),
+          ...SERVICE_PANEL_PRODUCTS.map(product=>renderRow(product,'panel-service-item'))
+        )
+      )
+    ),
+    h('p',{className:'manager-panel-note'},'Produtividade = PDVs produtivos ÷ PDVs com dado válido. PDV zerado = sem venda do produto no mês.')
+  );
+}
 class FarolTable extends React.Component{
-  constructor(props){super(props);this.state={gnOpen:false}}
+  constructor(props){super(props);this.state={open:{Territorial:true,Filial:true,GN:false,'Grupo Rede':false}}}
+  toggleSection(title){
+    this.setState(prev=>({open:Object.assign({},prev.open,{[title]:!prev.open[title]})}));
+  }
   render(){
-    const {data,stores,product,setGt,setGf,selectGn,selectNode,setMapGroup}=this.props,gnOpen=this.state.gnOpen;
+    const {data,stores,product,setGt,setGf,selectGn,selectNode,setMapGroup}=this.props;
     const sections=[
       {title:'Territorial',rows:farolRowsFor(stores,'Territorial',s=>s.gt,product),click:r=>selectNode('gt',r.name)},
       {title:'Filial',rows:farolRowsFor(stores,'Filial',s=>s.gf,product),click:r=>selectNode('gf',r.name)},
       {title:'GN',rows:farolRowsFor(stores,'GN',s=>s.gn,product),click:r=>selectGn(data.gns.find(g=>g.name===r.name))},
       {title:'Grupo Rede',rows:farolRowsFor(stores,'Grupo Rede',s=>s.group,product),click:r=>setMapGroup(r.name)}
     ];
-    const renderRow=(row,onClick)=>h('button',{className:'farol-tr farol-row',key:row.level+row.name,onClick:()=>onClick(row)},
-      h('span',{className:'farol-name'},h('i',{className:'farol-light '+farolClass(row.stats)}),h('b',null,row.name),farolHoverSummary(row)),
-      h('span',{className:'farol-signal'},
-        h('i',{className:'signal-chip zero'},h('small',null,'Zeradas'),h('b',null,row.stats.zero)),
-        h('i',{className:'signal-chip bad'},h('small',null,'Crit.+Baixa'),h('b',null,row.stats.below80)),
-        h('i',{className:'signal-chip opp'},h('small',null,'Oportun.'),h('b',null,row.stats.opportunity)),
-        h('i',{className:'signal-chip ok'},h('small',null,'Produtivas'),h('b',null,row.stats.productive)),
-        h('i',{className:'signal-chip exception'},h('small',null,'Exc.'),h('b',null,row.stats.exception||0))
-      ),
-      h('span',{className:'farol-radar'},...row.radar.map(x=>h('i',{key:x.key,className:x.key===product?'active':''},h('small',null,x.label),h('b',null,x.count))))
+    const renderRow=(row,onClick)=>h('button',{className:'farol-tr farol-row level-'+row.level.toLowerCase().replace(/\s+/g,'-'),key:row.level+row.name,onClick:()=>onClick(row)},
+      h('span',{className:'farol-name'},h('i',{className:'farol-light '+farolClass(row.stats)}),h('b',null,row.name)),
+      farolStructureSummary(row),
+      h('span',{className:'farol-signal'},...farolStatusCards(row.stats).map(x=>h('i',{key:x[0],className:'signal-chip '+x[2]},h('small',null,x[0]),h('b',null,x[1]))))
     );
     return h('div',{className:'farol-table'},
-      h('div',{className:'farol-tr farol-th'},h('span',null,'Responsavel'),h('span',null,metricLabel(product)),h('span',null,'Produtos abaixo de 80%')),
+      h('div',{className:'farol-tr farol-th'},h('span',null,'Responsável'),h('span',null,'Resumo do canal'),h('span',null,metricLabel(product))),
       ...sections.flatMap(section=>{
-        const isGn=section.title==='GN';
+        const open=this.state.open[section.title];
         return [
-          h('div',{className:'farol-section '+(isGn?'collapsible':''),key:'sec'+section.title},
+          h('div',{className:'farol-section collapsible',key:'sec'+section.title},
             h('span',null,section.title),
-            isGn?h('button',{type:'button',onClick:()=>this.setState({gnOpen:!gnOpen})},gnOpen?'Recolher GNs':'Expandir GNs'):null
+            h('button',{type:'button',onClick:()=>this.toggleSection(section.title)},open?'Recolher':'Expandir')
           ),
-          ...(isGn&&!gnOpen?[]:section.rows.map(row=>renderRow(row,section.click)))
+          ...(open?section.rows.map(row=>renderRow(row,section.click)):[])
         ];
       })
     );
@@ -430,22 +581,28 @@ function productSignals(stores){
 }
 function Drawer({data,node,onClose,onRoute,onFilter,onSelectNode,product}){
   if(!node)return null;
-  const stores=hierarchyStores(data,node),person=hierarchyPerson(data,node),st=statsForStores(stores,product),isGt=node.level==='gt',isGf=node.level==='gf',isGn=node.level==='gn';
-  const productRows=productSignals(stores),problemStores=prioritySortedStores(stores,product).slice(0,isGn?999:8);
-  const gfRank=isGt?problemRanking(stores,product,s=>s.gf).slice(0,5):[];
-  const gnRank=!isGn?problemRanking(stores,product,s=>s.gn).slice(0,isGt?6:8):[];
-  const groupRank=problemRanking(stores,product,s=>s.group).slice(0,isGt?5:4);
-  const cityRank=isGt?problemRanking(stores,product,s=>s.city).slice(0,5):[];
+  const allStores=hierarchyStores(data,node),stores=scopeStoresForProduct(allStores,product),person=hierarchyPerson(data,node),st=statsForStores(stores,product),isGt=node.level==='gt',isGf=node.level==='gf',isGn=node.level==='gn';
+  const productRows=productSignals(stores),storeRows=prioritySortedStores(stores,product);
   const subtitle=isGn?(person.gt+' → '+person.gf):(isGf?(person.gtNames?person.gtNames.join(' • '):person.gt):uniqueCount(stores,'gf')+' filiais • '+uniqueCount(stores,'gn')+' GNs');
-  const rankRow=(x,label,click)=>h('button',{className:'drawer-rank-row',key:label+x.name,onClick:click},h('span',null,x.name),h('b',null,x.problem),h('small',null,attentionBreakdownText(x.stats)));
   const productRow=x=>h('div',{className:'drawer-product-row '+(x.key===product?'active':''),key:x.key},
     h('b',null,x.label),
     h('span',{className:'txt-zero'},x.stats.zero+' zeradas'),
-    h('span',{className:'txt-low'},x.stats.below80+' baixa/critico'),
+    h('span',{className:'txt-low'},x.stats.below80+' baixa/crítico'),
     h('span',null,x.stats.opportunity+' oportunidade'),
     h('strong',null,x.stats.productive+' produtivas'),
-    h('small',null,(x.stats.exception||0)+' excecoes')
+    h('small',null,(x.stats.exception||0)+' exceções')
   );
+  const storeRow=s=>{
+    const p=s.performance[product]||{},status=statusDisplay(s,product);
+    return h('div',{className:'drawer-store-row',key:s.code},
+      h('b',null,s.code),
+      h('span',null,s.group||'—'),
+      h('span',null,firstName(s.gf)||'—'),
+      h('span',null,firstName(s.gn)||'—'),
+      h('strong',null,fmtNumber(p.realized)),
+      h('em',{className:'status-text '+statusClassName(visualStatus(s,product))},status)
+    );
+  };
   return h('div',{className:'drawer-backdrop',onMouseDown:onClose},
     h('aside',{className:['drawer',isGt?'drawer-wide':'',isGf?'drawer-mid':''].filter(Boolean).join(' '),onMouseDown:e=>e.stopPropagation()},
       h('button',{className:'drawer-close',onClick:onClose},'✕'),
@@ -459,29 +616,28 @@ function Drawer({data,node,onClose,onRoute,onFilter,onSelectNode,product}){
         )
       ),
       h('div',{className:'drawer-kpis hierarchy-kpis'},...hierarchyKpis(stores,node.level).map((x,i)=>h('div',{key:i},h('b',null,x[0]),h('span',null,x[1])))),
-      h('div',{className:'quick-diagnosis'},h('b',null,'Leitura rápida • '+metricLabel(product)),h('p',null,diagnosisText(firstName(person.name),st,product))),
-      h('div',{className:'status-grid drawer-status'},h(StatCard,{label:'Zeradas',value:st.zero,kind:'zero'}),h(StatCard,{label:'Baixa / Crítico',value:st.below80,kind:'low'}),h(StatCard,{label:'Oportunidade',value:st.opportunity,kind:'opp'}),h(StatCard,{label:'Produtivas',value:st.productive,kind:'prod'}),h(StatCard,{label:'Exceções Não Cabo',value:st.exception||0,kind:'exception'})),
-      isGn?h('button',{className:'google-maps-btn',onClick:()=>onRoute(person)},'Ver circuito da carteira'):h('div',{className:'drawer-action-row'},h('button',{className:'google-maps-btn',onClick:()=>onFilter(node)},'Aplicar este recorte no painel')),
+      h('div',{className:'quick-diagnosis selected-product'},h('span',null,'Produto selecionado'),h('b',null,metricLabel(product))),
+      h('div',{className:'status-grid drawer-status'},...productInsightCards(stores,product).map(x=>h(StatCard,Object.assign({key:x.label},x)))),
+      isGn?h('button',{className:'google-maps-btn',onClick:()=>onRoute(person)},'Ver circuito da carteira'):null,
       h('h3',{className:'section-title'},'Produtos no recorte'),
       h('div',{className:'drawer-product-grid'},...productRows.map(productRow)),
-      !isGn?h('div',{className:'drawer-section-grid'},
-        isGt?h('section',{className:'drawer-rank'},h('h3',null,'Filiais que requerem atenção'),...gfRank.map(x=>rankRow(x,'gf',()=>onSelectNode('gf',x.name)))):null,
-        h('section',{className:'drawer-rank'},h('h3',null,'GNs que requerem atenção'),...gnRank.map(x=>rankRow(x,'gn',()=>onSelectNode('gn',x.name)))),
-        h('section',{className:'drawer-rank'},h('h3',null,'Grupos Rede'),...groupRank.map(x=>rankRow(x,'group',null))),
-        isGt?h('section',{className:'drawer-rank'},h('h3',null,'Cidades com atenção'),...cityRank.map(x=>rankRow(x,'city',null))):null
-      ):null,
-      h('h3',{className:'section-title'},(isGn?'Lojas • ':'Principais lojas para agir • ')+metricLabel(product)),
-      h('div',{className:'store-list hierarchy-store-list'},...problemStores.map(s=>h('div',{className:'store-row',key:s.code},h('div',null,h('b',null,s.code),h('span',null,s.city+' • '+s.group+(isGn?'':' • '+firstName(s.gn)))),h('span',{className:'status-chip'},fmtNumber(s.performance[product]&&s.performance[product].realized)+' vol • '+pctText(s.performance[product]&&s.performance[product].value)+' • '+statusDisplay(s,product)))))
+      h('h3',{className:'section-title'},'Lojas do recorte • '+metricLabel(product)),
+      h('div',{className:'drawer-store-table'},
+        h('div',{className:'drawer-store-row drawer-store-head'},h('span',null,'Código'),h('span',null,'Grupo Rede'),h('span',null,'Filial'),h('span',null,'GN'),h('span',null,'Realizado'),h('span',null,'Status')),
+        ...storeRows.map(storeRow)
+      )
     )
   );
 }
 function Overview({data,product,setProduct,gt,setGt,gf,setGf,selectGn,selectNode,setPage,mapGroup,setMapGroup}){
   const availableGfs=gfsForGt(data,gt);
-  const scope=scopeStores(data,gt,gf);
-  const mapGroups=groupsForStores(scope);
+  const baseScope=scopeStores(data,gt,gf);
+  const productScope=scopeStoresForProduct(baseScope,product);
+  const mapGroups=groupsForStores(productScope);
   const activeMapGroup=mapGroup==='Todos'||mapGroups.includes(mapGroup)?mapGroup:'Todos';
-  const mapStores=filterStoresByGroup(scope,activeMapGroup);
+  const mapStores=filterStoresByGroup(productScope,activeMapGroup);
   const viewScope=mapStores;
+  const panelScope=filterStoresByGroup(baseScope,activeMapGroup);
   const st=statsForStores(viewScope,product);
   const channelKpis=[
     ['Lojas',viewScope.length],['Cidades',uniqueCount(viewScope,'city')],['DDDs',uniqueCount(viewScope,'ddd')],['Grupos Rede',uniqueCount(viewScope,'group')],
@@ -508,21 +664,23 @@ function Overview({data,product,setProduct,gt,setGt,gf,setGf,selectGn,selectNode
         )
       )
     ),
-    h('div',{className:'manager-status-strip'},h(StatCard,{label:'Zeradas',value:st.zero,kind:'zero',sub:metricLabel(product)}),h(StatCard,{label:'Baixa + Crítico',value:st.below80,kind:'low',sub:'abaixo de 80%'}),h(StatCard,{label:'Oportunidade',value:st.opportunity,kind:'opp',sub:'80% a 99%'}),h(StatCard,{label:'Produtivas',value:st.productive,kind:'prod',sub:'≥100%'}),h(StatCard,{label:'Exceções Não Cabo',value:st.exception||0,kind:'exception',sub:'fora da régua BL'})),
-    h(Card,{title:'Farol gerencial',subtitle:'Territorial, Filial, GN e Grupo Rede com estrutura comercial e produtos abaixo de 80%',className:'farol-card'},h(FarolTable,{data,stores:viewScope,product,setGt,setGf,selectGn,selectNode,setMapGroup})),
+    h('div',{className:'manager-status-strip'},...productInsightCards(viewScope,product).map(x=>h(StatCard,Object.assign({key:x.label},x)))),
+    h(ManagerProductMatrix,{data,stores:panelScope,gt,gf,dimension:'gt'}),
+    h(ManagerProductMatrix,{data,stores:panelScope,gt,gf,dimension:'gf'}),
+    h(Card,{title:'Farol gerencial',subtitle:'Territorial, Filial, GN e Grupo Rede com estrutura comercial',className:'farol-card'},h(FarolTable,{data,stores:viewScope,product,setGt,setGf,selectGn,selectNode,setMapGroup})),
     h('div',{className:'home-map-grid'},
       h(Card,{title:'Mapa do Canal',subtitle:metricLabel(product)+' • '+scopeName(gt,gf)+' • '+(activeMapGroup==='Todos'?'todos os Grupos':activeMapGroup),action:h('div',{className:'map-card-actions'},h('select',{className:'map-group-select',value:activeMapGroup,onChange:e=>setMapGroup(e.target.value)},h('option',{value:'Todos'},'Todos os Grupos'),...mapGroups.map(x=>h('option',{key:x,value:x},x))),h('button',{className:'outline-btn',onClick:()=>setPage('map')},'Abrir mapa completo'))},h(MapBox,{data,stores:mapStores,product,height:620}),h(PerfLegend,{data}))
     )
   );
 }
 function Products({data,product,setProduct,gt,setGt,gf,setGf,selectGn}){
-  const availableGfs=gfsForGt(data,gt),scope=scopeStores(data,gt,gf),st=statsForStores(scope,product);
+  const availableGfs=gfsForGt(data,gt),scope=scopeStoresForProduct(scopeStores(data,gt,gf),product),st=statsForStores(scope,product);
   const gnRank=problemRanking(scope,product,s=>s.gn),groupRank=problemRanking(scope,product,s=>s.group),cityRank=problemRanking(scope,product,s=>s.city);
   const problemStores=scope.filter(s=>['Zerado','Crítico','Baixa Performance'].includes(officialStatus(s,product))).sort((a,b)=>(a.performance[product].value||0)-(b.performance[product].value||0));
   return h('div',{className:'page'},
     h(PageHead,{eyebrow:'VISÃO POR PRODUTO',title:metricLabel(product),text:'Escolha o produto e veja imediatamente Territorial, Filial, GN, Grupo Rede, cidade e lojas que explicam o resultado.',right:h('div',{className:'head-actions'},h('select',{className:'head-select',value:gt,onChange:e=>setGt(e.target.value)},h('option',{value:'Todos'},'Todos os Territoriais'),...data.gts.map(t=>h('option',{key:t.name,value:t.name},t.name))),h('select',{className:'head-select',value:gf,onChange:e=>setGf(e.target.value)},h('option',{value:'Todos'},'Todas as Filiais'),...availableGfs.map(g=>h('option',{key:g.name,value:g.name},g.name))))}),
     h(ProductTabs,{product,setProduct}),
-    h('div',{className:'status-grid top-space'},h(StatCard,{label:'Realizado',value:fmtNumber(st.realized),kind:'volume'}),h(StatCard,{label:'Atingimento',value:pctText(st.attainmentPct),kind:'prod'}),h(StatCard,{label:'Zeradas',value:st.zero,kind:'zero'}),h(StatCard,{label:'Baixa + Crítico',value:st.below80,kind:'low'}),h(StatCard,{label:'Oportunidade',value:st.opportunity,kind:'opp'}),h(StatCard,{label:'Produtivas',value:st.productive,kind:'prod'}),h(StatCard,{label:'Exceções Não Cabo',value:st.exception||0,kind:'exception'})),
+    h('div',{className:'status-grid top-space'},...productInsightCards(scope,product).map(x=>h(StatCard,Object.assign({key:x.label},x)))),
     h('div',{className:'three-col'},
       h(Card,{title:'GN',subtitle:'Maior concentração de problema'},h('div',{className:'compact-rank'},...gnRank.slice(0,8).map(x=>h('button',{key:x.name,onClick:()=>selectGn(data.gns.find(g=>g.name===x.name))},h('span',null,firstName(x.name)),h('b',null,x.problem),h('small',null,'abaixo 80%'))))),
       h(Card,{title:'Grupo Rede',subtitle:'Oportunidade concentrada no parceiro'},h('div',{className:'compact-rank'},...groupRank.slice(0,8).map(x=>h('div',{key:x.name},h('span',null,x.name),h('b',null,x.problem),h('small',null,'abaixo 80%'))))),
@@ -545,21 +703,22 @@ function Gns({data,product,setProduct,gt,setGt,gf,setGf,q,setQ,selectGn}){
     h('div',{className:'filter-row'},h(ProductTabs,{product,setProduct,compact:true}),h('select',{value:gt,onChange:e=>setGt(e.target.value)},h('option',{value:'Todos'},'Todos os Territoriais'),...data.gts.map(t=>h('option',{key:t.name,value:t.name},firstName(t.name)))),h('select',{value:gf,onChange:e=>setGf(e.target.value)},h('option',{value:'Todos'},'Todas as Filiais'),...availableGfs.map(g=>h('option',{key:g.name,value:g.name},firstName(g.name)))),h('input',{value:q,onChange:e=>setQ(e.target.value),placeholder:'Buscar GN...'})),
     h('div',{className:'manager-table'},
       h('div',{className:'manager-tr manager-th'},...['GN','Cargo','Territorial','Filial','Lojas','Cidades','Zeradas','Baixa/Crítico','Produtivas','Leitura'].map(x=>h('span',{key:x},x))),
-      ...list.map(g=>{const stores=data.stores.filter(s=>s.gn===g.name),st=statsForStores(stores,product);return h('button',{className:'manager-tr',key:g.name,onClick:()=>selectGn(g)},h('span',{className:'manager-person'},h(Avatar,{data,person:g,size:'sm'}),h('b',null,firstName(g.name))),h('span',null,h('i',{className:'cargo-badge '+cargoClass(g.cargo)},g.cargo)),h('span',null,firstName(g.gt)),h('span',null,firstName(g.gf)),h('b',null,g.stores),h('span',null,g.cities),h('strong',{className:'txt-zero'},st.zero),h('strong',{className:'txt-low'},st.below80),h('strong',{className:'txt-prod'},st.productive),h('span',{className:'row-diagnosis'},diagnosisText(firstName(g.name),st,product)))})
+      ...list.map(g=>{const stores=scopeStoresForProduct(data.stores.filter(s=>s.gn===g.name),product),st=statsForStores(stores,product);return h('button',{className:'manager-tr',key:g.name,onClick:()=>selectGn(g)},h('span',{className:'manager-person'},h(Avatar,{data,person:g,size:'sm'}),h('b',null,firstName(g.name))),h('span',null,h('i',{className:'cargo-badge '+cargoClass(g.cargo)},g.cargo)),h('span',null,firstName(g.gt)),h('span',null,firstName(g.gf)),h('b',null,product==='protecao'?stores.length:g.stores),h('span',null,g.cities),h('strong',{className:'txt-zero'},st.zero),h('strong',{className:'txt-low'},st.below80),h('strong',{className:'txt-prod'},st.productive),h('span',{className:'row-diagnosis'},diagnosisText(firstName(g.name),st,product)))})
     )
   );
 }
 function Groups({data,product,setProduct,gt,setGt,gf,setGf,q,setQ}){
   const availableGfs=gfsForGt(data,gt);
-  const scope=scopeStores(data,gt,gf);
+  const scope=scopeStoresForProduct(scopeStores(data,gt,gf),product);
   const groups=problemRanking(scope,product,s=>s.group).filter(x=>x.name.toLowerCase().includes(q.toLowerCase()));
   const cards=groups.map(x=>{
     const stores=scope.filter(s=>s.group===x.name),gns=[...new Set(stores.map(s=>s.gn))],cities=[...new Set(stores.map(s=>s.city))],st=x.stats;
+    const hasData=productHasData(stores,product);
     const minis=stores.slice(0,12).map(s=>h('span',{key:s.code,className:'store-mini'},h('b',null,s.code),h('i',{style:{background:PERF_COLORS[visualStatus(s,product)]}}),s.city));
     if(stores.length>12)minis.push(h('span',{key:'more',className:'store-more'},'+'+(stores.length-12)+' lojas'));
     return h('section',{className:'group-diagnostic',key:x.name},
-      h('div',{className:'group-title'},h('div',null,h('span',{className:'eyebrow'},'GRUPO REDE'),h('h3',null,x.name),h('p',null,stores.length+' lojas • '+gns.length+' GNs • '+cities.length+' cidades')),h('div',{className:'group-score'},h('b',null,Math.round(st.productivePct)+'%'),h('span',null,'produtivas em '+metricLabel(product)))),
-      h('div',{className:'group-inline-stats'},h('span',null,h('b',null,fmtNumber(st.realized)),' realizado'),h('span',null,h('b',null,pctText(st.attainmentPct)),' atingimento'),h('span',null,h('b',{className:'txt-zero'},st.zero),' zeradas'),h('span',null,h('b',{className:'txt-low'},st.below80),' baixa/crítico'),h('span',null,h('b',{className:'txt-prod'},st.productive),' produtivas'),h('span',null,h('b',null,st.exception||0),' exceções')),
+      h('div',{className:'group-title'},h('div',null,h('span',{className:'eyebrow'},'GRUPO REDE'),h('h3',null,x.name),h('p',null,stores.length+' lojas • '+gns.length+' GNs • '+cities.length+' cidades')),h('div',{className:'group-score'},h('b',null,hasData?Math.round(st.productivePct)+'%':'—'),h('span',null,'produtivas em '+metricLabel(product)))),
+      h('div',{className:'group-inline-stats'},...inlineMetricStats(stores,product)),
       h('div',{className:'group-diagnosis-text'},h('b',null,'Diagnóstico'),h('p',null,diagnosisText(x.name,st,product)),h('small',null,'Atendido por: '+gns.map(firstName).join(' • '))),
       h('div',{className:'group-store-strip'},...minis)
     );
@@ -572,7 +731,7 @@ function Groups({data,product,setProduct,gt,setGt,gf,setGf,q,setQ}){
 }
 function Stores({data,product,setProduct,gt,setGt,gf,setGf,group,setGroup,q,setQ,selectGn}){
   const availableGfs=gfsForGt(data,gt);
-  const base=scopeStores(data,gt,gf);
+  const base=scopeStoresForProduct(scopeStores(data,gt,gf),product);
   const groups=groupsForStores(base);
   const list=base.filter(s=>(group==='Todos'||s.group===group)&&(s.code+' '+s.city+' '+s.gn+' '+s.gf+' '+s.gt+' '+s.group).toLowerCase().includes(q.toLowerCase()));
   return h('div',{className:'page'},
@@ -586,7 +745,7 @@ function Stores({data,product,setProduct,gt,setGt,gf,setGf,group,setGroup,q,setQ
 }
 function MapPage({data,product,setProduct,gt,setGt,gf,setGf,mapGroup,setMapGroup}){
   const availableGfs=gfsForGt(data,gt);
-  const gfStores=scopeStores(data,gt,gf);
+  const gfStores=scopeStoresForProduct(scopeStores(data,gt,gf),product);
   const mapGroups=groupsForStores(gfStores);
   const activeMapGroup=mapGroup==='Todos'||mapGroups.includes(mapGroup)?mapGroup:'Todos';
   const stores=filterStoresByGroup(gfStores,activeMapGroup);
